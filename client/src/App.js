@@ -2,14 +2,12 @@ import React, { Component } from 'react'
 import './App.css'
 // import './styles/foundation.min.css'
 // import './styles/custom.css'
-import { BrowserRouter as Router, Route } from "react-router-dom";
 import Routes from './routes'
-import Game from "./pages/Game";
+import Navbar from "./components/Navbar"
 
 export default class App extends Component {
-
   constructor() {
-    super();
+    super()
     this.state = {
       appName: "Login with Facebook and Google using ReactJS and RESTful APIs"
     }
@@ -17,12 +15,10 @@ export default class App extends Component {
 
   render() {
     return (
-      <Router>
       <div>
+        <Navbar />
         <Routes exact path="/" name={this.state.appName} />
-        <Route exact path="/game" component={Game} />
       </div>
-      </Router>
     )
   }
 }

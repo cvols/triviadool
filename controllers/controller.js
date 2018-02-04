@@ -34,7 +34,7 @@ const userFunctions = {
 router.get('/api/facegame', userFunctions.findAll)
 
 // route to post in database
-router.post('/api/triviadool', userFunctions.create)
+router.post('/api/triviaduel', userFunctions.create)
 
 //route to delete by id in database
 router.delete("/api/facegame/:id", userFunctions.remove)

@@ -1,0 +1,48 @@
+.header {
+    font-family: 'Indie Flower', cursive;
+}
+
+.box {
+    background-color: #2F409D;
+    height: 100vh;
+}
+
+.custom-row {
+    margin-top: 200px;
+}
+
+.button {
+    padding: 20px;
+    width: 200px;
+    color: white;
+    border-radius: 2px;
+    border: none;
+    box-shadow:  0 2px 2px 0 rgba(0,0,0,0.14), 0 1px 5px 0 rgba(0,0,0,0.12), 0 3px 1px -2px rgba(0,0,0,0.2);
+}
+
+.facebook {
+    background-color: #4c69ba;
+}
+
+.facebook:hover {
+    background-color: #395193;
+}
+.google {
+    background-color: #d14836;
+}
+
+.google:hover {
+    background-color: #a63526;
+}
+
+i {
+    margin-right: 8px;
+}
+
+.custom-img {
+    margin-top: 60px;
+}
+
+@media only screen and (max-width: 1065px) {
+
+}
