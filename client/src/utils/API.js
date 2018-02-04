@@ -25,7 +25,7 @@ export default {
 
   // Post new to article to database by the article's data
   saveUser: function(userData) {
-    return axios.post('/api/triviadool', userData)
+    return axios.post('/api/triviaduel', userData)
   },
 
   // Delete article in database by id

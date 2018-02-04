@@ -1,7 +1,7 @@
 const express = require("express")
 const bodyParser = require("body-parser")
 const mongoose = require("mongoose")
-const triviadool = require("./controllers/controller")
+const triviaduel = require("./controllers/controller")
 const app = express()
 const PORT = process.env.PORT || 3001
 
@@ -11,13 +11,13 @@ app.use(bodyParser.json())
 // Serve up static assets
 app.use(express.static("client/build"))
 // Add routes, both API and view
-app.use(triviadool)
+app.use(triviaduel)
 
 // Set up promises with mongoose
 mongoose.Promise = global.Promise
 // Connect to the Mongo DB
 mongoose.connect(
-  process.env.MONGODB_URI || "mongodb://localhost/triviadool",
+  process.env.MONGODB_URI || "mongodb://localhost/triviaduel",
   {
     useMongoClient: true
   }

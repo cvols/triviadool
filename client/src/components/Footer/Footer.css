@@ -1,0 +1,6 @@
+.content {
+    min-height: calc(100vh - 300px);
+  }
+  footer {
+    height: auto;
+  }
