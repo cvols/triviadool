@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import Welcome from './pages/Welcome/Welcome'
 import Home from './pages/Home/Home'
 import Game from "./pages/Game/Game"
+import PlayNow from "./pages/PlayNow"
 import NotFound from './pages/NotFound/NotFound'
 
 const Routes = () => (
@@ -11,6 +12,7 @@ const Routes = () => (
             <Route exact path="/" component={Welcome}/>
             <Route path="/home" component={Home}/>
             <Route path="/game" component={Game} />
+            <Route path="/playNow" component={PlayNow} />
             <Route path="*" component={NotFound}/>
         </Switch>
     </BrowserRouter>
