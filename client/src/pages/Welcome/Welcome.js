@@ -1,19 +1,12 @@
 import React, { Component } from 'react'
 import FacebookLogin from 'react-facebook-login'
 import GoogleLogin from 'react-google-login'
-// import { PostData } from '../../services/PostData'
 import { Redirect } from 'react-router'
 import API from '../../utils/API'
 import './Welcome.css'
 import FontAwesome from '../../components/FontAwesome'
 import Col from '../../components/Col'
 import diagram from './images/triviaDuelDiagramWords.png'
-
-// const style = {
-//     backgroundImage: `url(${trivia})`,
-//     height: '90vh',
-// }
-
 
 export default class Welcome extends Component {
     constructor(props) {
@@ -87,7 +80,7 @@ export default class Welcome extends Component {
         }
 
         return (
-            <div className="box">
+            <div className="welcome-box">
                 <div className="container">
                     <div>
                         <img src={diagram} alt="TriviaDuel Diagram" className="responsive-img custom-img" />
