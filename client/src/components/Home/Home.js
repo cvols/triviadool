@@ -36,7 +36,7 @@ export default class Home extends Component {
                     play game                    
                 </div>
                 <div>
-                    <img src={this.state.picture} />
+                    <img src={this.state.picture} alt="Profile Pic"/>
                 </div>
                 <div>
                     sign out
