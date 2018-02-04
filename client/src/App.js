@@ -2,7 +2,9 @@ import React, { Component } from 'react'
 import './App.css'
 // import './styles/foundation.min.css'
 // import './styles/custom.css'
+import { BrowserRouter as Router, Route } from "react-router-dom";
 import Routes from './routes'
+import Game from "./pages/Game";
 
 export default class App extends Component {
 
@@ -15,9 +17,12 @@ export default class App extends Component {
 
   render() {
     return (
+      <Router>
       <div>
-        <Routes name={this.state.appName} />
+        <Routes exact path="/" name={this.state.appName} />
+        <Route exact path="/game" component={Game} />
       </div>
+      </Router>
     )
   }
 }

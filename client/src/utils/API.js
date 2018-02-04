@@ -1,6 +1,14 @@
 import axios from "axios"
 
+
+  var randomNumber = Math.floor((Math.random() * 2500) + 1);
+
 export default {
+
+  quizQuestions: function() {
+    return axios.get('https://qriusity.com/v1/questions?page='+ randomNumber + '&limit=10');
+  },
+  // https://opentdb.com/api.php?amount=10&difficulty=easy
 
   // Searches for articles based on topic, begin date, and end date
   searchArticles: function (q, begin_date, end_date) {
