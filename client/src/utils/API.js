@@ -11,7 +11,7 @@ export default {
   searchQuizQuestions: function (topic, limit) {
     var randomNumber = Math.floor((Math.random() * 2500) + 1);
     
-    const url = 'https://qriusity.com/v1/categories/' + topic + '/questions?page=' + randomNumber + '&limit=' + limit
+    const url = 'https://qriusity.com/v1/categories/' + topic + '/questions?page=' + 1 + '&limit=' + limit
     
     return axios.get(url)
   },
