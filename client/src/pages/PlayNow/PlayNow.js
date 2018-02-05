@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { withStyles } from 'material-ui/styles'
 import MenuItem from 'material-ui/Menu/MenuItem'
 import TextField from 'material-ui/TextField'
+import API from "../../utils/API"
 
 const styles = theme => ({
     container: {
@@ -24,7 +25,8 @@ class TextFields extends React.Component {
         super(props)
         this.state = {
             topic: '',
-            limit: ''
+            limit: '',
+            questions: []
         }
     }
 
@@ -34,6 +36,21 @@ class TextFields extends React.Component {
 
     handleLimitChange = event => {
         this.setState({ limit: event.target.value })
+    }
+
+    handleFormSubmit = event => {
+        event.preventDefault()
+
+        API.searchQuizQuestions(this.state.topic, this.state.limit)
+            .then(res => {
+                console.log(res.data)
+                this.setState({ 
+                    questions: res.data,
+                    topic: '',
+                    limit: ''
+                })
+            })
+            .catch(err => console.log(err))
     }
 
     render() {
@@ -86,6 +103,19 @@ class TextFields extends React.Component {
                         </div>
                     </form>
                 </div>
+                <div className="center">
+                <button 
+                    className="btn waves-effect waves-light" 
+                    onClick={this.handleFormSubmit} 
+                    type="submit" 
+                    name="action">
+                        Search
+                    <i 
+                    className="material-icons right">
+                        send
+                    </i>
+                </button>
+            </div>
             </div>
 
         )
