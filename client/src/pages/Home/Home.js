@@ -5,14 +5,9 @@ import Col from '../../components/Col'
 import PropTypes from 'prop-types'
 import { withStyles } from 'material-ui/styles'
 import Card, { CardContent, CardMedia } from 'material-ui/Card'
-import Button from 'material-ui/Button'
 import Typography from 'material-ui/Typography'
-import FacebookLogin from 'react-facebook-login'
-import GoogleLogin from 'react-google-login'
-import diagram from '../Welcome/images/triviaDuelDiagramWords.png'
 import ButtonBase from 'material-ui/ButtonBase'
 import { Link } from 'react-router-dom'
-import TextField from 'material-ui/TextField'
 
 const styles = theme => ({
     card: {

@@ -7,7 +7,8 @@ const userSchema = new Schema({
   provider: { type: String },
   provider_id: { type: String },
   provider_pic: { type: String },
-  token: { type: String }
+  token: { type: String },
+  date: { type: Date, default: Date.now }
 })
 
 const User = mongoose.model("User", userSchema)
