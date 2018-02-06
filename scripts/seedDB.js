@@ -18,7 +18,13 @@ const usersSeed = [
         provider: 'provider',
         provider_id: 'provider_id',
         provider_pic: 'provider_pic',
-        token: 'token'
+        token: 'token',
+        gameStats: {
+            wins: "20",
+            loses: "15",
+            gamesPlayed: "35",
+            date: new Date(Date.now())
+          }
     }
 ]
 

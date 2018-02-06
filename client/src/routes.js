@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import Welcome from './pages/Welcome/Welcome'
 import Home from './pages/Home/Home'
 import Game from "./pages/Game/Game"
+import YourStats from "./pages/YourStats/YourStats"
 import PlayNow from "./pages/PlayNow"
 import NotFound from './pages/NotFound/NotFound'
 
@@ -11,6 +12,7 @@ const Routes = () => (
         <Switch>
             <Route exact path="/" component={Welcome}/>
             <Route path="/home" component={Home}/>
+            <Route exact path="/stats" component={YourStats}/>
             <Route path="/game" component={Game} />
             <Route path="/playNow" component={PlayNow} />
             <Route path="*" component={NotFound}/>

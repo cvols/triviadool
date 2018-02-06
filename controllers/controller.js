@@ -32,6 +32,8 @@ const userFunctions = {
 
 // route to find all in database
 router.get('/api/facegame', userFunctions.findAll)
+// route to find all in database
+router.get('/api/triviaduel', userFunctions.findAll)
 
 // route to post in database
 router.post('/api/triviaduel', userFunctions.create)
