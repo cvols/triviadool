@@ -3,7 +3,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import Welcome from './pages/Welcome/Welcome'
 import Home from './pages/Home/Home'
 import StartDuel from "./pages/StartDuel"
-import PlayNow from "./pages/PlayNow"
+import PracticeDuel from "./pages/PracticeDuel"
 import NotFound from './pages/NotFound/NotFound'
 
 const Routes = () => (
@@ -12,7 +12,7 @@ const Routes = () => (
             <Route exact path="/" component={Welcome}/>
             <Route path="/home" component={Home}/>
             <Route path="/startDuel" component={StartDuel} />
-            <Route path="/playNow" component={PlayNow} />
+            <Route path="/practiceDuel" component={PracticeDuel} />
             <Route path="*" component={NotFound}/>
         </Switch>
     </BrowserRouter>

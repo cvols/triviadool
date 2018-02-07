@@ -106,7 +106,7 @@ const images = [
     },
     {
         url: '',
-        title: 'Play Now',
+        title: 'Practice Duel',
         width: '33%',
         link: '/playNow'
     }

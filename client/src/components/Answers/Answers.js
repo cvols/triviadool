@@ -57,22 +57,22 @@ export default class Answers extends React.Component {
     // we need this to update the component so we can clear out the className so it doesn't stay with the right or wrong color
     // puts react into an infinite loop and crashes
     
-    // shouldComponentUpdate() {
-    //     this.setState({
-    //         classNames: ['', '', '']
-    //     })
-    //     return true
-    // }
+    componentWillUnmount() {
+        this.setState({
+            classNames: ['', '', '']
+        })
+        return true
+    }
 
     render() {
         let { answers } = this.props
         let { classNames } = this.state
 
-        let transition = {
-            transitionName: 'example',
-            transitionEnterTimeout: 500,
-            transitionLeaveTimeout: 300
-        }
+        // let transition = {
+        //     transitionName: 'example',
+        //     transitionEnterTimeout: 500,
+        //     transitionLeaveTimeout: 300
+        // }
 
         return (
             <div id="answers">
