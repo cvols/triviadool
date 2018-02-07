@@ -6,11 +6,16 @@ export default {
     return axios.post('/api/users', userData)
   },
 
-  // get random questions -- PlayNow --
+  // get random questions -- PracticeDuel --
   getRandomQuestions: function () {
     const randomNumber = Math.floor((Math.random() * 35) + 1)
-    const url = 'https://qriusity.com/v1/categories/' + 28 + '/questions?page=1&limit=10'
+    const url = 'https://qriusity.com/v1/categories/' + randomNumber + '/questions?page=1&limit=10'
     return axios.get(url)
+  },
+
+  // save PracticeDuel results to _id
+  saveScore: function(id, scoreData) {
+    return axios.patch('/api/usersavescore/' + id, scoreData)
   },
 
   // create quiz -- Startduel --
@@ -27,7 +32,7 @@ export default {
 
   // update quiz with questions from searchQuizQuestions -- StartDuel --
   updateQuiz: function (id, questionData) {
-    return axios.patch('/api/updatequiz/' + id, questionData)
+    return axios.patch('/api/updatequizquestions/' + id, questionData)
   },
 
   // find quiz by id -- FindDuel --

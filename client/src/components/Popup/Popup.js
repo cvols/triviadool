@@ -1,6 +1,8 @@
 import React from 'react'
 import './Popup.css'
 import Col from '../Col'
+import { Link } from 'react-router-dom'
+import Button from 'material-ui/Button'
 
 export default class Popup extends React.Component {
     constructor(props) {
@@ -22,14 +24,11 @@ export default class Popup extends React.Component {
             this.setState({
                 time: 'end',
                 title: 'Congratulations',
-                buttonText: 'Restart'
+                buttonText: 'Return to the home screen'
             })
 
-            this.props.startQuiz()
-        } else {
-            window.location.reload()
+            this.props.startQuiz();            
         }
-
     }
 
     componentWillReceiveProps(nextProps) {
@@ -44,20 +43,33 @@ export default class Popup extends React.Component {
 
     render() {
         let { title, text, buttonText } = this.state
-        let { style } = this.props
+        let { style, endQuiz, saveScore  } = this.props
 
         return (
             <div className="popup-container" style={style}>
                 <div className="container">
-                    <div className="row">
-                        <Col l={10}>
-                            <div className="popup">
-                                <h1>{title}</h1>
-                                <p dangerouslySetInnerHTML={this.createMarkup(text)} />
-                                <button className="fancy-btn" onClick={this.popupHandle}>{buttonText}</button>
-                            </div>
-                        </Col>
-                    </div>
+                    <Col l={8}>
+                        <div className="popup">
+                            <h1>{title}</h1>
+                            <p dangerouslySetInnerHTML={this.createMarkup(text)} />
+                            {endQuiz ?
+                                <Button
+                                    className="fancy-btn"
+                                    component={Link}
+                                    to="/home"
+                                    onClick={saveScore}
+                                >
+                                    {buttonText}
+                                </Button>
+                                :
+                                <button
+                                    className="fancy-btn"
+                                    onClick={this.popupHandle}
+                                >
+                                    {buttonText}
+                                </button>}
+                        </div>
+                    </Col>
                 </div>
             </div>
         )

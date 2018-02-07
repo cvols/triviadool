@@ -2,13 +2,17 @@ const mongoose = require("mongoose")
 const Schema = mongoose.Schema
 
 const userSchema = new Schema({
-  email: { type: String },
-  name: { type: String },
-  provider: { type: String },
-  provider_id: { type: String },
-  provider_pic: { type: String },
-  token: { type: String },
-  date: { type: Date, default: Date.now }
+  email: String,
+  name: String,
+  provider: String,
+  provider_id: String,
+  provider_pic: String,
+  token: String,
+  date: { type: Date, default: Date.now },
+  scores: {
+    score: Number,
+    category: String
+  }
 })
 
 const User = mongoose.model("User", userSchema)
