@@ -124,8 +124,11 @@ class Profile extends React.Component {
     }
 
     componentDidMount() {
+        // get userData from session storage
         let data = JSON.parse(sessionStorage.getItem('userData'))
         console.log(data)
+
+        // setState with userData
         this.setState({
             name: data.data.name,
             picture: data.data.provider_pic,
@@ -135,6 +138,8 @@ class Profile extends React.Component {
     }
 
     render() {
+        // if userData is not in session storage or redirect is set to true redirect to -- Home --
+        // default redirect is set to false
         if (!sessionStorage.getItem('userData') || this.state.redirect) {
             return (<Redirect to={'/'} />)
         }

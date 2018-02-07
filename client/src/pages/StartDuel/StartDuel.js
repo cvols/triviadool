@@ -30,18 +30,31 @@ class TextFields extends React.Component {
         }
     }
 
+    // setState for DuelName
     handleDuelNameChange = event => {
-        this.setState({ duelName: event.target.value })
+        this.setState({ 
+            duelName: event.target.value 
+        })
     }
 
+    // setState for topic
     handleTopicChange = event => {
-        this.setState({ topic: event.target.value })
+        this.setState({ 
+            topic: event.target.value
+        })
     }
 
+    // setState for question limit
     handleLimitChange = event => {
-        this.setState({ limit: event.target.value })
+        this.setState({ 
+            limit: event.target.value 
+        })
     }
 
+    // create quiz API call
+    // grab topic from state and send to API
+    // when API finishes setState with mongoDB _id
+    // call searchQuestions()
     handleFormSubmit = event => {
         event.preventDefault()
 
@@ -53,10 +66,16 @@ class TextFields extends React.Component {
                     id: res.data._id
                 })
                 console.log('create quiz ', this.state.id)
-                this.searchQuestions()
             })
+            .catch(err => console.log(err))
+
+            this.searchQuestions()            
     }
 
+    // search quiz API call
+    // grab topic and limit from state and send to API
+    // when API finishes setState with questions object and clear topic and limit
+    // call updateQuiz()
     searchQuestions = () => {
         API.searchQuizQuestions(this.state.topic, this.state.limit)
             .then(res => {
@@ -67,21 +86,14 @@ class TextFields extends React.Component {
                     limit: ''
                 })
             })
-            .then(res => this.updateQuiz())
             .catch(err => console.log(err))
+
+            this.updateQuiz()            
     }
 
-    // findQuiz = () => {
-    //     API.getQuiz(this.state.id)
-    //         .then(res => {
-    //             console.log('find quiz ', this.state.id)
-    //             consoloe.log('quiz res data ', res.data)
-    //             this.setState({ quiz: res.data })
-    //             this.updateQuiz()
-    //         })
-    //         .catch(err => console.log(err))
-    // }
-
+    // update quiz API call
+    // doesn't work
+    // need to find out how to update quiz with quiz questions
     updateQuiz = () => {
         this.state.questions.forEach((question) => {
             API.updateQuiz((this.state.id), {
@@ -110,6 +122,7 @@ class TextFields extends React.Component {
         })
     }
 
+    // this saves all questins as seperate _id's in mongoDB
     saveQuestions = () => {
         this.state.questions.forEach((question) => {
             API.saveQuizQuestions({
