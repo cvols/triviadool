@@ -15,18 +15,7 @@ const userFunctions = {
   // find user by provider_id in database
   find: function (req, res) {
     db.User
-      .findOne({ 
-        provider_id: req.params.id
-      }, function(error, found) {
-        if (error) {
-          console.log(error)
-          res.send(error)
-          .create(req.body)
-        } else {
-          console.log(found)
-          res.send(found)
-        }
-      })
+      .findOne({ provider_id: req.params.id })
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
@@ -128,7 +117,7 @@ const quizFunctions = {
 // route to find user in database
 router.get('/api/user/:id', userFunctions.find)
 
-// route to post user into database
+// route to create user in database
 router.post('/api/users', userFunctions.create)
 
 // route to find all in database - API call for YourStats Page
