@@ -40,6 +40,11 @@ export default {
     return axios.get('/api/quiz/' + id)
   },
 
+  // find user in db by provider_id -- Welcome --
+  findUser: function (id) {
+    return axios.get('/api/user/' + id)
+  },
+
   // save quiz questions to database 
   // this saves each question to the database as seperate id's
   saveQuizQuestions: function (questionData) {
