@@ -64,28 +64,25 @@ export default class Welcome extends Component {
                         token: this.state.token,
                         provider_pic: this.state.provider_pic
                     })
-                    // set userData in session storage
-                    sessionStorage.setItem("name", this.state.name)
-                    sessionStorage.setItem("picture", this.state.provider_pic)
-                    sessionStorage.setItem("provider", this.state.provider)
-                    sessionStorage.setItem("email", this.state.email)
-
-                    // set redirect to true so we can redirect user to -- Home --
-                    this.setState({
-                        redirect: true
-                    })
+                        .then(res => {
+                            this.storeSession(res)
+                        })
                 } else {
-                    // set userData in session storage
-                    let responseJson = res
-                    sessionStorage.setItem("userData", JSON.stringify(responseJson))
-
-                    // set redirect to true so we can redirect user to -- Home --
-                    this.setState({
-                        redirect: true
-                    })
+                    this.storeSession(res)
                 }
             })
             .catch(err => console.log(err))
+    }
+
+    storeSession = (res) => {
+        // set userData in session storage
+        let responseJson = res
+        sessionStorage.setItem("userData", JSON.stringify(responseJson))
+
+        // set redirect to true so we can redirect user to -- Home --
+        this.setState({
+            redirect: true
+        })
     }
 
     render() {

@@ -9,7 +9,7 @@ export default {
   // get random questions -- PracticeDuel --
   getRandomQuestions: function () {
     const randomNumber = Math.floor((Math.random() * 35) + 1)
-    const url = 'https://qriusity.com/v1/categories/' + randomNumber + '/questions?page=1&limit=10'
+    const url = 'https://qriusity.com/v1/categories/' + randomNumber + '/questions?page=1&limit=3'
     return axios.get(url)
   },
 

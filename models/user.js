@@ -9,34 +9,13 @@ const userSchema = new Schema({
   provider_pic: String,
   token: String,
   date: { type: Date, default: Date.now },
-  scores: {
+  games: {
+    category: String,    
     score: Number,
-    category: String
+    total: Number
     }
 })
 
 const User = mongoose.model("User", userSchema)
 
 module.exports = User
-
-// const gameSchema = new Schema({
-//   firstName: { type: String, required: true },
-//   lastName: { type: String, required: true },
-//   email: { type: String, required: true },
-//   date: { type: Date, default: Date.now },
-//   facebookAuth: {
-//                 accessToken: { type: String },
-//                 expiresIn: { type: String },
-//                 signedRequest: { type: String },
-//                 userID: { type: String }
-
-//   },
-//   gameStats: {
-//               wins: { type: Number },
-//               losses: { type: Number },
-//               levelUps: { type: Number },
-//               shares: { type: Number }
-//   }
-// })
-
-// const Game = mongoose.model("Game", gameSchema)
