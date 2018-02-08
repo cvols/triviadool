@@ -120,46 +120,40 @@ class Profile extends React.Component {
             picture: '',
             provider: '',
             email: '',
+            provider_id: '',
             redirect: false,
             bottom: false
         }
     }
 
-    componentDidMount() {
-        if (!sessionStorage.getItem('userData')) {
-            console.log('im not in the db')
-
-            this.setState({
-                name: sessionStorage.getItem("name"),
-                picture: sessionStorage.getItem("picture"),
-                provider: sessionStorage.getItem("provider"),
-                email: sessionStorage.getItem("email")
-            })
-        } else {
+    componentWillMount() {
+        if (sessionStorage.getItem('userData')) {
             console.log('i am in the db')
             // get userData from session storage
             let data = JSON.parse(sessionStorage.getItem('userData'))
             // setState with userData
-            this.setState({
-                name: data.data.name,
-                picture: data.data.provider_pic,
-                provider: data.data.provider,
-                email: data.data.email
-            })
-        }
+            if (data) {
+                this.setState({
+                    name: data.data.name,
+                    picture: data.data.provider_pic,
+                    provider: data.data.provider,
+                    email: data.data.email,
+                    provider_id: data.data.provider_id
+                })
+            }
+        } 
     }
 
     render() {
-        // if userData is not in session storage or redirect is set to true redirect to -- Home --
-        // default redirect is set to false
-        if (!sessionStorage.getItem('userData') && !sessionStorage.getItem("name")) {
+        // if userData is not in session storage and redirect is set to true redirect to -- Home --
+        if (!sessionStorage.getItem('userData') || this.state.redirect) {
             return (<Redirect to={'/'} />)
         }
 
         const { classes } = this.props
 
         return (
-            <div className="home-box" style={{marginTop: 64}}>
+            <div className="home-box" style={{ marginTop: 64 }}>
                 <div className="container">
                     <div className="row">
                         <Col l={4} offset="l4">

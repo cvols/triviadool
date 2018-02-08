@@ -19,7 +19,7 @@ export default class PracticeDuel extends React.Component {
             correct: '',
             answers: [],
             gameOver: false,
-            userId: '',
+            provider_id: '',
             category: '',
             score: 0,
             total: 0
@@ -34,22 +34,10 @@ export default class PracticeDuel extends React.Component {
         this.getRandomQuestions()
     }
 
-    componentDidMount() {
-        // get userData from session storage
-        let data = JSON.parse(sessionStorage.getItem('userData'))
-        console.log(data.data.provider_id)
-
-        // setState with userData
-        this.setState({
-            userId: data.data.provider_id
-        })
-        console.log('user id ', this.state.userId)
-    }
-
     getRandomQuestions = () => {
         API.getRandomQuestions()
             .then(res => {
-                console.log(res.data)
+                console.log('questions returned from search: ', res.data)
                 let { nr } = this.state
                 this.setState({
                     questions: res.data,
@@ -60,14 +48,36 @@ export default class PracticeDuel extends React.Component {
                     category: res.data[0].category.name,
                     nr: this.state.nr + 1
                 })
-                console.log('category ', this.state.category)
+                console.log('category: ', this.state.category)
+            })
+            .then(res => {
+                // get userData from session storage
+                const data = JSON.parse(sessionStorage.getItem('userData'))
+
+                // setState with userData
+                this.setState({
+                    provider_id: data.data.provider_id
+                })
+                console.log('user id: ', this.state.provider_id)
             })
             .catch(err => console.log(err))
     }
 
-    saveScore() {
+    handleSaveScore() {
+        const data = JSON.parse(sessionStorage.getItem('userData'))
+        const id = data.data.provider_id
 
-        API.saveScore(this.state.userId, )
+        const gameData = {
+            category: this.state.category,
+            score: this.state.score,
+            total: this.data.length
+        }
+
+        API.findUser(id, gameData)
+            .then(res => {
+                console.log('res ', res)
+            })
+            .catch(err => console.log(err))
     }
 
     pushData(nr) {
@@ -133,7 +143,7 @@ export default class PracticeDuel extends React.Component {
                     total={total}
                     startQuiz={this.handleStartQuiz}
                     endQuiz={gameOver}
-                    saveScore={this.saveScore}
+                    saveScore={this.handleSaveScore}
                 />
                 <div className="row">
                     <Col l={10}>
@@ -144,11 +154,12 @@ export default class PracticeDuel extends React.Component {
                         <Answers
                             answers={answers}
                             correct={correct}
-                            showButton={this.handleShowButton}
+                            // showButton={this.handleShowButton}
                             isAnswered={questionAnswered}
                             increaseScore={this.handleIncreaseScore}
+                            nextQuestion={this.nextQuestion}
                         />
-                        <div id="submit">
+                        {/* <div id="submit">
                             {showButton ?
                                 <button
                                     className="fancy-btn"
@@ -156,9 +167,9 @@ export default class PracticeDuel extends React.Component {
                                 >
                                     {nr === total ?
                                         'See results' : 'Next Question'}
-                                </button>
-                                : null}
-                        </div>
+                                </button> 
+                                : null} 
+                        </div> */}
                     </Col>
                 </div>
             </div>

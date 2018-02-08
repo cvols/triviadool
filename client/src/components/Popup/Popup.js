@@ -11,7 +11,8 @@ export default class Popup extends React.Component {
             time: 'start',
             title: 'TriviaDuel',
             text: 'Play Now',
-            buttonText: 'Start the quiz'
+            buttonText: 'Start the quiz',
+            id: ''
         }
 
         this.popupHandle = this.popupHandle.bind(this)
@@ -27,7 +28,7 @@ export default class Popup extends React.Component {
                 buttonText: 'Return to the home screen'
             })
 
-            this.props.startQuiz();            
+            this.props.startQuiz()
         }
     }
 
@@ -57,7 +58,7 @@ export default class Popup extends React.Component {
                                     className="fancy-btn"
                                     component={Link}
                                     to="/home"
-                                    onClick={saveScore}
+                                    onClick={saveScore()}
                                 >
                                     {buttonText}
                                 </Button>
