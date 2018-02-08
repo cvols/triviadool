@@ -12,6 +12,25 @@ const userFunctions = {
       .catch(err => res.status(422).json(err))
   },
 
+  // find user by provider_id in database
+  find: function (req, res) {
+    db.User
+      .findOne({ 
+        provider_id: req.params.id
+      }, function(error, found) {
+        if (error) {
+          console.log(error)
+          res.send(error)
+          .create(req.body)
+        } else {
+          console.log(found)
+          res.send(found)
+        }
+      })
+      .then(dbModel => res.json(dbModel))
+      .catch(err => res.status(422).json(err));
+  },
+
   // create new user in database
   create: function (req, res) {
     db.User
@@ -22,10 +41,10 @@ const userFunctions = {
 
   // find by user id and update scoreData in database -- PracticeDuel --
   update: function (req, res) {
-    db.Quiz
-    console.log('req.params.id ',req.params.id)
+    db.User
+    console.log('req.params.id ', req.params.id)
     console.log('req.body ', req.body)
-      .findOneAndUpdate({ _id: req.params.id }, req.body, { upsert:true })
+      .findOneAndUpdate({ "_id": ObjectId(req.params.id) }, req.body)
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
@@ -88,9 +107,9 @@ const quizFunctions = {
   // find by id and update quiz with questions in database -- StartDuel --
   update: function (req, res) {
     db.Quiz
-    console.log('req.params.id ',req.params.id)
+    console.log('req.params.id ', req.params.id)
     console.log('req.body ', req.body)
-      .findOneAndUpdate({ _id: req.params.id }, req.body, { upsert:true })
+      .findOneAndUpdate({ _id: req.params.id }, req.body, { upsert: true })
       // '"ObjectId(' + req.params.id + ')'
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
@@ -105,6 +124,9 @@ const quizFunctions = {
       .catch(err => res.status(422).json(err))
   }
 }
+
+// route to find user in database
+router.get('/api/user/:id', userFunctions.find)
 
 // route to post user into database
 router.post('/api/users', userFunctions.create)

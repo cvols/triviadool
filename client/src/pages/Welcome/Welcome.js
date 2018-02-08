@@ -49,6 +49,24 @@ export default class Welcome extends Component {
             })
         }
 
+        // findQuiz = () => {
+        //     API.getQuiz(this.state.id)
+        //         .then(res => {
+        //             console.log('find quiz ', this.state.id)
+        //             consoloe.log('quiz res data ', res.data)
+        //             this.setState({ quiz: res.data })
+        //             this.updateQuiz()
+        //         })
+        //         .catch(err => console.log(err))
+        // }
+        // console.log(this.state.provider_id)
+
+        // API.findUser(this.state.provider_id)
+        //     .then(res => {
+        //         console.log('rest ', res)
+        //     })
+        //     .catch(err => console.log(err))
+
         // save user to database
         API.saveUser({
             name: this.state.name,
@@ -58,15 +76,15 @@ export default class Welcome extends Component {
             token: this.state.token,
             provider_pic: this.state.provider_pic
         })
-            .then(res => {
-                // set userData in session storage
-                let responseJson = res
-                sessionStorage.setItem("userData", JSON.stringify(responseJson))
+        .then(res => {
+            // set userData in session storage
+            let responseJson = res
+            sessionStorage.setItem("userData", JSON.stringify(responseJson))
 
-                // set redirect to true so we can redirect user to -- Home --
-                this.setState({ redirect: true })
-            })
-            .catch(err => console.log(err))
+            // set redirect to true so we can redirect user to -- Home --
+            this.setState({ redirect: true })
+        })
+        .catch(err => console.log(err))
     }
 
     render() {

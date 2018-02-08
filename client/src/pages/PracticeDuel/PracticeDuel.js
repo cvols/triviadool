@@ -123,7 +123,7 @@ export default class PracticeDuel extends React.Component {
             return (<Redirect to={'/'} />)
         }
 
-        let { nr, question, answers, correct, showButton, questionAnswered, displayPopup, gameOver, total, score } = this.state
+        let { nr, question, answers, correct, showButton, questionAnswered, displayPopup, gameOver, total, score, category } = this.state
 
         return (
             <div className="container" style={{ marginTop: 200 }}>
@@ -138,7 +138,7 @@ export default class PracticeDuel extends React.Component {
                 <div className="row">
                     <Col l={10}>
                         <div id="question">
-                            <h4>Question {nr}/{total}</h4>
+                            <h4>{category} {nr}/{total}</h4>
                             <p>{question}</p>
                         </div>
                         <Answers

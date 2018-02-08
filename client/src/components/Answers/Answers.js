@@ -45,7 +45,6 @@ export default class Answers extends React.Component {
                 updatedClassNames[answer - 1] = 'wrong'
             }
 
-
             this.setState({
                 classNames: updatedClassNames
             })
@@ -57,12 +56,12 @@ export default class Answers extends React.Component {
     // we need this to update the component so we can clear out the className so it doesn't stay with the right or wrong color
     // puts react into an infinite loop and crashes
     
-    componentWillUnmount() {
-        this.setState({
-            classNames: ['', '', '']
-        })
-        return true
-    }
+    // shouldComponentUpdate() {
+    //     this.setState({
+    //         classNames: ['', '', '', '']
+    //     });
+    //     return true;
+    // }
 
     render() {
         let { answers } = this.props

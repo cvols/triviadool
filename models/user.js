@@ -12,7 +12,7 @@ const userSchema = new Schema({
   scores: {
     score: Number,
     category: String
-  }
+    }
 })
 
 const User = mongoose.model("User", userSchema)
