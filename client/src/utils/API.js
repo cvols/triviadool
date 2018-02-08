@@ -45,4 +45,9 @@ export default {
   saveQuizQuestions: function (questionData) {
     return axios.post('/api/questions', questionData)
   },
+
+  // API call to get all user data for Your Stats Page.
+  userStats: function() {
+    return axios.get('api/triviaduel')
+  }
 }

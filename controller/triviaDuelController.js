@@ -109,6 +109,9 @@ const quizFunctions = {
 // route to post user into database
 router.post('/api/users', userFunctions.create)
 
+// route to find all in database - API call for YourStats Page
+router.get('/api/triviaduel', userFunctions.findAll)
+
 // route to find user id and update scoreData
 router.post('/api/usersavescore/:id', userFunctions.update)
 
