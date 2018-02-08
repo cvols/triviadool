@@ -108,7 +108,7 @@ const images = [
         url: '',
         title: 'Practice Duel',
         width: '33%',
-        link: '/playNow'
+        link: '/practiceDuel'
     }
 ]
 
@@ -149,11 +149,8 @@ class Profile extends React.Component {
         return (
             <div className="home-box">
                 <div className="container">
-                    <div>
-                        <img src="" alt="" className="custom-card" />
-                    </div>
                     <div className="row">
-                        <Col l={4} offset="l4">
+                        <Col offset="l4" l={4} >
                             <Card className={classes.card}>
                                 <CardMedia
                                     className={classes.media}
