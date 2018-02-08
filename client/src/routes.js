@@ -5,6 +5,7 @@ import Home from './pages/Home/Home'
 import StartDuel from "./pages/StartDuel"
 import PracticeDuel from "./pages/PracticeDuel"
 import NotFound from './pages/NotFound/NotFound'
+import YourStats from './pages/YourStats/YourStats'
 
 const Routes = () => (
     <BrowserRouter >
@@ -13,6 +14,7 @@ const Routes = () => (
             <Route path="/home" component={Home}/>
             <Route path="/startDuel" component={StartDuel} />
             <Route path="/practiceDuel" component={PracticeDuel} />
+            <Route path="/stats" component={YourStats} />
             <Route path="*" component={NotFound}/>
         </Switch>
     </BrowserRouter>
