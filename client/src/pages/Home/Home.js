@@ -118,40 +118,49 @@ class Profile extends React.Component {
         this.state = {
             name: '',
             picture: '',
+            provider: '',
+            email: '',
             redirect: false,
             bottom: false
         }
     }
 
     componentDidMount() {
-        // get userData from session storage
-        let data = JSON.parse(sessionStorage.getItem('userData'))
-        console.log(data)
+        if (!sessionStorage.getItem('userData')) {
+            console.log('im not in the db')
 
-        // setState with userData
-        this.setState({
-            name: data.data.name,
-            picture: data.data.provider_pic,
-            provider: data.data.provider,
-            email: data.data.email
-        })
+            this.setState({
+                name: sessionStorage.getItem("name"),
+                picture: sessionStorage.getItem("picture"),
+                provider: sessionStorage.getItem("provider"),
+                email: sessionStorage.getItem("email")
+            })
+        } else {
+            console.log('i am in the db')
+            // get userData from session storage
+            let data = JSON.parse(sessionStorage.getItem('userData'))
+            // setState with userData
+            this.setState({
+                name: data.data.name,
+                picture: data.data.provider_pic,
+                provider: data.data.provider,
+                email: data.data.email
+            })
+        }
     }
 
     render() {
         // if userData is not in session storage or redirect is set to true redirect to -- Home --
         // default redirect is set to false
-        if (!sessionStorage.getItem('userData') || this.state.redirect) {
+        if (!sessionStorage.getItem('userData') && !sessionStorage.getItem("name")) {
             return (<Redirect to={'/'} />)
         }
 
         const { classes } = this.props
 
         return (
-            <div className="home-box">
+            <div className="home-box" style={{marginTop: 64}}>
                 <div className="container">
-                    <div>
-                        <img src="" alt="" className="custom-card" />
-                    </div>
                     <div className="row">
                         <Col l={4} offset="l4">
                             <Card className={classes.card}>

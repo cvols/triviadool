@@ -35,6 +35,7 @@ export default class Welcome extends Component {
                 token: res.accessToken,
                 provider_pic: res.picture.data.url
             })
+            this.checkUser()
         }
 
         // if signed in with google setState so we can save to database and set session storage
@@ -47,63 +48,63 @@ export default class Welcome extends Component {
                 token: res.Zi.access_token,
                 provider_pic: res.w3.Paa
             })
+            this.checkUser()
         }
+    }
 
-        // findQuiz = () => {
-        //     API.getQuiz(this.state.id)
-        //         .then(res => {
-        //             console.log('find quiz ', this.state.id)
-        //             consoloe.log('quiz res data ', res.data)
-        //             this.setState({ quiz: res.data })
-        //             this.updateQuiz()
-        //         })
-        //         .catch(err => console.log(err))
-        // }
-        // console.log(this.state.provider_id)
+    checkUser = () => {
+        API.findUser(this.state.provider_id)
+            .then(res => {
+                if (res.data === null) {
+                    API.saveUser({
+                        name: this.state.name,
+                        provider: this.state.provider,
+                        email: this.state.email,
+                        provider_id: this.state.provider_id,
+                        token: this.state.token,
+                        provider_pic: this.state.provider_pic
+                    })
+                    // set userData in session storage
+                    sessionStorage.setItem("name", this.state.name)
+                    sessionStorage.setItem("picture", this.state.provider_pic)
+                    sessionStorage.setItem("provider", this.state.provider)
+                    sessionStorage.setItem("email", this.state.email)
 
-        // API.findUser(this.state.provider_id)
-        //     .then(res => {
-        //         console.log('rest ', res)
-        //     })
-        //     .catch(err => console.log(err))
+                    // set redirect to true so we can redirect user to -- Home --
+                    this.setState({
+                        redirect: true
+                    })
+                } else {
+                    // set userData in session storage
+                    let responseJson = res
+                    sessionStorage.setItem("userData", JSON.stringify(responseJson))
 
-        // save user to database
-        API.saveUser({
-            name: this.state.name,
-            provider: this.state.provider,
-            email: this.state.email,
-            provider_id: this.state.provider_id,
-            token: this.state.token,
-            provider_pic: this.state.provider_pic
-        })
-        .then(res => {
-            // set userData in session storage
-            let responseJson = res
-            sessionStorage.setItem("userData", JSON.stringify(responseJson))
-
-            // set redirect to true so we can redirect user to -- Home --
-            this.setState({ redirect: true })
-        })
-        .catch(err => console.log(err))
+                    // set redirect to true so we can redirect user to -- Home --
+                    this.setState({
+                        redirect: true
+                    })
+                }
+            })
+            .catch(err => console.log(err))
     }
 
     render() {
         // if redirect is set true or session storage has userData redirect user to -- Home -- 
-        if (this.state.redirect || sessionStorage.getItem('userData')) {
+        if (this.state.redirect || sessionStorage.getItem('userData') || sessionStorage.getItem('name')) {
             return (<Redirect to={'/home'} />)
         }
 
         // facebook function to call user to sign in through facebook
         const responseFacebook = (response) => {
             console.log("facebook console")
-            console.log(response)
+            console.log('facebook ', response)
             this.signup(response, 'facebook')
         }
 
         // google function to call user to sign in through google
         const responseGoogle = (response) => {
             console.log("google console")
-            console.log(response)
+            console.log('google ', response)
             this.signup(response, 'google')
         }
 
