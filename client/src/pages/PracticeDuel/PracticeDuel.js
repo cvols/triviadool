@@ -31,7 +31,12 @@ export default class PracticeDuel extends React.Component {
     }
 
     componentWillMount() {
+        document.body.style.backgroundColor = "#eee"        
         this.getRandomQuestions()
+    }
+    
+    coponentWillUnmount() {
+        document.body.style.backgroundColor = null
     }
 
     getRandomQuestions = () => {
@@ -122,20 +127,25 @@ export default class PracticeDuel extends React.Component {
         let { nr, question, answers, correct, questionAnswered, displayPopup, gameOver, total, score, category } = this.state
 
         return (
-            <div className="container" style={{ marginTop: 200 }}>
-                <Popup
-                    style={{ display: displayPopup }}
-                    score={score}
-                    total={total}
-                    startQuiz={this.handleStartQuiz}
-                    endQuiz={gameOver}
-                    saveScore={this.handleSaveScore}
-                />
+            <div className="container">
                 <div className="row">
-                    <Col l={10}>
+                    <Popup
+                        style={{ display: displayPopup }}
+                        score={score}
+                        total={total}
+                        startQuiz={this.handleStartQuiz}
+                        endQuiz={gameOver}
+                        saveScore={this.handleSaveScore}
+                    />
+                    <Col l={12}>
                         <div id="question">
-                            <h4>{category} {nr}/{total}</h4>
-                            <p>{question}</p>
+                            <div id="question-header">
+                                <h5>Category: {category}</h5>
+                                <h5>Question: {nr} of {total}</h5>
+                            </div>
+                            <div id="question-question">
+                                <p>{question}</p>
+                            </div>
                         </div>
                         <Answers
                             answers={answers}

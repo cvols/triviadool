@@ -1,14 +1,5 @@
-.header {
-    font-family: 'Indie Flower', cursive;
-}
-
-.welcome-box {
-    background-color: #2F409D;
-    height: 100vh;
-}
-
 .custom-row {
-    margin-top: 200px;
+    margin-top: 10%;
 }
 
 .button {
@@ -27,6 +18,7 @@
 .facebook:hover {
     background-color: #395193;
 }
+
 .google {
     background-color: #d14836;
 }
@@ -37,10 +29,6 @@
 
 i {
     margin-right: 8px;
-}
-
-.custom-img {
-    margin-top: 60px;
 }
 
 @media only screen and (max-width: 1065px) {

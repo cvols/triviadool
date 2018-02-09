@@ -8,11 +8,13 @@ import Card, { CardContent, CardMedia } from 'material-ui/Card'
 import Typography from 'material-ui/Typography'
 import ButtonBase from 'material-ui/ButtonBase'
 import { Link } from 'react-router-dom'
+import create from './Images/create.png'
+import find from './Images/find.png'
+import duel from './Images/duel.png'
 
 const styles = theme => ({
     card: {
         maxWidth: 350,
-        marginBottom: -100
     },
     media: {
         height: 250
@@ -63,7 +65,7 @@ const styles = theme => ({
         right: 0,
         top: 0,
         bottom: 0,
-        backgroundSize: 'cover',
+        backgroundRepeat: 'no-repeat',
         backgroundPosition: 'center 40%'
     },
     imageBackdrop: {
@@ -93,19 +95,19 @@ const styles = theme => ({
 
 const images = [
     {
-        url: '',
+        url: create,
         title: 'Create a DUEL',
         width: '33%',
         link: '/startDuel'
     },
     {
-        url: '',
+        url: find,
         title: 'Find a DUEL',
         width: '33%',
         link: '/findDuel'
     },
     {
-        url: '',
+        url: duel,
         title: 'Practice Duel',
         width: '33%',
         link: '/practiceDuel'
@@ -127,6 +129,8 @@ class Profile extends React.Component {
     }
 
     componentWillMount() {
+        document.body.style.backgroundColor = "#eee"
+
         if (sessionStorage.getItem('userData')) {
             console.log('i am in the db')
             // get userData from session storage
@@ -141,7 +145,11 @@ class Profile extends React.Component {
                     provider_id: data.data.provider_id
                 })
             }
-        } 
+        }
+    }
+
+    coponentWillUnmount() {
+        document.body.style.backgroundColor = null
     }
 
     render() {
@@ -153,64 +161,62 @@ class Profile extends React.Component {
         const { classes } = this.props
 
         return (
-            <div className="home-box" style={{ marginTop: 64 }}>
-                <div className="container">
-                    <div className="row">
-                        <Col l={4} offset="l4">
-                            <Card className={classes.card}>
-                                <CardMedia
-                                    className={classes.media}
-                                    image={this.state.picture}
-                                    title="Profile"
-                                />
-                                <CardContent className={classes.cardcontent}>
-                                    <Typography type="headline" component="h2">
-                                        {this.state.name}
-                                    </Typography>
-                                    <Typography component="p">
-                                        Signed in through {this.state.provider}
-                                    </Typography>
-                                    <Typography component="p">
-                                        Email: {this.state.email}
-                                    </Typography>
-                                </CardContent>
-                            </Card>
-                        </Col>
-                    </div>
-                    <div className="row custom-row">
-                        <div className={classes.root}>
-                            {images.map(image => (
-                                <ButtonBase
-                                    focusRipple
-                                    key={image.title}
-                                    className={classes.image}
+            <div className="container" id="home-container">
+                <div className="row">
+                    <Col l={4}>
+                        <Card className={classes.card}>
+                            <CardMedia
+                                className={classes.media}
+                                image={this.state.picture}
+                                title="Profile"
+                            />
+                            <CardContent className={classes.cardcontent}>
+                                <Typography type="headline" component="h2">
+                                    {this.state.name}
+                                </Typography>
+                                <Typography component="p">
+                                    Signed in through {this.state.provider}
+                                </Typography>
+                                <Typography component="p">
+                                    Email: {this.state.email}
+                                </Typography>
+                            </CardContent>
+                        </Card>
+                    </Col>
+                </div>
+                <div className="row custom-row">
+                    <div className={classes.root}>
+                        {images.map(image => (
+                            <ButtonBase
+                                focusRipple
+                                key={image.title}
+                                className={classes.image}
+                                style={{
+                                    width: image.width,
+                                }}
+                                component={Link}
+                                to={image.link}
+                            >
+                                <span
+                                    className={classes.imageSrc}
                                     style={{
-                                        width: image.width,
+                                        backgroundImage: `url(${image.url})`,
                                     }}
-                                    component={Link}
-                                    to={image.link}
-                                >
-                                    <span
-                                        className={classes.imageSrc}
-                                        style={{
-                                            backgroundImage: `url(${image.url})`,
-                                        }}
-                                    />
-                                    <span className={classes.imageBackdrop} />
-                                    <span className={classes.imageButton}>
-                                        <Typography
-                                            component="span"
-                                            type="subheading"
-                                            color="inherit"
-                                            className={classes.imageTitle}
-                                        >
-                                            {image.title}
-                                            <span className={classes.imageMarked} />
-                                        </Typography>
-                                    </span>
-                                </ButtonBase>
-                            ))}
-                        </div>
+                                />
+                                <span className={classes.imageBackdrop} />
+                                <span className={classes.imageButton}>
+                                    <Typography
+                                        component="span"
+                                        type="subheading"
+                                        color="inherit"
+                                        className={classes.imageTitle}
+                                    >
+                                        {image.title}
+                                        <span className={classes.imageMarked} />
+                                    </Typography>
+                                </span>
+                            </ButtonBase>
+                        ))}
                     </div>
                 </div>
             </div>

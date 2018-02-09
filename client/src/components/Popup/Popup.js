@@ -10,9 +10,10 @@ export default class Popup extends React.Component {
         this.state = {
             time: 'start',
             title: 'TriviaDuel',
-            text: 'Play Now',
-            buttonText: 'Start the quiz',
-            id: ''
+            text: 'Practice Duel',
+            buttonText: 'Start now',
+            id: '',
+            score: 0
         }
 
         this.popupHandle = this.popupHandle.bind(this)
@@ -26,13 +27,14 @@ export default class Popup extends React.Component {
 
     popupHandle() {
         let { time } = this.state
+        let { score, total } = this.props
 
         if (time === 'start') {
             this.setState({
                 time: 'end',
                 title: 'Congratulations',
                 buttonText: 'Return to the home screen',
-                text: 'You got ' + this.state.score + ' out of ' + this.props.total + ' questions right'
+                text: 'You got ' + this.state.score + ' out of ' + total + ' questions right'
             })
             this.props.startQuiz()
         }
@@ -40,33 +42,31 @@ export default class Popup extends React.Component {
 
     render() {
         let { title, text, buttonText } = this.state
-        let { style, endQuiz, saveScore  } = this.props
+        let { style, endQuiz, saveScore } = this.props
 
         return (
             <div className="popup-container" style={style}>
                 <div className="container">
-                    <Col l={8}>
-                        <div className="popup">
-                            <h1>{title}</h1>
-                            <p className="flow-text">{text}</p>
-                            {endQuiz ?
-                                <Button
-                                    className="fancy-btn"
-                                    component={Link}
-                                    to="/home"
-                                    onClick={saveScore()}
-                                >
-                                    {buttonText}
-                                </Button>
-                                :
-                                <button
-                                    className="fancy-btn"
-                                    onClick={this.popupHandle}
-                                >
-                                    {buttonText}
-                                </button>}
-                        </div>
-                    </Col>
+                    <div className="popup">
+                        <h1>{title}</h1>
+                        <p className="flow-text">{text}</p>
+                        {endQuiz ?
+                            <Button
+                                className="popup-btn"
+                                component={Link}
+                                to="/home"
+                                onClick={saveScore()}
+                            >
+                                {buttonText}
+                            </Button>
+                            :
+                            <button
+                                className="popup-btn"
+                                onClick={this.popupHandle}
+                            >
+                                {buttonText}
+                            </button>}
+                    </div>
                 </div>
             </div>
         )
