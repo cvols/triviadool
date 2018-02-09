@@ -10,10 +10,12 @@ const userSchema = new Schema({
   token: String,
   date: { type: Date, default: Date.now },
   games: {
-    category: String,    
+    gameNumber: Number,
+    date: { type: Date, default: Date.now },
+    category: String,
     score: Number,
     total: Number
-    }
+  }
 })
 
 const User = mongoose.model("User", userSchema)

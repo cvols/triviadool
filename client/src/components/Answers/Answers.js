@@ -49,6 +49,8 @@ export default class Answers extends React.Component {
                 classNames: updatedClassNames
             })
 
+            this.props.showButton()
+
             setTimeout(() => {
                 this.props.nextQuestion()
                 this.setState({

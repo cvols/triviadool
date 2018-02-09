@@ -14,8 +14,8 @@ export default {
   },
 
   // save PracticeDuel results to _id
-  saveScore: function(id, scoreData) {
-    return axios.patch('/api/usersavescore/' + id, scoreData)
+  saveScore: function(id, gameData) {
+    return axios.patch('/api/savescore/' + id, gameData)
   },
 
   // create quiz -- Startduel --

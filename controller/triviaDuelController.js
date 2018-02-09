@@ -29,47 +29,19 @@ const userFunctions = {
   },
 
   // find by user id and update scoreData in database -- PracticeDuel --
-  insert: function (req, res) {
-    db.User
+  save: function (req, res) {
     console.log('req.params.id ', req.params.id)
     console.log('req.body ', req.body)
-      .findOne({
-        provider_id: req.params.id
-      }, function(error, found){
-        if (error) {
-          console.log(error)
-          res.send(error)
-        } else {
-          console.log(found)
-          res.send(found)
+    
+    db.User
+      .update(
+      { provider_id: req.params.id },
+      {
+        $addToSet: {
+          games: req.body
         }
-      })
-      .findOne({
-        gamescores: "gamescores"
-      }, function(error, found) {
-        if (error) {
-          console.log(error)
-          res.send(error)
-        } else {
-          console.log(found)
-          res.send(found)
-        }
-      })
-      .insert({
-        gamescores: {
-          category: req.body.category,
-          score: req.body.score,
-          total: req.body.total
-        }
-      }, function(error, saved){
-        if (error) {
-          console.log(error)
-          res.send(error)
-        } else {
-          console.log(saved)
-          res.send(saved)
-        }
-      })
+      }
+      )
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err))
   },
@@ -160,7 +132,7 @@ router.post('/api/users', userFunctions.create)
 router.get('/api/triviaduel', userFunctions.findAll)
 
 // route to find user id and update scoreData
-router.post('/api/usersavescore/:id', userFunctions.insert)
+router.patch('/api/savescore/:id', userFunctions.save)
 
 // route to create quiz in database
 router.post('/api/quiz', quizFunctions.create)

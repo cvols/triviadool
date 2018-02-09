@@ -18,6 +18,12 @@ export default class Popup extends React.Component {
         this.popupHandle = this.popupHandle.bind(this)
     }
 
+    componentWillReceiveProps(nextProps) {
+        this.setState({
+            score: this.props.score
+        })
+    }
+
     popupHandle() {
         let { time } = this.state
 
@@ -25,21 +31,11 @@ export default class Popup extends React.Component {
             this.setState({
                 time: 'end',
                 title: 'Congratulations',
-                buttonText: 'Return to the home screen'
+                buttonText: 'Return to the home screen',
+                text: 'You got ' + this.state.score + ' out of ' + this.props.total + ' questions right'
             })
-
             this.props.startQuiz()
         }
-    }
-
-    componentWillReceiveProps(nextProps) {
-        this.setState({
-            text: 'You have completed the quiz. <br /> You got: ' + this.props.score + ' out of ' + this.props.total + ' questions right.'
-        })
-    }
-
-    createMarkup(text) {
-        return { __html: text }
     }
 
     render() {
@@ -52,7 +48,7 @@ export default class Popup extends React.Component {
                     <Col l={8}>
                         <div className="popup">
                             <h1>{title}</h1>
-                            <p dangerouslySetInnerHTML={this.createMarkup(text)} />
+                            <p className="flow-text">{text}</p>
                             {endQuiz ?
                                 <Button
                                     className="fancy-btn"
