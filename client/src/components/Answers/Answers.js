@@ -51,17 +51,12 @@ export default class Answers extends React.Component {
 
             setTimeout(() => {
                 this.props.nextQuestion()
+                this.setState({
+                    classNames: ['', '', '']
+                })
             }, 1000)
         }
     }
-
-    // we need this to update the component so we can clear out the className so it doesn't stay with the right or wrong color
-    // puts react into an infinite loop and crashes
-    // shouldComponentUpdate() {
-    //     this.setState({
-    //         classNames: ['', '', '', '']
-    //     })
-    // }
 
     render() {
         let { answers } = this.props
