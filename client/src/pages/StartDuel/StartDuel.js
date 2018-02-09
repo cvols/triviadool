@@ -59,7 +59,7 @@ class TextFields extends React.Component {
         event.preventDefault()
 
         API.createQuiz({
-            quiz: this.state.duelName
+            quizName: this.state.duelName
         })
             .then(res => {
                 this.setState({
@@ -82,7 +82,8 @@ class TextFields extends React.Component {
                 this.setState({
                     questions: res.data,
                     topic: '',
-                    limit: ''
+                    limit: '',
+                    duelName: ''
                 })
                 this.updateQuiz()
             })
