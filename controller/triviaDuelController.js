@@ -32,16 +32,9 @@ const userFunctions = {
   save: function (req, res) {
     console.log('req.params.id ', req.params.id)
     console.log('req.body ', req.body)
-    
+
     db.User
-      .update(
-      { provider_id: req.params.id },
-      {
-        $addToSet: {
-          games: req.body
-        }
-      }
-      )
+      .update( { provider_id: req.params.id }, { $push: { games: req.body }})
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err))
   },
@@ -103,11 +96,10 @@ const quizFunctions = {
 
   // find by id and update quiz with questions in database -- StartDuel --
   update: function (req, res) {
-    db.Quiz
     console.log('req.params.id ', req.params.id)
     console.log('req.body ', req.body)
-      .findOneAndUpdate({ _id: req.params.id }, req.body, { upsert: true })
-      // '"ObjectId(' + req.params.id + ')'
+    db.Quiz
+    .update( { _id: req.params.id }, { $push: req.body })
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
@@ -141,7 +133,7 @@ router.post('/api/quiz', quizFunctions.create)
 router.get('/api/quiz/:id', quizFunctions.findById)
 
 // route to update quiz in database by id
-router.patch('/api/updatequizquestions/:id', quizFunctions.update)
+router.patch('/api/updatequiz/:id', quizFunctions.update)
 
 // route to save questions into database
 router.post('/api/questions', questionFunctions.create)

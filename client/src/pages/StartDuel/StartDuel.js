@@ -26,28 +26,28 @@ class TextFields extends React.Component {
             limit: '',
             duelName: '',
             questions: [],
-            id: ''
+            quizId: ''
         }
     }
 
     // setState for DuelName
     handleDuelNameChange = event => {
-        this.setState({ 
-            duelName: event.target.value 
+        this.setState({
+            duelName: event.target.value
         })
     }
 
     // setState for topic
     handleTopicChange = event => {
-        this.setState({ 
+        this.setState({
             topic: event.target.value
         })
     }
 
     // setState for question limit
     handleLimitChange = event => {
-        this.setState({ 
-            limit: event.target.value 
+        this.setState({
+            limit: event.target.value
         })
     }
 
@@ -63,13 +63,12 @@ class TextFields extends React.Component {
         })
             .then(res => {
                 this.setState({
-                    id: res.data._id
+                    quizId: res.data._id
                 })
-                console.log('create quiz ', this.state.id)
+                console.log('create quiz ', this.state.quizId)
+                this.searchQuestions()
             })
             .catch(err => console.log(err))
-
-            this.searchQuestions()            
     }
 
     // search quiz API call
@@ -85,20 +84,18 @@ class TextFields extends React.Component {
                     topic: '',
                     limit: ''
                 })
+                this.updateQuiz()
             })
             .catch(err => console.log(err))
-
-            this.updateQuiz()            
     }
 
     // update quiz API call
-    // doesn't work
-    // need to find out how to update quiz with quiz questions
     updateQuiz = () => {
-        this.state.questions.forEach((question) => {
-            API.updateQuiz((this.state.id), {
-                question: {
-                    answers: question.answers,
+        const quizId = this.state.quizId
+       
+        this.state.questions.forEach(question => {
+            API.updateQuiz((quizId), {
+                questions: [{
                     category: {
                         createdAt: question.category.createdAt,
                         id: question.category.id,
@@ -109,44 +106,18 @@ class TextFields extends React.Component {
                     },
                     createdAt: question.createdAt,
                     id: question.id,
-                    option1: question.option1,
-                    option2: question.option2,
-                    option3: question.option3,
-                    option4: question.option4,
                     question: question.question,
-                    updatedAt: question.updatedAt
-                }
-            })
-                .then(res => console.log('mongod'))
-                .catch(err => console.log(err))
-        })
-    }
-
-    // this saves all questins as seperate _id's in mongoDB
-    saveQuestions = () => {
-        this.state.questions.forEach((question) => {
-            API.saveQuizQuestions({
-                question: {
                     answers: question.answers,
-                    category: {
-                        createdAt: question.category.createdAt,
-                        id: question.category.id,
-                        name: question.category.name,
-                        parent_category: question.category.parent_category,
-                        question_count: question.category.question_count,
-                        updatedAt: question.category.updatedAt,
-                    },
-                    createdAt: question.createdAt,
-                    id: question.id,
                     option1: question.option1,
                     option2: question.option2,
                     option3: question.option3,
                     option4: question.option4,
-                    question: question.question,
                     updatedAt: question.updatedAt
-                }
+                }]
             })
-                .then(res => console.log('mongo'))
+                .then(res => {
+                    console.log('res: ', res)
+                })
                 .catch(err => console.log(err))
         })
     }

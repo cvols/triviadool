@@ -32,7 +32,7 @@ export default {
 
   // update quiz with questions from searchQuizQuestions -- StartDuel --
   updateQuiz: function (id, questionData) {
-    return axios.patch('/api/updatequizquestions/' + id, questionData)
+    return axios.patch('/api/updatequiz/' + id, questionData)
   },
 
   // find quiz by id -- FindDuel --

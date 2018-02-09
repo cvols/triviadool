@@ -6,8 +6,7 @@ export default class Answers extends React.Component {
         super(props)
         this.state = {
             isAnswered: false,
-            classNames: ['', '', ''],
-            questions: []
+            classNames: ['', '', '']
         }
 
         this.checkAnswer = this.checkAnswer.bind(this)
@@ -49,7 +48,7 @@ export default class Answers extends React.Component {
                 classNames: updatedClassNames
             })
 
-            this.props.showButton()
+            this.props.clickButton()
 
             setTimeout(() => {
                 this.props.nextQuestion()

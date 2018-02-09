@@ -2,27 +2,27 @@ const mongoose = require("mongoose")
 const Schema = mongoose.Schema
 
 const quizSchema = new Schema({
-  quiz: { type: String },
-  questions: {
-    answers: { type: Number },
+  quizName: String || Number,
+  questions: [{
+    answers: Number,
     category: {
-        createdAt: { type: String },
-        id: { type: Number },
-        name: { type: String },
-        parent_category: { type: String },
-        question_count: { type: Number },
-        updatedAt: { type: String }
+      createdAt: String,
+      id: Number,
+      name: String,
+      parent_category: String,
+      question_count: Number,
+      updatedAt: String
     },
-    createdAt: { type: String },
-    id: { type: Number },
-    option1: { type: String },
-    option2: { type: String },
-    option3: { type: String },
-    option4: { type: String },
-    question: { type: String },
-    updatedAt: { type: String },
-    lastUpdate: { type: Date, default: Date.now } // for triviaduel
-  }
+    createdAt: String,
+    id: Number,
+    option1: String,
+    option2: String,
+    option3: String,
+    option4: String,
+    question: String,
+    updatedAt: String,
+    date: { type: Date, default: Date.now } // for triviaduel
+  }]
 })
 
 const Quiz = mongoose.model("Quiz", quizSchema)
