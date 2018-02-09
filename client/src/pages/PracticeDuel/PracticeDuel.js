@@ -11,7 +11,6 @@ export default class PracticeDuel extends React.Component {
         super(props)
         this.state = {
             nr: 0,
-            showButton: false,
             questionAnswered: false,
             displayPopup: 'flex',
             questions: [],
@@ -38,7 +37,6 @@ export default class PracticeDuel extends React.Component {
     getRandomQuestions = () => {
         API.getRandomQuestions()
             .then(res => {
-                console.log('questions returned from search: ', res.data)
                 let { nr } = this.state
                 this.setState({
                     questions: res.data,
@@ -49,17 +47,6 @@ export default class PracticeDuel extends React.Component {
                     category: res.data[0].category.name,
                     nr: this.state.nr + 1
                 })
-                console.log('category: ', this.state.category)
-            })
-            .then(res => {
-                // get userData from session storage
-                const data = JSON.parse(sessionStorage.getItem('userData'))
-
-                // setState with userData
-                this.setState({
-                    provider_id: data.data.provider_id
-                })
-                console.log('user id: ', this.state.provider_id)
             })
             .catch(err => console.log(err))
     }
@@ -67,14 +54,16 @@ export default class PracticeDuel extends React.Component {
     handleSaveScore() {
         const data = JSON.parse(sessionStorage.getItem('userData'))
         const id = data.data.provider_id
+        const randomNumber = Math.floor((Math.random() * 3500) + 1)
 
         const gameData = {
+            gameNumber: randomNumber,
             category: this.state.category,
             score: this.state.score,
-            total: data.data.length
+            total: this.state.total
         }
 
-        API.findUser(id, gameData)
+        API.saveScore(id, gameData)
             .then(res => {
                 console.log('res ', res)
             })
@@ -101,7 +90,6 @@ export default class PracticeDuel extends React.Component {
         } else {
             this.pushData(nr)
             this.setState({
-                showButton: false,
                 questionAnswered: false
             })
         }
@@ -109,7 +97,6 @@ export default class PracticeDuel extends React.Component {
 
     handleShowButton() {
         this.setState({
-            showButton: true,
             questionAnswered: true
         })
     }
@@ -134,7 +121,7 @@ export default class PracticeDuel extends React.Component {
             return (<Redirect to={'/'} />)
         }
 
-        let { nr, question, answers, correct, showButton, questionAnswered, displayPopup, gameOver, total, score, category } = this.state
+        let { nr, question, answers, correct, questionAnswered, showButton, displayPopup, gameOver, total, score, category } = this.state
 
         return (
             <div className="container" style={{ marginTop: 200 }}>
@@ -155,22 +142,11 @@ export default class PracticeDuel extends React.Component {
                         <Answers
                             answers={answers}
                             correct={correct}
-                            // showButton={this.handleShowButton}
                             isAnswered={questionAnswered}
                             increaseScore={this.handleIncreaseScore}
                             nextQuestion={this.nextQuestion}
+                            showButton={this.handleShowButton}
                         />
-                        {/* <div id="submit">
-                            {showButton ?
-                                <button
-                                    className="fancy-btn"
-                                    onClick={this.nextQuestion}
-                                >
-                                    {nr === total ?
-                                        'See results' : 'Next Question'}
-                                </button> 
-                                : null} 
-                        </div> */}
                     </Col>
                 </div>
             </div>
