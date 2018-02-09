@@ -22,6 +22,13 @@ export default class Welcome extends Component {
             provider_pic: ""
         }
     }
+    componentWillMount() {
+        document.body.style.backgroundColor = "#2F409D"
+    }
+
+    coponentWillUnmount() {
+        document.body.style.backgroundColor = null
+    }
 
     // signup function
     signup = (res, type) => {
@@ -106,34 +113,32 @@ export default class Welcome extends Component {
         }
 
         return (
-            <div className="welcome-box">
-                <div className="container">
-                    <div>
-                        <img src={diagram} alt="TriviaDuel Diagram" className="responsive-img custom-img" />
-                    </div>
-                    <div className="row custom-row">
-                        <Col s={6} className="right-align">
-                            <FacebookLogin
-                                appId="148785105783859"
-                                autoLoad={false}
-                                fields="name,email,picture"
-                                callback={responseFacebook}
-                                cssClass="button facebook"
-                                icon="fa-facebook"
-                            />
-                        </Col>
-                        <Col s={6} className="left-align">
-                            <GoogleLogin
-                                clientId="319188917988-ikls2oi32m6bbh2vuoqr5qstkd2ao1he.apps.googleusercontent.com"
-                                onSuccess={responseGoogle}
-                                onFailure={responseGoogle}
-                                className="button google"
-                            >
-                                <FontAwesome name="fab fa-google" />
-                                Login with Google
+            <div className="container">
+                <div>
+                    <img src={diagram} alt="TriviaDuel Diagram" className="responsive-img custom-img" />
+                </div>
+                <div className="row custom-row">
+                    <Col s={6} className="right-align">
+                        <FacebookLogin
+                            appId="148785105783859"
+                            autoLoad={false}
+                            fields="name,email,picture"
+                            callback={responseFacebook}
+                            cssClass="button facebook"
+                            icon="fa-facebook"
+                        />
+                    </Col>
+                    <Col s={6} className="left-align">
+                        <GoogleLogin
+                            clientId="319188917988-ikls2oi32m6bbh2vuoqr5qstkd2ao1he.apps.googleusercontent.com"
+                            onSuccess={responseGoogle}
+                            onFailure={responseGoogle}
+                            className="button google"
+                        >
+                            <FontAwesome name="fab fa-google" />
+                            Login with Google
                         </GoogleLogin>
-                        </Col>
-                    </div>
+                    </Col>
                 </div>
             </div>
         )

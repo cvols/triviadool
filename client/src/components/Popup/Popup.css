@@ -1,3 +1,6 @@
+/* --------------------------- */
+/* ----- popup container ----- */
+/* --------------------------- */
 .popup-container {
     position: fixed;
     top: 0;
@@ -11,27 +14,55 @@
     align-items: center;
 }
 
+/* --------------------------- */
+/* ----- popup  ----- */
+/* --------------------------- */
 .popup {
     text-align: center;
     background-color: #fff;
-    border-radius: 10px;
+    border-radius: 2px;
     overflow: hidden;
 }
 
+/* --------------------------- */
+/* ----- popup heading ----- */
+/* --------------------------- */
 .popup h1 {
-    background-color: #0094da;
+    background-color: #2F409D;
     color: white;
     border-bottom: 1px solid #ccc;
     padding: 20px;
     margin-top: 0;
+    font-family: 'Indie Flower';
 }
 
-.popup p {
+/* --------------------------- */
+/* ----- popup p ----- */
+/* --------------------------- */
+/* .popup p {
     font-size: 18px;
     letter-spacing: 1px;
     margin: 20px 10% 0;
+} */
+
+/* --------------------------- */
+/* ----- popup button ----- */
+/* --------------------------- */
+.popup-btn {
+    border: 2px solid #ea7851 !important;
+    border-radius: 2px !important;
+    background-color: #ea7851 !important;
+    color: #fff !important;
+    display: inline-block !important;
+    font-size: 18px !important;
+    font-weight: 500 !important;
+    padding: 14px 75px !important;
+    margin: 20px auto !important;
+    text-transform: uppercase !important;
+    transition: color .2s ease, background-color .2s ease !important;
 }
 
-.popup .fancy-btn{
-    margin: 20px auto;
+.popup-btn:hover {
+    background-color: #fff !important;
+    color: #ea7851 !important;
 }

@@ -1,4 +1,7 @@
-#answers ul{
+/* --------------------------- */
+/* ----- answers container ----- */
+/* --------------------------- */
+#answers ul {
     list-style-type: none;
     padding: 0;
     margin-top: 50px;
@@ -9,7 +12,8 @@
 
 #answers li {
     background-color: #fff;
-    border: 2px solid #0094da;
+    border: 2px solid #2F409D;
+    border-radius: 2px;
     min-height: 70px;
     width: 48%;
     display: flex;
@@ -19,7 +23,7 @@
 }
 
 #answers li span {
-    background-color: #0084da;
+    background-color: #2F409D;
     color: #fff;
     font-size: 30px;
     flex: 75px;
@@ -38,7 +42,7 @@
     transition: color .3s ease;
 }
 
-#answers li:after{
+#answers li:after { 
     display: block;
 }
 
