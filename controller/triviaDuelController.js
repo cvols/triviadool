@@ -45,7 +45,7 @@ const userFunctions = {
         }
       })
       .findOne({
-        gamescores: gameData
+        gamescores: "gamescores"
       }, function(error, found) {
         if (error) {
           console.log(error)

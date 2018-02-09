@@ -28,6 +28,7 @@ export default class PracticeDuel extends React.Component {
         this.handleShowButton = this.handleShowButton.bind(this)
         this.handleStartQuiz = this.handleStartQuiz.bind(this)
         this.handleIncreaseScore = this.handleIncreaseScore.bind(this)
+        this.handleSaveScore = this.handleSaveScore.bind(this)
     }
 
     componentWillMount() {
@@ -70,7 +71,7 @@ export default class PracticeDuel extends React.Component {
         const gameData = {
             category: this.state.category,
             score: this.state.score,
-            total: this.data.length
+            total: data.data.length
         }
 
         API.findUser(id, gameData)
