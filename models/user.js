@@ -10,8 +10,6 @@ const userSchema = new Schema({
   token: String,
   date: { type: Date, default: Date.now },
   games: {
-    gameNumber: Number,
-    date: { type: Date, default: Date.now },
     category: String,
     score: Number,
     total: Number

@@ -24,7 +24,7 @@ export default class PracticeDuel extends React.Component {
             total: 0
         }
         this.nextQuestion = this.nextQuestion.bind(this)
-        this.handleShowButton = this.handleShowButton.bind(this)
+        this.handleClickButton = this.handleClickButton.bind(this)
         this.handleStartQuiz = this.handleStartQuiz.bind(this)
         this.handleIncreaseScore = this.handleIncreaseScore.bind(this)
         this.handleSaveScore = this.handleSaveScore.bind(this)
@@ -54,10 +54,8 @@ export default class PracticeDuel extends React.Component {
     handleSaveScore() {
         const data = JSON.parse(sessionStorage.getItem('userData'))
         const id = data.data.provider_id
-        const randomNumber = Math.floor((Math.random() * 3500) + 1)
 
         const gameData = {
-            gameNumber: randomNumber,
             category: this.state.category,
             score: this.state.score,
             total: this.state.total
@@ -95,7 +93,7 @@ export default class PracticeDuel extends React.Component {
         }
     }
 
-    handleShowButton() {
+    handleClickButton() {
         this.setState({
             questionAnswered: true
         })
@@ -121,7 +119,7 @@ export default class PracticeDuel extends React.Component {
             return (<Redirect to={'/'} />)
         }
 
-        let { nr, question, answers, correct, questionAnswered, showButton, displayPopup, gameOver, total, score, category } = this.state
+        let { nr, question, answers, correct, questionAnswered, displayPopup, gameOver, total, score, category } = this.state
 
         return (
             <div className="container" style={{ marginTop: 200 }}>
@@ -145,7 +143,7 @@ export default class PracticeDuel extends React.Component {
                             isAnswered={questionAnswered}
                             increaseScore={this.handleIncreaseScore}
                             nextQuestion={this.nextQuestion}
-                            showButton={this.handleShowButton}
+                            clickButton={this.handleClickButton}
                         />
                     </Col>
                 </div>
