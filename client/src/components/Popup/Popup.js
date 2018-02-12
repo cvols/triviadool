@@ -12,33 +12,45 @@ export default class Popup extends React.Component {
             title: 'TriviaDuel',
             text: 'Practice Duel',
             buttonText: 'Start now',
-            id: '',
-            score: 0
+            id: ''
         }
 
         this.popupHandle = this.popupHandle.bind(this)
     }
 
-    componentWillReceiveProps(nextProps) {
-        this.setState({
-            score: this.props.score
-        })
-    }
 
     popupHandle() {
         let { time } = this.state
-        let { score, total } = this.props
+        // let { score, total } = this.props
 
         if (time === 'start') {
             this.setState({
                 time: 'end',
                 title: 'Congratulations',
-                buttonText: 'Return to the home screen',
-                text: 'You got ' + this.state.score + ' out of ' + total + ' questions right'
+                buttonText: 'Return to the home screen'
+                
             })
             this.props.startQuiz()
         }
     }
+
+    componentWillReceiveProps(nextProps) {
+        if(this.props.total === 0)
+        this.setState({
+            // score: this.props.score,
+            text: 'Practice Duel'
+        })
+        else{
+            this.setState({
+                // score: this.props.score,
+                text: 'You got ' + this.props.score + ' out of ' + this.props.total + ' questions right'
+            })
+
+        }
+        console.log("receivescore=" + this.props.score)
+    }
+  
+
 
     render() {
         let { title, text, buttonText } = this.state
@@ -60,9 +72,11 @@ export default class Popup extends React.Component {
                                 {buttonText}
                             </Button>
                             :
+                            
                             <button
                                 className="popup-btn"
-                                onClick={this.popupHandle}
+                                onClick={this.popupHandle} 
+                                
                             >
                                 {buttonText}
                             </button>}
