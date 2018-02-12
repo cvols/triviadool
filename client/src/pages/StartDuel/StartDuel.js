@@ -1,7 +1,9 @@
 import React from 'react'
+import "./StartDuel.css"
 import PropTypes from 'prop-types'
 import { withStyles } from 'material-ui/styles'
 import API from "../../utils/API"
+import Col from '../../components/Col'
 
 const styles = theme => ({
     container: {
@@ -28,6 +30,14 @@ class TextFields extends React.Component {
             questions: [],
             quizId: ''
         }
+    }
+
+    componentWillMount() {
+        document.body.style.backgroundColor = "#fff"
+    }
+
+    coponentWillUnmount() {
+        document.body.style.backgroundColor = null
     }
 
     // setState for DuelName
@@ -93,7 +103,7 @@ class TextFields extends React.Component {
     // update quiz API call
     updateQuiz = () => {
         const quizId = this.state.quizId
-       
+
         this.state.questions.forEach(question => {
             API.updateQuiz((quizId), {
                 questions: [{
@@ -126,67 +136,54 @@ class TextFields extends React.Component {
     render() {
         return (
             <div>
-                <h1>Play Now</h1>
-                <div className="nav-wrapper">
-                    <form>
-                        <div className="input-field">
-                            <input
-                                id="duelName"
-                                type="search"
-                                required
-                                onChange={this.handleDuelNameChange}
-                                value={this.state.duelName}
-                                name="duelName"
-                                placeholder="Duel Name"
-                            />
-                            <input
-                                id="topic"
-                                type="search"
-                                required
-                                onChange={this.handleTopicChange}
-                                value={this.state.topic}
-                                name="topic"
-                                placeholder="topic"
-                            />
-                            <label
-                                className="label-icon"
-                                htmlFor="topic">
-                                <i className="material-icons">search</i>
-                            </label>
-                            <i className="material-icons">close</i>
-                            <input
-                                id="limit"
-                                type="number"
-                                required
-                                onChange={this.handleLimitChange}
-                                value={this.state.limit}
-                                name="limit"
-                                placeholder="limit"
-                            />
-                            <label
-                                className="label-icon"
-                                htmlFor="topic">
-                                <i className="material-icons">search</i>
-                            </label>
-                            <i className="material-icons">close</i>
-                        </div>
-                    </form>
-                </div>
-                <div className="center">
-                    <button
-                        className="btn waves-effect waves-light"
-                        onClick={this.handleFormSubmit}
-                        type="submit"
-                        name="action">
-                        Search
-                    <i
-                            className="material-icons right">
-                            send
-                    </i>
-                    </button>
+                <h1 className="center">Create a Duel</h1>
+                <div className="container">
+                    <div className="row">
+                        <Col s={6} offset="s3" >
+                            <form className="custom-form">
+                                <input
+                                    id="duelName"
+                                    type="search"
+                                    name="duelName"
+                                    className="twitter"
+                                    placeholder="Duel Name"
+                                    onChange={this.handleDuelNameChange}
+                                    value={this.state.duelName}
+                                />
+                                <input
+                                    id="topic"
+                                    type="search"
+                                    name="topic"
+                                    className="twitter"
+                                    placeholder="Topic"
+                                    onChange={this.handleTopicChange}
+                                    value={this.state.topic}
+                                />
+                                <input
+                                    id="limit"
+                                    type="search"
+                                    name="limit"
+                                    className="twitter"
+                                    placeholder="Limit"
+                                    onChange={this.handleLimitChange}
+                                    value={this.state.limit}
+                                />
+                                <div className="center custom-center">
+                                    <button
+                                        className="btn waves-effect waves-light"
+                                        onClick={this.handleFormSubmit}
+                                        type="submit"
+                                        name="action"
+                                    >
+                                        Search
+                                    <i className="material-icons right">send</i>
+                                    </button>
+                                </div>
+                            </form>
+                        </Col>
+                    </div>
                 </div>
             </div>
-
         )
     }
 }

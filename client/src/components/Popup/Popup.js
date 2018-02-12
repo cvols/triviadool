@@ -1,6 +1,5 @@
 import React from 'react'
 import './Popup.css'
-import Col from '../Col'
 import { Link } from 'react-router-dom'
 import Button from 'material-ui/Button'
 
@@ -20,14 +19,20 @@ export default class Popup extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        this.setState({
-            score: this.props.score
-        })
+        if (this.props.total === 0)
+            this.setState({
+                text: 'Practice Duel'
+            })
+        else {
+            this.setState({
+                text: 'You got ' + this.props.score + ' out of ' + this.props.total + ' questions right'
+            })
+        }
     }
 
     popupHandle() {
         let { time } = this.state
-        let { score, total } = this.props
+        let { total } = this.props
 
         if (time === 'start') {
             this.setState({
