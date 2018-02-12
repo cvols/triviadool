@@ -1,6 +1,5 @@
 import React from 'react'
 import './Popup.css'
-import Col from '../Col'
 import { Link } from 'react-router-dom'
 import Button from 'material-ui/Button'
 
@@ -17,7 +16,6 @@ export default class Popup extends React.Component {
 
         this.popupHandle = this.popupHandle.bind(this)
     }
-
 
     popupHandle() {
         let { time } = this.state
