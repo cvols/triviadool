@@ -22,12 +22,15 @@ export default class PracticeDuel extends React.Component {
             category: '',
             score: 0,
             total: 0
+            
+            
         }
         this.nextQuestion = this.nextQuestion.bind(this)
         this.handleClickButton = this.handleClickButton.bind(this)
         this.handleStartQuiz = this.handleStartQuiz.bind(this)
         this.handleIncreaseScore = this.handleIncreaseScore.bind(this)
         this.handleSaveScore = this.handleSaveScore.bind(this)
+        
     }
 
     componentWillMount() {
@@ -51,6 +54,13 @@ export default class PracticeDuel extends React.Component {
                     total: res.data.length,
                     category: res.data[0].category.name,
                     nr: this.state.nr + 1
+                
+                    
+
+                    
+
+                    
+                    
                 })
             })
             .catch(err => console.log(err))
@@ -65,10 +75,13 @@ export default class PracticeDuel extends React.Component {
             score: this.state.score,
             total: this.state.total
         }
+        console.log("what is this?" + gameData.score)
+        
 
         API.saveScore(id, gameData)
             .then(res => {
                 console.log('res ', res)
+
             })
             .catch(err => console.log(err))
     }
@@ -83,7 +96,7 @@ export default class PracticeDuel extends React.Component {
     }
 
     nextQuestion() {
-        let { nr, total } = this.state
+        let { nr, total } = this.state;
 
         if (nr === total) {
             this.setState({
@@ -93,7 +106,8 @@ export default class PracticeDuel extends React.Component {
         } else {
             this.pushData(nr)
             this.setState({
-                questionAnswered: false
+                questionAnswered: false,
+                
             })
         }
     }
@@ -115,6 +129,8 @@ export default class PracticeDuel extends React.Component {
         this.setState({
             score: this.state.score + 1
         })
+        console.log("score=" + this.state.score);
+        
     }
 
     render() {
@@ -124,7 +140,7 @@ export default class PracticeDuel extends React.Component {
             return (<Redirect to={'/'} />)
         }
 
-        let { nr, question, answers, correct, questionAnswered, displayPopup, gameOver, total, score, category } = this.state
+        let { nr, question, answers, correct, questionAnswered, displayPopup, gameOver, total, score, category} = this.state
 
         return (
             <div className="container">

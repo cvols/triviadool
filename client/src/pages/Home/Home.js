@@ -11,6 +11,7 @@ import { Link } from 'react-router-dom'
 import create from './Images/create.png'
 import find from './Images/find.png'
 import duel from './Images/duel.png'
+import Stats from '../../components/Stats'
 
 const styles = theme => ({
     card: {
@@ -163,6 +164,7 @@ class Profile extends React.Component {
         return (
             <div className="container" id="home-container">
                 <div className="row">
+                
                     <Col l={4}>
                         <Card className={classes.card}>
                             <CardMedia
@@ -183,6 +185,7 @@ class Profile extends React.Component {
                             </CardContent>
                         </Card>
                     </Col>
+                    <Stats/>
                 </div>
                 <div className="row custom-row">
                     <div className={classes.root}>

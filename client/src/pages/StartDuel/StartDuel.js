@@ -182,7 +182,6 @@ class TextFields extends React.Component {
                             </form>
                         </Col>
                     </div>
-                </div>
             </div>
         )
     }
