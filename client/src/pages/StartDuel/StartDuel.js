@@ -139,6 +139,46 @@ class TextFields extends React.Component {
                                 name="duelName"
                                 placeholder="Duel Name"
                             />
+
+
+{/* <SelectField value={this.state.topic} onChange={this.handleTopicChange} openImmediately={true}>
+                                <MenuItem value={1} primaryText="Basketball " />
+                                <MenuItem value={2} primaryText="Animated Movies" />
+                                <MenuItem value={3} primaryText="Baseball" />
+                                <MenuItem value={4} primaryText="Action Movies" />
+                                <MenuItem value={5} primaryText="Bible" />
+                                <MenuItem value={6} primaryText="Canada" />
+                                <MenuItem value={7} primaryText="Biology" />
+                                <MenuItem value={8} primaryText="Football" />
+                                <MenuItem value={9} primaryText="Greek Mythology" />
+                                <MenuItem value={10} primaryText="Movie Quotes" />
+                                <MenuItem value={11} primaryText="Hip Hop Music" />
+                                <MenuItem value={12} primaryText="Literature" />
+                                <MenuItem value={13} primaryText="Music Quiz 1970s" />
+                                <MenuItem value={14} primaryText="Music Quiz Pre 1960s" />
+                                <MenuItem value={15} primaryText="Number Ones" />
+                                <MenuItem value={16} primaryText="Movie Trivia" />
+                                <MenuItem value={17} primaryText="Physics" />
+                                <MenuItem value={18} primaryText="Rock Music" />
+                                <MenuItem value={19} primaryText="Science" />
+                                <MenuItem value={20} primaryText="TV Commercial" />
+                                <MenuItem value={21} primaryText="Sports" />
+                                <MenuItem value={22} primaryText="TV Trivia Cartoons" />
+                                <MenuItem value={23} primaryText="Random Trivia" />
+                                <MenuItem value={24} primaryText="TV Trivia" />
+                                <MenuItem value={25} primaryText="US Civil War" />
+                                <MenuItem value={26} primaryText="TV Trivia 90s" />
+                                <MenuItem value={27} primaryText="Vocabulary - I" />
+                                <MenuItem value={28} primaryText="Who Sings It (Country)" />
+                                <MenuItem value={29} primaryText="World History" />
+                                <MenuItem value={30} primaryText="US Presidents" />
+                                <MenuItem value={31} primaryText="Vampire" />
+                                <MenuItem value={32} primaryText="Vocabulary - II" />
+                                <MenuItem value={33} primaryText="Vocabulary - III" />
+                                <MenuItem value={34} primaryText="Who Sings It (2000)" />
+                            </SelectField> */}
+                            
+
                             <input
                                 id="topic"
                                 type="search"
@@ -148,6 +188,8 @@ class TextFields extends React.Component {
                                 name="topic"
                                 placeholder="topic"
                             />
+
+
                             <label
                                 className="label-icon"
                                 htmlFor="topic">

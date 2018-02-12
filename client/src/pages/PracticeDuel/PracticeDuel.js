@@ -75,10 +75,13 @@ export default class PracticeDuel extends React.Component {
             score: this.state.score,
             total: this.state.total
         }
+        console.log("what is this?" + gameData.score)
+        
 
         API.saveScore(id, gameData)
             .then(res => {
                 console.log('res ', res)
+
             })
             .catch(err => console.log(err))
     }

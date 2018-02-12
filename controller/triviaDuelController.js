@@ -94,6 +94,14 @@ const quizFunctions = {
       .catch(err => res.status(422).json(err));
   },
 
+  findAll: function (req, res) {
+    db.Quiz
+      .find(req.query)
+      .sort({ date: -1 })
+      .then(dbModel => res.json(dbModel))
+      .catch(err => res.status(422).json(err))
+  },
+
   // find by id and update quiz with questions in database -- StartDuel --
   update: function (req, res) {
     console.log('req.params.id ', req.params.id)
@@ -137,6 +145,8 @@ router.patch('/api/updatequiz/:id', quizFunctions.update)
 
 // route to save questions into database
 router.post('/api/questions', questionFunctions.create)
+
+router.get('api/getquiz', questionFunctions.findAll)
 
 // if no API routes are hit, send the React app
 router.use(function (req, res) {
