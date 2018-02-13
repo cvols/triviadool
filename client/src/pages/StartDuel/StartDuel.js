@@ -227,7 +227,7 @@ class TextFields extends React.Component {
                                         component={Link}
                                         to="/duelFind"
                                     >
-                                        Find a Duel
+                                        Find Duel
                                     </Button>
                                 </div>
                             </div>
