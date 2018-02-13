@@ -22,7 +22,13 @@ const quizSchema = new Schema({
     question: String,
     updatedAt: String,
     date: { type: Date, default: Date.now } // for triviaduel
-  }]
+  }],
+  players: {
+    provider_id: String,
+    name: String,
+    score: Number,
+    total: Number
+  }
 })
 
 const Quiz = mongoose.model("Quiz", quizSchema)

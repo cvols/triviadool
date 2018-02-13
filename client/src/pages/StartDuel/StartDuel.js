@@ -66,7 +66,8 @@ class TextFields extends React.Component {
         event.preventDefault()
 
         API.createQuiz({
-            quizName: this.state.duelName
+            quizName: this.state.duelName,
+            players: {}
         })
             .then(res => {
                 this.setState({
@@ -217,7 +218,7 @@ class TextFields extends React.Component {
                         </Col>
                     </div>
                     <div className="row">
-                        <Col s={6} offset="s3" >
+                        <Col s={6} offset="s3">
                             <div className="custom-form">
                                 <p className="flow-text">Quiz Id:</p>
                                 <p className="flow-text">{this.state.quizId}</p>

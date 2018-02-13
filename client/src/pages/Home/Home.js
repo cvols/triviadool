@@ -130,7 +130,7 @@ class Profile extends React.Component {
     }
 
     componentWillMount() {
-        document.body.style.backgroundColor = "#2F409D"
+        document.body.style.backgroundColor = "#eee"
 
         if (sessionStorage.getItem('userData')) {
             console.log('i am in the db')

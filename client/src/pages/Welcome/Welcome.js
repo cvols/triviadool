@@ -22,6 +22,7 @@ export default class Welcome extends Component {
             provider_pic: ""
         }
     }
+    
     componentWillMount() {
         document.body.style.backgroundColor = "#2F409D"
     }
