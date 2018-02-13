@@ -1,3 +1,33 @@
-.brand-logo {
-    font-family: 'Indie Flower'
+
+    nav {
+        background-image: url("white_paperboard.png");
+    
+    }
+
+nav .brand-logo {
+    
+    font-family: 'Audiowide', Verdana, Tahoma, sans-serif;
+    color: #FF6F00;
+    font-size: 3.1rem;
+}
+
+@media only screen and (max-width: 750px) {
+    nav .brand-logo {
+
+        font-size: 2rem
+    }
+}
+
+@media only screen and (max-width: 405px) {
+    nav .brand-logo {
+        font-size: 1rem
+    }
+    nav .brand-logo.center {
+        left: 45%;
+    }
+    nav .nav-wrapper {
+        position: relative;
+        height: 100%;
+        width: 110%;
+    }
 }
