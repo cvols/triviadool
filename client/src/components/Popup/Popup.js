@@ -70,7 +70,6 @@ export default class Popup extends React.Component {
                                 {buttonText}
                             </Button>
                             :
-                            
                             <button
                                 className="popup-btn"
                                 onClick={this.popupHandle} 

@@ -4,6 +4,11 @@ import PropTypes from 'prop-types'
 import { withStyles } from 'material-ui/styles'
 import API from "../../utils/API"
 import Col from '../../components/Col'
+// import SelectField from '../../components/SelectField'
+import Select from 'material-ui/Select'
+import { MenuItem } from 'material-ui/Menu'
+import Button from 'material-ui/Button'
+import { Link } from 'react-router-dom'
 
 const styles = theme => ({
     container: {
@@ -25,7 +30,6 @@ class TextFields extends React.Component {
         super(props)
         this.state = {
             topic: '',
-            limit: '',
             duelName: '',
             questions: [],
             quizId: ''
@@ -54,13 +58,6 @@ class TextFields extends React.Component {
         })
     }
 
-    // setState for question limit
-    handleLimitChange = event => {
-        this.setState({
-            limit: event.target.value
-        })
-    }
-
     // create quiz API call
     // grab topic from state and send to API
     // when API finishes setState with mongoDB _id
@@ -75,24 +72,25 @@ class TextFields extends React.Component {
                 this.setState({
                     quizId: res.data._id
                 })
+                sessionStorage.setItem('quizId', res.data._id)
                 console.log('create quiz ', this.state.quizId)
+                console.log('session storage: ', sessionStorage.getItem('quizId'))
                 this.searchQuestions()
             })
             .catch(err => console.log(err))
     }
 
     // search quiz API call
-    // grab topic and limit from state and send to API
-    // when API finishes setState with questions object and clear topic and limit
+    // grab topic from state and send to API
+    // when API finishes setState with questions object and clear topic and duelName
     // call updateQuiz()
     searchQuestions = () => {
-        API.searchQuizQuestions(this.state.topic, this.state.limit)
+        API.searchQuizQuestions(this.state.topic)
             .then(res => {
                 console.log('these are the questions returned ', res.data)
                 this.setState({
                     questions: res.data,
                     topic: '',
-                    limit: '',
                     duelName: ''
                 })
                 this.updateQuiz()
@@ -128,6 +126,7 @@ class TextFields extends React.Component {
             })
                 .then(res => {
                     console.log('res: ', res)
+
                 })
                 .catch(err => console.log(err))
         })
@@ -141,47 +140,100 @@ class TextFields extends React.Component {
                     <div className="row">
                         <Col s={6} offset="s3" >
                             <form className="custom-form">
+                                <p className="flow-text">Duel Name: </p>
                                 <input
                                     id="duelName"
                                     type="search"
                                     name="duelName"
                                     className="twitter"
-                                    placeholder="Duel Name"
+                                    placeholder="Rutgers Bootcamp"
                                     onChange={this.handleDuelNameChange}
                                     value={this.state.duelName}
                                 />
+                                <p className="flow-text">Topic: </p>
+                                <Select
+                                    value={this.state.topic}
+                                    onChange={this.handleTopicChange}
+                                    className="twitter category"
+                                >
+                                    <MenuItem value=''><em>Choose your category</em></MenuItem>
+                                    <MenuItem value={1}>Basketball</MenuItem>
+                                    <MenuItem value={2}>Animated Movies</MenuItem>
+                                    <MenuItem value={3}>Baseball</MenuItem>
+                                    <MenuItem value={4}>Action Movies</MenuItem>
+                                    <MenuItem value={5}>Chemistry</MenuItem>
+                                    <MenuItem value={6}>Bible</MenuItem>
+                                    <MenuItem value={7}>Canada</MenuItem>
+                                    <MenuItem value={8}>Biology</MenuItem>
+                                    <MenuItem value={9}>Football</MenuItem>
+                                    <MenuItem value={10}>Greek Mythology</MenuItem>
+                                    <MenuItem value={11}>Movie Quotes</MenuItem>
+                                    <MenuItem value={12}>Hip Hop Music</MenuItem>
+                                    <MenuItem value={13}>Literature</MenuItem>
+                                    <MenuItem value={14}>Music Quiz 1970s</MenuItem>
+                                    <MenuItem value={15}>Music Quiz Pre 1960s</MenuItem>
+                                    <MenuItem value={16}>Number Ones</MenuItem>
+                                    <MenuItem value={17}>Movie Trivia</MenuItem>
+                                    <MenuItem value={18}>Physics</MenuItem>
+                                    <MenuItem value={19}>Rock Music</MenuItem>
+                                    <MenuItem value={20}>Science</MenuItem>
+                                    <MenuItem value={21}>TV Commercial</MenuItem>
+                                    <MenuItem value={22}>Sports</MenuItem>
+                                    <MenuItem value={23}>TV Trivia Cartoons</MenuItem>
+                                    <MenuItem value={24}>Random Trivia</MenuItem>
+                                    <MenuItem value={25}>TV Trivia</MenuItem>
+                                    <MenuItem value={26}>US Civil War</MenuItem>
+                                    <MenuItem value={27}>TV Trivia 90s</MenuItem>
+                                    <MenuItem value={28}>Vocabulary - I</MenuItem>
+                                    <MenuItem value={29}>Who Sings It (Country)</MenuItem>
+                                    <MenuItem value={30}>World History</MenuItem>
+                                    <MenuItem value={31}>US Presidents</MenuItem>
+                                    <MenuItem value={32}>Vampire</MenuItem>
+                                    <MenuItem value={33}>Vocabulary - II</MenuItem>
+                                    <MenuItem value={34}>Vocabulary - III</MenuItem>
+                                    <MenuItem value={35}>Who Sings It (2000)</MenuItem>
+                                </Select>
                                 <input
                                     id="topic"
                                     type="search"
                                     name="topic"
-                                    className="twitter"
-                                    placeholder="Topic"
+                                    className="twitter-disabled"
+                                    placeholder="Sports"
                                     onChange={this.handleTopicChange}
                                     value={this.state.topic}
-                                />
-                                <input
-                                    id="limit"
-                                    type="search"
-                                    name="limit"
-                                    className="twitter"
-                                    placeholder="Limit"
-                                    onChange={this.handleLimitChange}
-                                    value={this.state.limit}
+                                    disabled
                                 />
                                 <div className="center custom-center">
                                     <button
-                                        className="btn waves-effect waves-light"
+                                        className="popup-btn"
                                         onClick={this.handleFormSubmit}
                                         type="submit"
                                         name="action"
                                     >
-                                        Search
-                                    <i className="material-icons right">send</i>
+                                        Get Quiz Id
                                     </button>
                                 </div>
                             </form>
                         </Col>
                     </div>
+                    <div className="row">
+                        <Col s={6} offset="s3" >
+                            <div className="custom-form">
+                                <p className="flow-text">Quiz Id:</p>
+                                <p className="flow-text">{this.state.quizId}</p>
+                                <div className="center">
+                                    <Button
+                                        className="popup-btn"
+                                        component={Link}
+                                        to="/duelFind"
+                                    >
+                                        Find a Duel
+                                    </Button>
+                                </div>
+                            </div>
+                        </Col>
+                    </div>
+                </div>
             </div>
         )
     }

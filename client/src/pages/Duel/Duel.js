@@ -1,5 +1,4 @@
 import React from 'react'
-import './PracticeDuel.css'
 import API from '../../utils/API'
 import { Redirect } from 'react-router-dom'
 import Popup from '../../components/Popup'
@@ -35,28 +34,10 @@ export default class PracticeDuel extends React.Component {
 
     componentWillMount() {
         document.body.style.backgroundColor = "#eee"
-        this.getRandomQuestions()
     }
 
     coponentWillUnmount() {
         document.body.style.backgroundColor = null
-    }
-
-    getRandomQuestions = () => {
-        API.getRandomQuestions()
-            .then(res => {
-                let { nr } = this.state
-                this.setState({
-                    questions: res.data,
-                    question: res.data[nr].question,
-                    answers: [res.data[nr].option1, res.data[nr].option2, res.data[nr].option3, res.data[nr].option4],
-                    correct: res.data[nr].answers,
-                    total: res.data.length,
-                    category: res.data[0].category.name,
-                    nr: this.state.nr + 1
-                })
-            })
-            .catch(err => console.log(err))
     }
 
     handleSaveScore() {
@@ -135,6 +116,8 @@ export default class PracticeDuel extends React.Component {
 
         let { nr, question, answers, correct, questionAnswered, displayPopup, gameOver, total, score, category } = this.state
 
+        let { quizData } = this.props
+
         return (
             <div className="container">
                 <div className="row">
@@ -149,6 +132,7 @@ export default class PracticeDuel extends React.Component {
                         />
                         <div id="question">
                             <div id="question-header">
+                                <h5>Quiz Name: </h5>
                                 <h5>Category: {category}</h5>
                                 <h5>Question: {nr} of {total}</h5>
                             </div>
