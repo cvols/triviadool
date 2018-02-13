@@ -30,11 +30,8 @@ const userFunctions = {
 
   // find by user id and update scoreData in database -- PracticeDuel --
   save: function (req, res) {
-    console.log('req.params.id ', req.params.id)
-    console.log('req.body ', req.body)
-
     db.User
-      .update( { provider_id: req.params.id }, { $push: { games: req.body }})
+      .update({ provider_id: req.params.id }, { $push: { games: req.body } })
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err))
   },
@@ -89,7 +86,7 @@ const quizFunctions = {
   // find quiz by id in database
   findById: function (req, res) {
     db.Quiz
-      .findById({ _id: req.params.id})
+      .findById({ _id: req.params.id })
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
@@ -107,9 +104,19 @@ const quizFunctions = {
     console.log('req.params.id ', req.params.id)
     console.log('req.body ', req.body)
     db.Quiz
-    .update( { _id: req.params.id }, { $push: req.body })
+      .update({ _id: req.params.id }, { $push: req.body })
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
+  },
+
+  // find by quiz id and update playerData in database -- Duel --
+  save: function (req, res) {
+    console.log(req.params.id)
+    console.log(req.body)
+    db.Quiz
+      .update({ _id: req.params.id }, { $push: { players: req.body } })
+      .then(dbModel => res.json(dbModel))
+      .catch(err => res.status(422).json(err))
   },
 
   // delete quiz in database
@@ -147,6 +154,9 @@ router.patch('/api/updatequiz/:id', quizFunctions.update)
 router.post('/api/questions', questionFunctions.create)
 
 router.get('api/getquiz', questionFunctions.findAll)
+
+// route to save player answers by quiz id
+router.patch('/api/savequiz/:id', quizFunctions.save)
 
 // if no API routes are hit, send the React app
 router.use(function (req, res) {

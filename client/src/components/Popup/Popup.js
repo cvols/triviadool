@@ -9,7 +9,7 @@ export default class Popup extends React.Component {
         this.state = {
             time: 'start',
             title: 'TriviaDuel',
-            text: 'Practice Duel',
+            text: 'Duel',
             buttonText: 'Start now',
             id: ''
         }
@@ -36,7 +36,7 @@ export default class Popup extends React.Component {
         if(this.props.total === 0)
         this.setState({
             // score: this.props.score,
-            text: 'Practice Duel'
+            text: 'Duel'
         })
         else{
             this.setState({
@@ -45,7 +45,7 @@ export default class Popup extends React.Component {
             })
 
         }
-        console.log("receivescore=" + this.props.score)
+        console.log("receivescore= " + this.props.score)
     }
   
 

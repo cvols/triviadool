@@ -20,9 +20,8 @@ export default class PracticeDuel extends React.Component {
             provider_id: '',
             category: '',
             score: 0,
-            total: 0
-
-
+            total: 0,
+            quizName: ''
         }
         this.nextQuestion = this.nextQuestion.bind(this)
         this.handleClickButton = this.handleClickButton.bind(this)
@@ -34,6 +33,17 @@ export default class PracticeDuel extends React.Component {
 
     componentWillMount() {
         document.body.style.backgroundColor = "#eee"
+        const questions = JSON.parse(sessionStorage.getItem('quizData'))
+        const quizName = JSON.parse(sessionStorage.getItem('quizName'))
+        this.setState({
+            questions: questions,
+            total: questions.length,
+            category: questions[0][0].category.name,
+            quizName: quizName,
+            question: questions[0][0].question,
+            answers: [questions[0][0].option1, questions[0][0].option2, questions[0][0].option3, questions[0][0].option4],
+            correct: questions[0][0].answers
+        })
     }
 
     coponentWillUnmount() {
@@ -42,35 +52,50 @@ export default class PracticeDuel extends React.Component {
 
     handleSaveScore() {
         const data = JSON.parse(sessionStorage.getItem('userData'))
-        const id = data.data.provider_id
+        const userId = data.data.provider_id
+
+        const quizId = JSON.parse(sessionStorage.getItem('quizId'))
+        const name = data.data.name
 
         const gameData = {
             category: this.state.category,
             score: this.state.score,
             total: this.state.total
         }
+
+        const playerData = {
+            provider_id: userId,
+            name: name,
+            score: this.state.score,
+            total: this.state.total
+        }
+
         console.log("what is this?" + gameData.score)
 
 
-        API.saveScore(id, gameData)
+        API.saveScore(userId, gameData)
             .then(res => {
                 console.log('res ', res)
-
             })
             .catch(err => console.log(err))
+
+        API.saveQuiz(quizId, playerData)
+            .then(res => {
+                console.log('quiz res: ', res)
+            })
     }
 
     pushData(nr) {
         this.setState({
-            question: this.state.questions[nr].question,
-            answers: [this.state.questions[nr].option1, this.state.questions[nr].option2, this.state.questions[nr].option3, this.state.questions[nr].option4],
-            correct: this.state.questions[nr].answers,
+            question: this.state.questions[nr][0].question,
+            answers: [this.state.questions[nr][0].option1, this.state.questions[nr][0].option2, this.state.questions[nr][0].option3, this.state.questions[nr][0].option4],
+            correct: this.state.questions[nr][0].answers,
             nr: this.state.nr + 1
         })
     }
 
     nextQuestion() {
-        let { nr, total } = this.state;
+        let { nr, total } = this.state
 
         if (nr === total) {
             this.setState({
@@ -97,6 +122,9 @@ export default class PracticeDuel extends React.Component {
             displayPopup: 'none',
             nr: 1
         })
+        console.log(this.state.questions[19][0].question)
+        console.log(this.state.questions[19][0].answers)
+        console.log(this.state.questions[19][0].option1)
     }
 
     handleIncreaseScore() {
@@ -114,9 +142,7 @@ export default class PracticeDuel extends React.Component {
             return (<Redirect to={'/'} />)
         }
 
-        let { nr, question, answers, correct, questionAnswered, displayPopup, gameOver, total, score, category } = this.state
-
-        let { quizData } = this.props
+        let { nr, question, answers, correct, questionAnswered, displayPopup, gameOver, total, score, category, quizName } = this.state
 
         return (
             <div className="container">
@@ -132,7 +158,7 @@ export default class PracticeDuel extends React.Component {
                         />
                         <div id="question">
                             <div id="question-header">
-                                <h5>Quiz Name: </h5>
+                                <h5>Quiz Name: {quizName}</h5>
                                 <h5>Category: {category}</h5>
                                 <h5>Question: {nr} of {total}</h5>
                             </div>

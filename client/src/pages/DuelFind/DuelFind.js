@@ -8,7 +8,9 @@ export default class DuelFind extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            quizId: ''
+            quizId: '',
+            quizName: '',
+            questions: []
         }
     }
 
@@ -17,13 +19,9 @@ export default class DuelFind extends React.Component {
     }
 
     componentDidMount() {
-        if (sessionStorage.getItem('quizId')) {
-            this.setState({
-                quizId: sessionStorage.getItem('quizId')
-            }) 
-        }
-
-        console.log('this.state.quizId: ', this.state.quizId)
+        sessionStorage.removeItem('quizId')
+        sessionStorage.removeItem('quizData')
+        sessionStorage.removeItem('quizName')
     }
 
     coponentWillUnmount() {
@@ -36,11 +34,18 @@ export default class DuelFind extends React.Component {
         })
     }
 
-    searchQuiz() {
+    handleFormSubmit = event => {
+        event.preventDefault()
+
         API.findQuiz(this.state.quizId)
             .then(res => {
-                console.log('quizData: ', res.data)
-                sessionStorage.setItem('quizData', res.data)
+                console.log('quizData: ', res.data.questions)
+                this.setState({
+                    quizName: res.data.quizName
+                })
+                sessionStorage.setItem('quizData', JSON.stringify(res.data.questions))
+                sessionStorage.setItem('quizName', JSON.stringify(res.data.quizName))
+                sessionStorage.setItem('quizId', JSON.stringify(this.state.quizId))
             })
             .catch(err => console.log(err))
     }
@@ -53,7 +58,7 @@ export default class DuelFind extends React.Component {
                     <div className="row">
                         <Col s={6} offset="s3" >
                             <form className="custom-form">
-                                <p className="flow-text">Duel Name: </p>
+                                <p className="flow-text">Quiz Id: </p>
                                 <input
                                     id="quizId"
                                     type="search"
@@ -65,14 +70,29 @@ export default class DuelFind extends React.Component {
                                 <div className="center">
                                     <Button
                                         className="popup-btn"
-                                        component={Link}
-                                        to="/duel"
-                                        onClick={this.searchQuiz}
+                                        onClick={this.handleFormSubmit}
                                     >
                                         Find Quiz
-                                     </Button>
+                                    </Button>
                                 </div>
                             </form>
+                        </Col>
+                    </div>
+                    <div className="row">
+                        <Col s={6} offset="s3" >
+                            <div className="custom-form">
+                                <p className="flow-text">Duel Name:</p>
+                                <p className="flow-text">{this.state.quizName}</p>
+                                <div className="center">
+                                    <Button
+                                        className="popup-btn"
+                                        component={Link}
+                                        to="/duel"
+                                    >
+                                        Duel
+                                    </Button>
+                                </div>
+                            </div>
                         </Col>
                     </div>
                 </div>
