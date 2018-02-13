@@ -8,13 +8,22 @@ export default class DuelFind extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            quizId: '',
-            quiz: false
+            quizId: ''
         }
     }
 
     componentWillMount() {
         document.body.style.backgroundColor = "#fff"
+    }
+
+    componentDidMount() {
+        if (sessionStorage.getItem('quizId')) {
+            this.setState({
+                quizId: sessionStorage.getItem('quizId')
+            }) 
+        }
+
+        console.log('this.state.quizId: ', this.state.quizId)
     }
 
     coponentWillUnmount() {
@@ -27,10 +36,11 @@ export default class DuelFind extends React.Component {
         })
     }
 
-    searchQuiz = () => {
-        API.findQuiz(sessionStorage.getItem('quizId'))
+    searchQuiz() {
+        API.findQuiz(this.state.quizId)
             .then(res => {
                 console.log('quizData: ', res.data)
+                sessionStorage.setItem('quizData', res.data)
             })
             .catch(err => console.log(err))
     }
@@ -50,14 +60,14 @@ export default class DuelFind extends React.Component {
                                     name="quizId"
                                     className="twitter"
                                     onChange={this.handleQuizIdChange}
-                                    value={sessionStorage.getItem('quizId')}
+                                    value={this.state.quizId}
                                 />
                                 <div className="center">
                                     <Button
                                         className="popup-btn"
                                         component={Link}
                                         to="/duel"
-                                        searchquiz={this.searchQuiz}
+                                        onClick={this.searchQuiz}
                                     >
                                         Find Quiz
                                      </Button>
