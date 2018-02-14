@@ -33,8 +33,10 @@ export default class PracticeDuel extends React.Component {
 
     componentWillMount() {
         document.body.style.backgroundColor = "#eee"
+
         const questions = JSON.parse(sessionStorage.getItem('quizData'))
         const quizName = JSON.parse(sessionStorage.getItem('quizName'))
+        
         this.setState({
             questions: questions,
             total: questions.length,
