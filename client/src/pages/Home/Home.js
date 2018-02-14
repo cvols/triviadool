@@ -12,6 +12,7 @@ import create from './Images/create.png'
 import find from './Images/find.png'
 import duel from './Images/duel.png'
 import Stats from '../../components/Stats'
+import Navbar from "../../components/Navbar"
 
 const styles = theme => ({
     card: {
@@ -162,64 +163,66 @@ class Profile extends React.Component {
         const { classes } = this.props
 
         return (
-            <div className="container" id="home-container">
-                <div className="row">
-                
-                    <Col l={4}>
-                        <Card className={classes.card}>
-                            <CardMedia
-                                className={classes.media}
-                                image={this.state.picture}
-                                title="Profile"
-                            />
-                            <CardContent className={classes.cardcontent}>
-                                <Typography type="headline" component="h2">
-                                    {this.state.name}
-                                </Typography>
-                                <Typography component="p">
-                                    Signed in through {this.state.provider}
-                                </Typography>
-                                <Typography component="p">
-                                    Email: {this.state.email}
-                                </Typography>
-                            </CardContent>
-                        </Card>
-                    </Col>
-                    <Stats/>
-                </div>
-                <div className="row custom-row">
-                    <div className={classes.root}>
-                        {images.map(image => (
-                            <ButtonBase
-                                focusRipple
-                                key={image.title}
-                                className={classes.image}
-                                style={{
-                                    width: image.width,
-                                }}
-                                component={Link}
-                                to={image.link}
-                            >
-                                <span
-                                    className={classes.imageSrc}
-                                    style={{
-                                        backgroundImage: `url(${image.url})`,
-                                    }}
+            <div>
+                <Navbar />
+                <div className="container" id="home-container">
+                    <div className="row">
+                        <Col l={4}>
+                            <Card className={classes.card}>
+                                <CardMedia
+                                    className={classes.media}
+                                    image={this.state.picture}
+                                    title="Profile"
                                 />
-                                <span className={classes.imageBackdrop} />
-                                <span className={classes.imageButton}>
-                                    <Typography
-                                        component="span"
-                                        type="subheading"
-                                        color="inherit"
-                                        className={classes.imageTitle}
-                                    >
-                                        {image.title}
-                                        <span className={classes.imageMarked} />
+                                <CardContent className={classes.cardcontent}>
+                                    <Typography type="headline" component="h2">
+                                        {this.state.name}
                                     </Typography>
-                                </span>
-                            </ButtonBase>
-                        ))}
+                                    <Typography component="p">
+                                        Signed in through {this.state.provider}
+                                    </Typography>
+                                    <Typography component="p">
+                                        Email: {this.state.email}
+                                    </Typography>
+                                </CardContent>
+                            </Card>
+                        </Col>
+                        <Stats />
+                    </div>
+                    <div className="row custom-row">
+                        <div className={classes.root}>
+                            {images.map(image => (
+                                <ButtonBase
+                                    focusRipple
+                                    key={image.title}
+                                    className={classes.image}
+                                    style={{
+                                        width: image.width,
+                                    }}
+                                    component={Link}
+                                    to={image.link}
+                                >
+                                    <span
+                                        className={classes.imageSrc}
+                                        style={{
+                                            backgroundImage: `url(${image.url})`,
+                                        }}
+                                    />
+                                    <span className={classes.imageBackdrop} />
+                                    <span className={classes.imageButton}>
+                                        <Typography
+                                            component="span"
+                                            type="subheading"
+                                            color="inherit"
+                                            className={classes.imageTitle}
+                                        >
+                                            {image.title}
+                                            <span className={classes.imageMarked} />
+                                        </Typography>
+                                    </span>
+                                </ButtonBase>
+                            ))}
+                        </div>
                     </div>
                 </div>
             </div>
