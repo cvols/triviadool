@@ -4,6 +4,7 @@ import { Redirect } from 'react-router-dom'
 import Popup from '../../components/Popup'
 import Col from '../../components/Col'
 import Answers from '../../components/Answers'
+import Navbar from "../../components/Navbar"
 
 export default class PracticeDuel extends React.Component {
     constructor(props) {
@@ -36,7 +37,7 @@ export default class PracticeDuel extends React.Component {
 
         const questions = JSON.parse(sessionStorage.getItem('quizData'))
         const quizName = JSON.parse(sessionStorage.getItem('quizName'))
-        
+
         this.setState({
             questions: questions,
             total: questions.length,
@@ -147,36 +148,39 @@ export default class PracticeDuel extends React.Component {
         let { nr, question, answers, correct, questionAnswered, displayPopup, gameOver, total, score, category, quizName } = this.state
 
         return (
-            <div className="container">
-                <div className="row">
-                    <Col s={12}>
-                        <Popup
-                            style={{ display: displayPopup }}
-                            score={score}
-                            total={total}
-                            startQuiz={this.handleStartQuiz}
-                            endQuiz={gameOver}
-                            saveScore={this.handleSaveScore}
-                        />
-                        <div id="question">
-                            <div id="question-header">
-                                <h5>Quiz Name: {quizName}</h5>
-                                <h5>Category: {category}</h5>
-                                <h5>Question: {nr} of {total}</h5>
+            <div>
+                <Navbar />
+                <div className="container">
+                    <div className="row">
+                        <Col s={12}>
+                            <Popup
+                                style={{ display: displayPopup }}
+                                score={score}
+                                total={total}
+                                startQuiz={this.handleStartQuiz}
+                                endQuiz={gameOver}
+                                saveScore={this.handleSaveScore}
+                            />
+                            <div id="question">
+                                <div id="question-header">
+                                    <h5>Quiz Name: {quizName}</h5>
+                                    <h5>Category: {category}</h5>
+                                    <h5>Question: {nr} of {total}</h5>
+                                </div>
+                                <div id="question-question">
+                                    <p>{question}</p>
+                                </div>
                             </div>
-                            <div id="question-question">
-                                <p>{question}</p>
-                            </div>
-                        </div>
-                        <Answers
-                            answers={answers}
-                            correct={correct}
-                            isAnswered={questionAnswered}
-                            increaseScore={this.handleIncreaseScore}
-                            nextQuestion={this.nextQuestion}
-                            clickButton={this.handleClickButton}
-                        />
-                    </Col>
+                            <Answers
+                                answers={answers}
+                                correct={correct}
+                                isAnswered={questionAnswered}
+                                increaseScore={this.handleIncreaseScore}
+                                nextQuestion={this.nextQuestion}
+                                clickButton={this.handleClickButton}
+                            />
+                        </Col>
+                    </div>
                 </div>
             </div>
         )

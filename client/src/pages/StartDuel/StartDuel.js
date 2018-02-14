@@ -4,11 +4,11 @@ import PropTypes from 'prop-types'
 import { withStyles } from 'material-ui/styles'
 import API from "../../utils/API"
 import Col from '../../components/Col'
-// import SelectField from '../../components/SelectField'
 import Select from 'material-ui/Select'
 import { MenuItem } from 'material-ui/Menu'
 import Button from 'material-ui/Button'
 import { Link } from 'react-router-dom'
+import Navbar from "../../components/Navbar"
 
 const styles = theme => ({
     container: {
@@ -136,6 +136,7 @@ class TextFields extends React.Component {
     render() {
         return (
             <div>
+                <Navbar />
                 <h1 className="center">Create a Duel</h1>
                 <div className="container">
                     <div className="row">
