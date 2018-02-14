@@ -10,6 +10,8 @@ import Button from 'material-ui/Button'
 import { Link } from 'react-router-dom'
 import Navbar from "../../components/Navbar"
 
+
+
 const styles = theme => ({
     container: {
         display: 'flex',
@@ -137,22 +139,22 @@ class TextFields extends React.Component {
         return (
             <div>
                 <Navbar />
-                <h1 className="center">Create a Duel</h1>
+                <h1 className="center">CREATE A DUEL</h1>
                 <div className="container">
                     <div className="row">
                         <Col s={6} offset="s3" >
                             <form className="custom-form">
-                                <p className="flow-text">Duel Name: </p>
+                                <h3 className="flow-text">Duel Name: </h3>
                                 <input
                                     id="duelName"
                                     type="search"
                                     name="duelName"
                                     className="twitter"
-                                    placeholder="Rutgers Bootcamp"
+                                    placeholder="Enter Your Quiz Name Here"
                                     onChange={this.handleDuelNameChange}
                                     value={this.state.duelName}
                                 />
-                                <p className="flow-text">Topic: </p>
+                                <h3 className="flow-text">Topic: </h3>
                                 <Select
                                     value={this.state.topic}
                                     onChange={this.handleTopicChange}
@@ -200,7 +202,7 @@ class TextFields extends React.Component {
                                     type="search"
                                     name="topic"
                                     className="twitter-disabled"
-                                    placeholder="Sports"
+                                    placeholder="Category Assigned Number"
                                     onChange={this.handleTopicChange}
                                     value={this.state.topic}
                                     disabled
@@ -222,15 +224,17 @@ class TextFields extends React.Component {
                     <div className="row">
                         <Col s={6} offset="s3">
                             <div className="custom-form">
-                                <p className="flow-text">Quiz Id:</p>
-                                <p className="flow-text">{this.state.quizId}</p>
+                                <h3 className="flow-text">Quiz Id:</h3>
+                                <h4 className="flow-text">{this.state.quizId}</h4>
                                 <div className="center">
                                     <Button
+                                    
                                         className="popup-btn"
                                         component={Link}
                                         to="/duelFind"
                                     >
                                         Find Duel
+                                        
                                     </Button>
                                 </div>
                             </div>
