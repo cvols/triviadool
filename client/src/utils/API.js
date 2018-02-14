@@ -287,11 +287,11 @@ export default {
 
   //get list of quizes in database for FindDuel table.
   getQuizList: function () {
-    return axios.get('api/getquiz')
+    return axios.get('/api/getquiz')
   },
 
   // API call to get all user data for Your Stats Page.
   userStats: function () {
-    return axios.get('api/triviaduel')
+    return axios.get('/api/triviaduel')
   }
 }

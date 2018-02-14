@@ -90,7 +90,7 @@ const quizFunctions = {
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
-
+ // find all quizes in database
   findAll: function (req, res) {
     db.Quiz
       .find(req.query)
@@ -153,7 +153,7 @@ router.patch('/api/updatequiz/:id', quizFunctions.update)
 // route to save questions into database
 router.post('/api/questions', questionFunctions.create)
 
-router.get('api/getquiz', questionFunctions.findAll)
+router.get('/api/getquiz', quizFunctions.findAll)
 
 // route to save player answers by quiz id
 router.patch('/api/savequiz/:id', quizFunctions.save)
