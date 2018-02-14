@@ -47,6 +47,8 @@ export default class DuelFind extends React.Component {
                 sessionStorage.setItem('quizData', JSON.stringify(res.data.questions))
                 sessionStorage.setItem('quizName', JSON.stringify(res.data.quizName))
                 sessionStorage.setItem('quizId', JSON.stringify(this.state.quizId))
+
+                window.location.href = "/duel"
             })
             .catch(err => console.log(err))
     }
@@ -74,27 +76,10 @@ export default class DuelFind extends React.Component {
                                         className="popup-btn"
                                         onClick={this.handleFormSubmit}
                                     >
-                                        Find Quiz
-                                    </Button>
-                                </div>
-                            </form>
-                        </Col>
-                    </div>
-                    <div className="row">
-                        <Col s={6} offset="s3" >
-                            <div className="custom-form">
-                                <p className="flow-text">Duel Name:</p>
-                                <p className="flow-text">{this.state.quizName}</p>
-                                <div className="center">
-                                    <Button
-                                        className="popup-btn"
-                                        component={Link}
-                                        to="/duel"
-                                    >
                                         Duel
                                     </Button>
                                 </div>
-                            </div>
+                            </form>
                         </Col>
                     </div>
                 </div>
