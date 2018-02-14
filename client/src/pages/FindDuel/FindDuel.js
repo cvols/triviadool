@@ -103,13 +103,15 @@ class DuelList extends React.Component {
             email: '',
             provider_id: '',
             redirect: false,
-            bottom: false
+            bottom: false,
+            list: {}
         }
     }
 
     componentWillMount() {
-        document.body.style.backgroundColor = "#eee"
         this.getQuizes();
+        document.body.style.backgroundColor = "#eee"
+        
         if (sessionStorage.getItem('userData')) {
             console.log('i am in the db')
             // get userData from session storage
@@ -150,9 +152,9 @@ class DuelList extends React.Component {
 getQuizes = () => {
     API.getQuizList()
         .then(res => {
-            console.log(res.data)
+            console.log("what is this" + res.data[4].quizName)
             this.setState({
-                // questions: res.data,
+                list: res.data
                 // question: res.data[nr].question,
                 // answers: [res.data[nr].option1, res.data[nr].option2, res.data[nr].option3, res.data[nr].option4],
                 // correct: res.data[nr].answers,
@@ -163,6 +165,7 @@ getQuizes = () => {
         })
         .catch(err => console.log(err))
 }
+
 
 render() {
     // if userData is not in session storage and redirect is set to true redirect to -- Home --
@@ -205,17 +208,22 @@ render() {
                                     <TableCell numeric>Category</TableCell>
                                 </TableRow>
                             </TableHead>
+                            {this.state.list.length ? (
                             <TableBody>
-                                {/* {data.map(n => { */}
+                                {this.state.list.map(n => {
+                                    console.log("what is this now?" + n.questions[0][0].category.name)
                                     return (
-                                        {/* <TableRow key={n.rows}>
-                                            <TableCell>{n.quizname}</TableCell>
+                                        <TableRow key={n._id}>
+                                            <TableCell>{n.quizName}</TableCell>
                                             <TableCell numeric>{n.questions.length}</TableCell>
-                                            <TableCell numeric>{n.questions.category.name}</TableCell>
-                                        </TableRow> */}
+                                            <TableCell numeric>{n.questions[0][0].category.name}</TableCell>
+                                        </TableRow>
                                     );
-                                // })}
+                                })}
                             </TableBody>
+                            ) : (
+                                <h3> No Results to Display</h3>
+                            )}
                         </Table>
                     </Paper>
                 </div>
