@@ -5,14 +5,14 @@ export default class Navbar extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            button: true
+            button: false
         }
     }
 
-    componentDidMount() {
-        if (!sessionStorage.getItem('userData')) {            
+    componentWillMount() {
+        if (sessionStorage.getItem('userData')) {            
             this.setState({
-                button: false
+                button: true
             })
         }
     }
