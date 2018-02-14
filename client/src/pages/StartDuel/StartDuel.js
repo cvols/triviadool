@@ -218,6 +218,7 @@ class TextFields extends React.Component {
                             </form>
                         </Col>
                     </div>
+                    {this.state.quizId ? 
                     <div className="row">
                         <Col s={6} offset="s3">
                             <div className="custom-form">
@@ -234,7 +235,7 @@ class TextFields extends React.Component {
                                 </div>
                             </div>
                         </Col>
-                    </div>
+                    </div> : null }
                 </div>
             </div>
         )
