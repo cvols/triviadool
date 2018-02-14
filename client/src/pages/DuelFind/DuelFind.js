@@ -62,7 +62,7 @@ export default class DuelFind extends React.Component {
                     <div className="row">
                         <Col s={6} offset="s3">
                             <form className="custom-form">
-                                <p className="flow-text">Quiz Id: </p>
+                                <h3 className="flow-text">Quiz Id: </h3>
                                 <input
                                     id="quizId"
                                     type="search"

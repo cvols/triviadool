@@ -191,7 +191,7 @@ class DuelList extends React.Component {
                     <div className="row">
                         <Col l={12}>
                             <form className="custom-form row-custom">
-                                <p className="flow-text">Quiz Id: </p>
+                                <h3 className="flow-text">Quiz Id: </h3>
                                 <input
                                     id="quizId"
                                     type="search"
@@ -225,7 +225,7 @@ class DuelList extends React.Component {
                                     {this.state.list.length ? (
                                         <TableBody>
                                             {this.state.list.map(n => {
-                                                console.log("what is this now?" + n.questions[0][0].category.name)
+                                                
                                                 return (
                                                     <TableRow key={n._id}>
                                                         <TableCell>{n.quizName}</TableCell>

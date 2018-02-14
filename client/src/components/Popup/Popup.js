@@ -59,7 +59,7 @@ export default class Popup extends React.Component {
                 <div className="container">
                     <div className="popup">
                         <h1>{title}</h1>
-                        <p className="flow-text">{text}</p>
+                        <h3 className="flow-text">{text}</h3>
                         {endQuiz ?
                             <Button
                                 className="popup-btn"
