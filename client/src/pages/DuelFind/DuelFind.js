@@ -3,6 +3,7 @@ import Col from '../../components/Col'
 import Button from 'material-ui/Button'
 import API from '../../utils/API'
 import Navbar from "../../components/Navbar"
+import { Redirect } from 'react-router-dom'
 
 export default class DuelFind extends React.Component {
     constructor(props) {
@@ -42,7 +43,6 @@ export default class DuelFind extends React.Component {
         } else {
             API.findQuiz(this.state.quizId)
                 .then(res => {
-                    console.log('quizData: ', res.data.questions)
                     this.setState({
                         quizName: res.data.quizName
                     })
@@ -57,6 +57,12 @@ export default class DuelFind extends React.Component {
     }
 
     render() {
+        // if userData is not in session storage or redirect is set to true redirect to -- Home --
+        // default redirect is set to false
+        if (!sessionStorage.getItem('userData') || this.state.redirect) {
+            return (<Redirect to={'/'} />)
+        }
+
         return (
             <div>
                 <Navbar />

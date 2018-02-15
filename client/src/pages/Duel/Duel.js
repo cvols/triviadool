@@ -24,12 +24,12 @@ export default class PracticeDuel extends React.Component {
             total: 0,
             quizName: ''
         }
+
         this.nextQuestion = this.nextQuestion.bind(this)
         this.handleClickButton = this.handleClickButton.bind(this)
         this.handleStartQuiz = this.handleStartQuiz.bind(this)
         this.handleIncreaseScore = this.handleIncreaseScore.bind(this)
         this.handleSaveScore = this.handleSaveScore.bind(this)
-
     }
 
     componentWillMount() {
@@ -73,19 +73,12 @@ export default class PracticeDuel extends React.Component {
             total: this.state.total
         }
 
-        console.log("what is this?" + gameData.score)
-
-
         API.saveScore(userId, gameData)
-            .then(res => {
-                console.log('res ', res)
-            })
+            .then(res => {})
             .catch(err => console.log(err))
 
         API.saveQuiz(quizId, playerData)
-            .then(res => {
-                console.log('quiz res: ', res)
-            })
+            .then(res => {})
     }
 
     pushData(nr) {
@@ -125,17 +118,12 @@ export default class PracticeDuel extends React.Component {
             displayPopup: 'none',
             nr: 1
         })
-        console.log(this.state.questions[19][0].question)
-        console.log(this.state.questions[19][0].answers)
-        console.log(this.state.questions[19][0].option1)
     }
 
     handleIncreaseScore() {
         this.setState({
             score: this.state.score + 1
         })
-        console.log("score=" + this.state.score);
-
     }
 
     render() {

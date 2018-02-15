@@ -9,9 +9,8 @@ import { MenuItem } from 'material-ui/Menu'
 import Button from 'material-ui/Button'
 import { Link } from 'react-router-dom'
 import Navbar from "../../components/Navbar"
-import {  animateScroll as scroll } from 'react-scroll'
-
-
+import { animateScroll as scroll } from 'react-scroll'
+import { Redirect } from 'react-router-dom'
 
 const styles = theme => ({
     container: {
@@ -74,9 +73,9 @@ class TextFields extends React.Component {
 
             var scrollTo = () => {
                 scroll.scrollTo(400);
-              };
+            };
 
-              scrollTo();
+            scrollTo();
 
             const data = JSON.parse(sessionStorage.getItem('userData'))
 
@@ -138,12 +137,18 @@ class TextFields extends React.Component {
                     updatedAt: question.updatedAt
                 }]
             })
-                .then(res => {})
+                .then(res => { })
                 .catch(err => console.log(err))
         })
     }
 
     render() {
+        // if userData is not in session storage or redirect is set to true redirect to -- Home --
+        // default redirect is set to false
+        if (!sessionStorage.getItem('userData') || this.state.redirect) {
+            return (<Redirect to={'/'} />)
+        }
+
         return (
             <div>
                 <Navbar />
