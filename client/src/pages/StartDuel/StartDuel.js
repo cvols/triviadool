@@ -9,6 +9,7 @@ import { MenuItem } from 'material-ui/Menu'
 import Button from 'material-ui/Button'
 import { Link } from 'react-router-dom'
 import Navbar from "../../components/Navbar"
+import {  animateScroll as scroll } from 'react-scroll'
 
 
 
@@ -70,6 +71,13 @@ class TextFields extends React.Component {
         if (!this.state.duelName || !this.state.topic) {
             return false
         } else {
+
+            var scrollTo = () => {
+                scroll.scrollTo(400);
+              };
+
+              scrollTo();
+
             const data = JSON.parse(sessionStorage.getItem('userData'))
 
             console.log('user provider_id: ', data.data.provider_id)
@@ -234,7 +242,7 @@ class TextFields extends React.Component {
                         <div className="row">
                             <Col s={12}>
                                 <div className="custom-form" id='form'>
-                                    <p className="flow-text">Quiz Id:</p>
+                                    <h3 className="flow-text">Quiz Id:</h3>
                                     <p className="flow-text">{this.state.quizId}</p>
                                     <div className="center">
                                         <Button
