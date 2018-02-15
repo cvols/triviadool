@@ -98,9 +98,9 @@ class Stats extends React.Component {
                      label: "Your Stats",
                      data: [],
                      backgroundColor: [
-                        'rgba(255, 99, 132, 0.2)',
-                        'rgba(54, 162, 235, 0.2)',
-                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(255, 111, 0, 0.2)',
+                        'rgba(0, 68, 255, 0.2)',
+                        'rgba(221, 0, 255, 0.2)',
                         'rgba(75, 192, 192, 0.2)',
                         'rgba(153, 102, 255, 0.2)',
                         'rgba(255, 159, 64, 0.2)'
@@ -108,7 +108,7 @@ class Stats extends React.Component {
                     borderColor: [
                         'rgba(255,99,132,1)',
                         'rgba(54, 162, 235, 1)',
-                        'rgba(255, 206, 86, 1)',
+                        'rgba(221, 0, 255, 1)',
                         'rgba(75, 192, 192, 1)',
                         'rgba(153, 102, 255, 1)',
                         'rgba(255, 159, 64, 1)'
@@ -129,23 +129,44 @@ componentDidMount() {
 userStats = () => {
     API.userStats()
         .then(res => {
+            // let keyValues = []
+            // let valueValues = []
+             let dataset = res.data[0].games
+            // console.log("before loop" + dataset);
+            // for( let i=0 ; i < dataset.length; i++){
+            // keyValues.push(Object.keys(dataset[i]))
+            // valueValues.push(Object.values(dataset[i]))
+            // console.log("in loop" + dataset[i].score);
+            // }
+            // let finalValues = valueValues.map(Number);
             
-            let dataset = res.data[0].gameStats
-            let keyValues = Object.keys(dataset)
-            let valueValues = Object.values(dataset)
-            let finalValues = valueValues.map(Number);
             // console.log(keyValues)
             // console.log(valueValues)
             // console.log(finalValues)
-            this.setState({labels: keyValues})
-            this.setState({data: finalValues})
+            // this.setState({labels: keyValues})
+            // this.setState({data: finalValues})
 
+            const category = dataset.map(n => {
+            return n.category
+        })
+        console.log(category)
+
+        const score = dataset.map(n => {
+            return n.score
+        })
+        console.log(score)
+
+        const total = dataset.map(n => {
+            return n.total
+        })
+        console.log(total)
+        
             this.setState({  chartData: {
-                labels: keyValues,
+                labels: category,
                 datasets: [
                     {
                         label: "Your Stats",
-                        data: finalValues,
+                        data: score,
                     }
                 ]
                } })
@@ -178,18 +199,22 @@ render() {
                 <Col l={3} offset="l1">
                 
                     <Card className={classes.card}>
-                        <CardMedia
-                            className={classes.media}
-                            image={this.state.picture}
-                            title="Profile"
-                        />
+
                         <CardContent className={classes.cardcontent}>
                             <Bar
                                 data={this.state.chartData}
-                                width={100}
-                                height={100}
+                                width={300}
+                                height={300}
                                 options={{
-                                    maintainAspectRatio: false
+                                    maintainAspectRatio: false,
+                                    scales: {
+                                        yAxes: [{
+                                            ticks: {
+                                                beginAtZero:true,
+                                                max:20
+                                            }
+                                        }]
+                                    }
                                 }}
                             />
                             {/* <Typography type="headline" component="h2">
@@ -225,16 +250,11 @@ render() {
                     </Col> */}
                     <Col l={3} >
                     <Card className={classes.card}>
-                        <CardMedia
-                            className={classes.media}
-                            image={this.state.picture}
-                            title="Profile"
-                        />
                         <CardContent className={classes.cardcontent}>
                             <Pie
                                 data={this.state.chartData}
-                                width={100}
-                                height={100}
+                                width={300}
+                                height={300}
                                 options={{
                                     maintainAspectRatio: false
                                 }}
