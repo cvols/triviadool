@@ -118,7 +118,6 @@ class DuelList extends React.Component {
         document.body.style.backgroundColor = "#fff"
 
         if (sessionStorage.getItem('userData')) {
-            console.log('i am in the db')
             // get userData from session storage
             let data = JSON.parse(sessionStorage.getItem('userData'))
             // setState with userData
@@ -156,7 +155,6 @@ class DuelList extends React.Component {
 
         API.findQuiz(this.state.quizId)
             .then(res => {
-                console.log('quizData: ', res.data.questions)
                 this.setState({
                     quizName: res.data.quizName
                 })
@@ -182,7 +180,6 @@ class DuelList extends React.Component {
 
     // Click handler for table to display subtable
     handleClick = (e) => {
-        console.log([e])
         this.setState({
             [e]: !this.state[e]
         })

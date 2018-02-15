@@ -80,9 +80,6 @@ class TextFields extends React.Component {
 
             const data = JSON.parse(sessionStorage.getItem('userData'))
 
-            console.log('user provider_id: ', data.data.provider_id)
-            console.log('user name: ', data.data.name)
-
             API.createQuiz({
                 createdBy: [data.data.provider_id, data.data.name],
                 quizName: this.state.duelName
@@ -92,8 +89,6 @@ class TextFields extends React.Component {
                         quizId: res.data._id
                     })
                     sessionStorage.setItem('quizId', res.data._id)
-                    console.log('create quiz ', this.state.quizId)
-                    console.log('session storage: ', sessionStorage.getItem('quizId'))
                     this.searchQuestions()
                 })
                 .catch(err => console.log(err))
@@ -107,7 +102,6 @@ class TextFields extends React.Component {
     searchQuestions = () => {
         API.searchQuizQuestions(this.state.topic)
             .then(res => {
-                console.log('these are the questions returned ', res.data)
                 this.setState({
                     questions: res.data,
                     topic: '',
@@ -144,10 +138,7 @@ class TextFields extends React.Component {
                     updatedAt: question.updatedAt
                 }]
             })
-                .then(res => {
-                    console.log('res: ', res)
-
-                })
+                .then(res => {})
                 .catch(err => console.log(err))
         })
     }
