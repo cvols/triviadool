@@ -6,6 +6,7 @@ import Col from '../../components/Col'
 import API from '../../utils/API'
 import Table, { TableBody, TableCell, TableHead, TableRow } from 'material-ui/Table'
 import Paper from 'material-ui/Paper'
+import { Redirect } from 'react-router-dom'
 
 export default class Leaderboard extends React.Component {
     constructor(props) {
@@ -19,11 +20,11 @@ export default class Leaderboard extends React.Component {
     }
 
     componentWillMount() {
-        document.body.style.backgroundColor = "#fff"        
+        document.body.style.backgroundColor = "#fff"
     }
 
     componentWillUnmount() {
-        document.body.style.backgroundColor = "null"        
+        document.body.style.backgroundColor = "null"
     }
 
     handleQuizIdChange = event => {
@@ -59,6 +60,12 @@ export default class Leaderboard extends React.Component {
     }
 
     render() {
+        // if userData is not in session storage or redirect is set to true redirect to -- Home --
+        // default redirect is set to false
+        if (!sessionStorage.getItem('userData') || this.state.redirect) {
+            return (<Redirect to={'/'} />)
+        }
+
         return (
             <div>
                 <Navbar />

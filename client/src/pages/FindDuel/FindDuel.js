@@ -7,9 +7,6 @@ import { withStyles } from 'material-ui/styles'
 import Table, { TableBody, TableCell, TableHead, TableRow } from 'material-ui/Table'
 import Paper from 'material-ui/Paper'
 import API from '../../utils/API'
-import ExpandLess from 'material-ui-icons/ExpandLess';
-import ExpandMore from 'material-ui-icons/ExpandMore';
-import Collapse from 'material-ui/transitions/Collapse';
 import Button from 'material-ui/Button'
 import Navbar from "../../components/Navbar"
 
@@ -153,19 +150,22 @@ class DuelList extends React.Component {
     handleFormSubmit = event => {
         event.preventDefault()
 
-        API.findQuiz(this.state.quizId)
-            .then(res => {
-                this.setState({
-                    quizName: res.data.quizName
+        if (!this.state.quizId) {
+            return false
+        } else {
+            API.findQuiz(this.state.quizId)
+                .then(res => {
+                    this.setState({
+                        quizName: res.data.quizName
+                    })
+                    sessionStorage.setItem('quizData', JSON.stringify(res.data.questions))
+                    sessionStorage.setItem('quizName', JSON.stringify(res.data.quizName))
+                    sessionStorage.setItem('quizId', JSON.stringify(this.state.quizId))
+
+                    window.location.href = "/duel"
                 })
-                sessionStorage.setItem('quizData', JSON.stringify(res.data.questions))
-                sessionStorage.setItem('quizName', JSON.stringify(res.data.quizName))
-                sessionStorage.setItem('quizId', JSON.stringify(this.state.quizId))
-
-                window.location.href = "/duel"
-            })
-            .catch(err => console.log(err))
-
+                .catch(err => console.log(err))
+        }
     }
 
     getQuizes = () => {
@@ -228,6 +228,7 @@ class DuelList extends React.Component {
                                     <TableHead>
                                         <TableRow>
                                             <TableCell>Quiz Name</TableCell>
+                                            <TableCell>Quiz Id</TableCell>
                                             <TableCell numeric>Number of Questions</TableCell>
                                             <TableCell numeric>Category</TableCell>
                                         </TableRow>
@@ -235,39 +236,37 @@ class DuelList extends React.Component {
                                     {this.state.list.length ? (
                                         <TableBody>
                                             {this.state.list.map((n, index) => {
-                                                console.log("what is this now?" + n.questions[0][0].category.name)
                                                 return (
-                                                    <React.Fragment>
-                                                        <TableRow key={index} button onClick={this.handleClick.bind(this, index)}>
-                                                            <TableCell>{n.quizName}</TableCell>
-                                                            <TableCell numeric>{n.questions.length}</TableCell>
-                                                            <TableCell numeric>{n.questions[0][0].category.name}</TableCell>
-                                                            {this.state.index ? <ExpandLess /> : <ExpandMore />}
-                                                        </TableRow>
-                                                        <Collapse key={this.state.list._id} in={this.state[index]} timeout="auto" unmountOnExit>
-                                                            <Table className={classes.table}>
-                                                                <TableHead>
-                                                                    <TableRow>
-                                                                        <TableCell>Quiz Name</TableCell>
-                                                                        <TableCell numeric>Number of Questions</TableCell>
-                                                                        <TableCell numeric>Highest Score</TableCell>
-                                                                        <TableCell numeric>User</TableCell>
-                                                                        <TableCell numeric>Category</TableCell>
-                                                                    </TableRow>
-                                                                </TableHead>
-                                                                <TableBody>
-                                                                    <TableRow>
-                                                                        <TableCell>{n.quizName}</TableCell>
-                                                                        <TableCell numeric>{n.questions.length}</TableCell>
-                                                                        <TableCell numeric>{n.players.score}</TableCell>
-                                                                        <TableCell numeric>{n.players.name}</TableCell>
-                                                                        <TableCell numeric>{n.players.score}{n.questions[0][0].category.name}</TableCell>
-                                                                    </TableRow>
-                                                                </TableBody>
-                                                            </Table>
-                                                        </Collapse>
-                                                    </React.Fragment>
-                                                );
+                                                    <TableRow key={index} onClick={this.handleClick.bind(this, index)}>
+                                                        <TableCell>{n.quizName}</TableCell>
+                                                        <TableCell>{n._id}</TableCell>
+                                                        <TableCell numeric>{n.questions.length}</TableCell>
+                                                        <TableCell numeric>{n.questions[0][0].category.name}</TableCell>
+                                                        {/* {this.state.index ? <ExpandLess /> : <ExpandMore />} */}
+                                                    </TableRow>
+                                                    // {/* <Collapse key={this.state.list._id} in={this.state[index]} timeout="auto" unmountOnExit>
+                                                    //     <Table className={classes.table}>
+                                                    //         <TableHead>
+                                                    //             <TableRow>
+                                                    //                 <TableCell>Quiz Name</TableCell>
+                                                    //                 <TableCell numeric>Number of Questions</TableCell>
+                                                    //                 <TableCell numeric>Highest Score</TableCell>
+                                                    //                 <TableCell numeric>User</TableCell>
+                                                    //                 <TableCell numeric>Category</TableCell>
+                                                    //             </TableRow>
+                                                    //         </TableHead>
+                                                    //         <TableBody>
+                                                    //             <TableRow>
+                                                    //                 <TableCell>{n.quizName}</TableCell>
+                                                    //                 <TableCell numeric>{n.questions.length}</TableCell>
+                                                    //                 <TableCell numeric>{n.players.score}</TableCell>
+                                                    //                 <TableCell numeric>{n.players.name}</TableCell>
+                                                    //                 <TableCell numeric>{n.players.score}{n.questions[0][0].category.name}</TableCell>
+                                                    //             </TableRow>
+                                                    //         </TableBody>
+                                                    //     </Table>
+                                                    // </Collapse> */}
+                                                )
                                             })}
                                         </TableBody>
                                     ) : (
@@ -276,7 +275,6 @@ class DuelList extends React.Component {
                                                     <TableCell>No Results to Display</TableCell>
                                                 </TableRow>
                                             </TableBody>
-
                                         )}
                                 </Table>
                             </Paper>

@@ -16,25 +16,19 @@ export default class Answers extends React.Component {
     checkAnswer(e) {
         // set isAnswered to false
         let { isAnswered } = this.props
-        console.log('isAnswered ', isAnswered)
 
         if (!isAnswered) {
             // grab the element that is clicked
             let elem = e.currentTarget
-            console.log('elem ', elem.dataset)
 
             // use correct and increaseScore() from props
             let { correct, increaseScore } = this.props
-            console.log('correct ', correct)
-            console.log('increaseScore ', increaseScore)
 
             // convert the element's id into a number
             let answer = Number(elem.dataset.id)
-            console.log('answer ', answer)
 
             // set the className to empty so we can update with right or wrong
             let updatedClassNames = this.state.classNames
-            console.log('updatedClassNames ', updatedClassNames)
 
             // if the element's id === correct id set className to right and increaseScore()
             if (answer === correct) {
@@ -62,12 +56,6 @@ export default class Answers extends React.Component {
     render() {
         let { answers } = this.props
         let { classNames } = this.state
-
-        // let transition = {
-        //     transitionName: 'example',
-        //     transitionEnterTimeout: 500,
-        //     transitionLeaveTimeout: 300
-        // }
 
         return (
             <div id="answers">

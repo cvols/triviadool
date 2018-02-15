@@ -43,9 +43,7 @@ export default class Popup extends React.Component {
                 // score: this.props.score,
                 text: 'You got ' + this.props.score + ' out of ' + this.props.total + ' questions right'
             })
-
         }
-        console.log("receivescore= " + this.props.score)
     }
   
 

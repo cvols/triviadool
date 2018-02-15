@@ -21,7 +21,7 @@ const styles = theme => ({
         maxWidth: 350,
     },
     media: {
-        height: 250
+        height: 213
     },
     cardcontent: {
         textAlign: 'center'
@@ -208,39 +208,41 @@ class Profile extends React.Component {
                         <Stats />
                     </div>
                     <div className="row custom-row">
-                        <div className={classes.root}>
-                            {images.map(image => (
-                                <ButtonBase
-                                    focusRipple
-                                    key={image.title}
-                                    className={classes.image}
-                                    style={{
-                                        width: image.width,
-                                    }}
-                                    component={Link}
-                                    to={image.link}
-                                >
-                                    <span
-                                        className={classes.imageSrc}
+                        <Col s={12}>
+                            <div className={classes.root}>
+                                {images.map(image => (
+                                    <ButtonBase
+                                        focusRipple
+                                        key={image.title}
+                                        className={classes.image}
                                         style={{
-                                            backgroundImage: `url(${image.src})`,
+                                            width: image.width,
                                         }}
-                                    />
-                                    <span className={classes.imageBackdrop} />
-                                    <span className={classes.imageButton}>
-                                        <Typography
-                                            component="span"
-                                            type="subheading"
-                                            color="inherit"
-                                            className={classes.imageTitle}
-                                        >
-                                            {image.title}
-                                            <span className={classes.imageMarked} />
-                                        </Typography>
-                                    </span>
-                                </ButtonBase>
-                            ))}
-                        </div>
+                                        component={Link}
+                                        to={image.link}
+                                    >
+                                        <span
+                                            className={classes.imageSrc}
+                                            style={{
+                                                backgroundImage: `url(${image.src})`,
+                                            }}
+                                        />
+                                        <span className={classes.imageBackdrop} />
+                                        <span className={classes.imageButton}>
+                                            <Typography
+                                                component="span"
+                                                type="subheading"
+                                                color="inherit"
+                                                className={classes.imageTitle}
+                                            >
+                                                {image.title}
+                                                <span className={classes.imageMarked} />
+                                            </Typography>
+                                        </span>
+                                    </ButtonBase>
+                                ))}
+                            </div>
+                        </Col>
                     </div>
                 </div>
             </div>
