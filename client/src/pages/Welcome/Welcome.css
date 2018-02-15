@@ -2,9 +2,8 @@
     margin-top: 10%;
 }
 
-img.responsive-img {
-    margin-top: 2rem;
-    margin-bottom: -4rem;
+.picture {
+    height: 450px;
 }
 
 .button {
@@ -38,32 +37,43 @@ i {
     margin-right: 8px;
 }
 
-@media only screen and (max-width: 1065px) {
-
+@media only screen and (max-width: 1030px) {
+    .picture {
+        height: 300px;
+        margin-top: 100px;        
+    }
 }
 
 @media only screen and (max-width: 750px) {
-    img.responsive-img {
-        margin-top: 2rem;
-        margin-bottom: -4rem;
-    }
-    .button {
-        margin-top: 25%;
-        width: 185px;
-        
-        
-    }
+    .picture {
+        height: 250px;
+        margin-top: 100px;        
     }
 
-@media only screen and (max-width: 405px) {
-    img.responsive-img {
-        margin-top: 2rem;
-        margin-bottom: -4rem;
-    }
     .button {
-        margin-top: 50%;
         width: 185px;
-        
-        
     }
+
+    .custom-row {
+        margin-top: 20%;
     }
+}
+
+@media only screen and (max-width: 600px) {
+    .picture {
+        height: 180px;
+        margin-top: 100px;        
+    }
+
+    .button {
+        width: 185px;
+    }
+    
+    .facebook {
+        margin-top: 30%;
+    }
+
+    .google {
+        margin-top: 10px;
+    }
+}

@@ -11,6 +11,7 @@ import { Link } from 'react-router-dom'
 import create from './Images/create.png'
 import find from './Images/find.png'
 import duel from './Images/duel.png'
+import leaderboards from './Images/leaderboards.png'
 import Stats from '../../components/Stats'
 import Navbar from "../../components/Navbar"
 import API from '../../utils/API'
@@ -98,22 +99,28 @@ const styles = theme => ({
 
 const images = [
     {
-        url: create,
+        src: create,
         title: 'Create a DUEL',
-        width: '33%',
+        width: '25%',
         link: '/startDuel'
     },
     {
-        url: find,
+        src: find,
         title: 'Find a DUEL',
-        width: '33%',
+        width: '25%',
         link: '/findDuel'
     },
     {
-        url: duel,
+        src: duel,
         title: 'Practice Duel',
-        width: '33%',
+        width: '25%',
         link: '/practiceDuel'
+    },
+    {
+        src: leaderboards,
+        title: 'Leaderboards',
+        width: '25%',
+        link: '/leaderboard'
     }
 ]
 
@@ -136,7 +143,6 @@ class Profile extends React.Component {
         document.body.style.backgroundColor = "#eee"
 
         if (sessionStorage.getItem('userData')) {
-            console.log('i am in the db')
             // get userData from session storage
             let data = JSON.parse(sessionStorage.getItem('userData'))
             // setState with userData
@@ -151,7 +157,6 @@ class Profile extends React.Component {
             }
             API.findUser(data.data.provider_id)
                 .then(res => {
-                    console.log(res.data.games.length)
                     this.setState({
                         gamesPlayed: res.data.games.length
                     })
@@ -218,7 +223,7 @@ class Profile extends React.Component {
                                     <span
                                         className={classes.imageSrc}
                                         style={{
-                                            backgroundImage: `url(${image.url})`,
+                                            backgroundImage: `url(${image.src})`,
                                         }}
                                     />
                                     <span className={classes.imageBackdrop} />

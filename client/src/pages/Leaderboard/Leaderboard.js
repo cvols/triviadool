@@ -18,6 +18,14 @@ export default class Leaderboard extends React.Component {
         }
     }
 
+    componentWillMount() {
+        document.body.style.backgroundColor = "#fff"        
+    }
+
+    componentWillUnmount() {
+        document.body.style.backgroundColor = "null"        
+    }
+
     handleQuizIdChange = event => {
         this.setState({
             quizId: event.target.value

@@ -20,14 +20,6 @@ nav .brand-logo {
 
 @media only screen and (max-width: 405px) {
     nav .brand-logo {
-        font-size: 1rem
-    }
-    nav .brand-logo.center {
-        left: 45%;
-    }
-    nav .nav-wrapper {
-        position: relative;
-        height: 100%;
-        width: 110%;
+        font-size: 1.5rem;
     }
 }

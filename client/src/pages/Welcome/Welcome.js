@@ -23,7 +23,7 @@ export default class Welcome extends Component {
             provider_pic: ""
         }
     }
-    
+
     componentWillMount() {
         document.body.style.backgroundColor = "#2F409D"
     }
@@ -102,49 +102,72 @@ export default class Welcome extends Component {
 
         // facebook function to call user to sign in through facebook
         const responseFacebook = (response) => {
-            console.log("facebook console")
-            console.log('facebook ', response)
             this.signup(response, 'facebook')
         }
 
         // google function to call user to sign in through google
         const responseGoogle = (response) => {
-            console.log("google console")
-            console.log('google ', response)
             this.signup(response, 'google')
         }
 
         return (
             <div>
-            <Navbar />
-            <div className="container">
-                <div>
-                    <img src={diagram} alt="TriviaDuel Diagram" className="responsive-img custom-img" />
+                <Navbar />
+                <div className="row">
+                    <Col s={12}>
+                        <div className="center">
+                            <img src={diagram} alt="TriviaDuel Diagram" className="picture" />
+                        </div>
+                    </Col>
                 </div>
                 <div className="row custom-row">
-                    <Col s={6} className="right-align">
-                        <FacebookLogin
-                            appId="148785105783859"
-                            autoLoad={false}
-                            fields="name,email,picture"
-                            callback={responseFacebook}
-                            cssClass="button facebook"
-                            icon="fa-facebook"
-                        />
+                    <Col s={12} m={6}>
+                        <div className="right-align hide-on-small-only">
+                            <FacebookLogin
+                                appId="148785105783859"
+                                autoLoad={false}
+                                fields="name,email,picture"
+                                callback={responseFacebook}
+                                cssClass="button facebook"
+                                icon="fa-facebook"
+                            />
+                        </div>
+                        <div className="center hide-on-med-and-up">
+                            <FacebookLogin
+                                appId="148785105783859"
+                                autoLoad={false}
+                                fields="name,email,picture"
+                                callback={responseFacebook}
+                                cssClass="button facebook"
+                                icon="fa-facebook"
+                            />
+                        </div>
                     </Col>
-                    <Col s={6} className="left-align">
-                        <GoogleLogin
-                            clientId="319188917988-ikls2oi32m6bbh2vuoqr5qstkd2ao1he.apps.googleusercontent.com"
-                            onSuccess={responseGoogle}
-                            onFailure={responseGoogle}
-                            className="button google"
-                        >
-                            <FontAwesome name="fab fa-google" />
-                            Login with Google
+                    <Col s={12} m={6}>
+                        <div className="left-align hide-on-small-only">
+                            <GoogleLogin
+                                clientId="319188917988-ikls2oi32m6bbh2vuoqr5qstkd2ao1he.apps.googleusercontent.com"
+                                onSuccess={responseGoogle}
+                                onFailure={responseGoogle}
+                                className="button google"
+                            >
+                                <FontAwesome name="fab fa-google" />
+                                Login with Google
                         </GoogleLogin>
+                        </div>
+                        <div className="center hide-on-med-and-up">
+                            <GoogleLogin
+                                clientId="319188917988-ikls2oi32m6bbh2vuoqr5qstkd2ao1he.apps.googleusercontent.com"
+                                onSuccess={responseGoogle}
+                                onFailure={responseGoogle}
+                                className="button google"
+                            >
+                                <FontAwesome name="fab fa-google" />
+                                Login with Google
+                        </GoogleLogin>
+                        </div>
                     </Col>
                 </div>
-            </div>
             </div>
         )
     }
