@@ -5,7 +5,6 @@ import Home from './pages/Home/Home'
 import StartDuel from "./pages/StartDuel"
 import PracticeDuel from "./pages/PracticeDuel"
 import NotFound from './pages/NotFound/NotFound'
-import YourStats from './pages/YourStats/YourStats'
 import FindDuel from './pages/FindDuel/FindDuel'
 import DuelFind from './pages/DuelFind/DuelFind'
 import Duel from './pages/Duel/Duel'
@@ -20,7 +19,6 @@ const Routes = () => (
             <Route path="/startDuel" component={StartDuel} />
             <Route path="/practiceDuel" component={PracticeDuel} />
             <Route path="/findDuel" component={FindDuel} />
-            <Route path="/stats" component={YourStats} />
             <Route path="/duelFind" component={DuelFind} />
             <Route path="/duel" component={Duel} />
             <Route path="/addCredits" component={AddCredits} />
