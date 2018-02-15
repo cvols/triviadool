@@ -4,7 +4,6 @@ import { Redirect } from 'react-router-dom'
 import Col from '../../components/Col'
 import PropTypes from 'prop-types'
 import { withStyles } from 'material-ui/styles'
-import { Link } from 'react-router-dom'
 import Table, { TableBody, TableCell, TableHead, TableRow } from 'material-ui/Table'
 import Paper from 'material-ui/Paper'
 import API from '../../utils/API'
@@ -189,7 +188,7 @@ class DuelList extends React.Component {
                 <h1 className="center">Find Duel</h1>
                 <div className="container">
                     <div className="row">
-                        <Col l={12}>
+                        <Col s={12}>
                             <form className="custom-form row-custom">
                                 <p className="flow-text">Quiz Id: </p>
                                 <input
@@ -212,7 +211,7 @@ class DuelList extends React.Component {
                         </Col>
                     </div>
                     <div className="row">
-                        <Col l={12}>
+                        <Col s={12}>
                             <Paper className={classes.root}>
                                 <Table className={classes.table}>
                                     <TableHead>
@@ -225,14 +224,13 @@ class DuelList extends React.Component {
                                     {this.state.list.length ? (
                                         <TableBody>
                                             {this.state.list.map(n => {
-                                                console.log("what is this now?" + n.questions[0][0].category.name)
                                                 return (
                                                     <TableRow key={n._id}>
                                                         <TableCell>{n.quizName}</TableCell>
                                                         <TableCell numeric>{n.questions.length}</TableCell>
                                                         <TableCell numeric>{n.questions[0][0].category.name}</TableCell>
                                                     </TableRow>
-                                                );
+                                                )
                                             })}
                                         </TableBody>
                                     ) : (

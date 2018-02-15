@@ -1,4 +1,5 @@
 import React from 'react'
+import "./YourStats.css"
 import Col from '../../components/Col'
 import { withStyles } from 'material-ui/styles'
 import Card, { CardContent, CardMedia } from 'material-ui/Card'
@@ -92,108 +93,110 @@ class YourStats extends React.Component {
         super(props);
         this.state = {
             chartData: {
-             labels: [],
-             datasets: [
-                 {
-                     label: "Your Stats",
-                     data: [],
-                     backgroundColor: [
-                        'rgba(255, 99, 132, 0.2)',
-                        'rgba(54, 162, 235, 0.2)',
-                        'rgba(255, 206, 86, 0.2)',
-                        'rgba(75, 192, 192, 0.2)',
-                        'rgba(153, 102, 255, 0.2)',
-                        'rgba(255, 159, 64, 0.2)'
-                    ],
-                    borderColor: [
-                        'rgba(255,99,132,1)',
-                        'rgba(54, 162, 235, 1)',
-                        'rgba(255, 206, 86, 1)',
-                        'rgba(75, 192, 192, 1)',
-                        'rgba(153, 102, 255, 1)',
-                        'rgba(255, 159, 64, 1)'
-                    ],
-                    borderWidth: 1,
-                    animationSteps: 294,
-                 }
-             ]
+                labels: [],
+                datasets: [
+                    {
+                        label: "Your Stats",
+                        data: [],
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(255, 159, 64, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgba(255,99,132,1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)'
+                        ],
+                        borderWidth: 1,
+                        animationSteps: 294,
+                    }
+                ]
             }
         };
     }
 
 
-componentDidMount() {
-    this.userStats();
-    
-}
+    componentDidMount() {
+        this.userStats();
 
-userStats = () => {
-    API.userStats()
-        .then(res => {
-            
-            let dataset = res.data[0].gameStats
-            let keyValues = Object.keys(dataset)
-            let valueValues = Object.values(dataset)
-            let finalValues = valueValues.map(Number);
-            // console.log(keyValues)
-            // console.log(valueValues)
-            // console.log(finalValues)
-            this.setState({labels: keyValues})
-            this.setState({data: finalValues})
+    }
 
-            this.setState({  chartData: {
-                labels: keyValues,
-                datasets: [
-                    {
-                        label: "Your Stats",
-                        data: finalValues,
+    userStats = () => {
+        API.userStats()
+            .then(res => {
+
+                let dataset = res.data[0].gameStats
+                let keyValues = Object.keys(dataset)
+                let valueValues = Object.values(dataset)
+                let finalValues = valueValues.map(Number);
+                // console.log(keyValues)
+                // console.log(valueValues)
+                // console.log(finalValues)
+                this.setState({ labels: keyValues })
+                this.setState({ data: finalValues })
+
+                this.setState({
+                    chartData: {
+                        labels: keyValues,
+                        datasets: [
+                            {
+                                label: "Your Stats",
+                                data: finalValues,
+                            }
+                        ]
                     }
-                ]
-               } })
+                })
 
 
-            // let key = [];
-            // let values = [];
-            // let dataset = res.data[0].gameStats
-            //     for (var i = 0; i < dataset.length; i++) {
-            //         for (var key in dataset[i]) {
-            //             labels.push(key);
-            //             values.push(dataset[i][key]);
-            //         }
-            //     }
-            //     console.log(labels)
-            //     console.log(values)
-        })
-        .catch(err => console.log(err));
-}
+                // let key = [];
+                // let values = [];
+                // let dataset = res.data[0].gameStats
+                //     for (var i = 0; i < dataset.length; i++) {
+                //         for (var key in dataset[i]) {
+                //             labels.push(key);
+                //             values.push(dataset[i][key]);
+                //         }
+                //     }
+                //     console.log(labels)
+                //     console.log(values)
+            })
+            .catch(err => console.log(err));
+    }
 
 
-render() {
-    const { classes } = this.props
-    return (
-        <div className="stats-box">
-            <div className="container">
-                {/* <img src="" alt="" className="custom-card" /> */}
-            </div>
-            <div className="row">
-                <Col l={3} offset="l1">
-                    
-                    <Card className={classes.card}>
-                        <CardMedia
-                            className={classes.media}
-                            image={this.state.picture}
-                            title="Profile"
-                        />
-                        <CardContent className={classes.cardcontent}>
-                            <Bar
-                                data={this.state.chartData}
-                                width={100}
-                                height={400}
-                                options={{
-                                    maintainAspectRatio: false
-                                }}
+    render() {
+        const { classes } = this.props
+        return (
+            <div className="stats-box">
+                <div className="container">
+                    {/* <img src="" alt="" className="custom-card" /> */}
+                </div>
+                <div className="row">
+                    <Col l={3} offset="l1">
+
+                        <Card className={classes.card}>
+                            <CardMedia
+                                className={classes.media}
+                                image={this.state.picture}
+                                title="Profile"
                             />
-                            {/* <Typography type="headline" component="h2">
+                            <CardContent className={classes.cardcontent}>
+                                <Bar
+                                    data={this.state.chartData}
+                                    width={100}
+                                    height={400}
+                                    options={{
+                                        maintainAspectRatio: false
+                                    }}
+                                />
+                                {/* <Typography type="headline" component="h2">
                         {this.state.name}
                     </Typography>
                     <Typography component="p">
@@ -202,53 +205,52 @@ render() {
                     <Typography component="p">
                         Email: {this.state.email}
                     </Typography> */}
-                        </CardContent>
-                    </Card>
+                            </CardContent>
+                        </Card>
                     </Col>
                     <Col l={3}>
-                    <Card className={classes.card}>
-                        <CardMedia
-                            className={classes.media}
-                            image={this.state.picture}
-                            title="Profile"
-                        />
-                        <CardContent className={classes.cardcontent}>
-                            <Line
-                                data={this.state.chartData}
-                                width={100}
-                                height={400}
-                                options={{
-                                    maintainAspectRatio: false
-                                }}
+                        <Card className={classes.card}>
+                            <CardMedia
+                                className={classes.media}
+                                image={this.state.picture}
+                                title="Profile"
                             />
-                        </CardContent>
-                    </Card>
+                            <CardContent className={classes.cardcontent}>
+                                <Line
+                                    data={this.state.chartData}
+                                    width={100}
+                                    height={400}
+                                    options={{
+                                        maintainAspectRatio: false
+                                    }}
+                                />
+                            </CardContent>
+                        </Card>
                     </Col>
                     <Col l={3} >
-                    <Card className={classes.card}>
-                        <CardMedia
-                            className={classes.media}
-                            image={this.state.picture}
-                            title="Profile"
-                        />
-                        <CardContent className={classes.cardcontent}>
-                            <Pie
-                                data={this.state.chartData}
-                                width={100}
-                                height={400}
-                                options={{
-                                    maintainAspectRatio: false
-                                }}
+                        <Card className={classes.card}>
+                            <CardMedia
+                                className={classes.media}
+                                image={this.state.picture}
+                                title="Profile"
                             />
-                        </CardContent>
-                        
-                    </Card>
-                                {/* <button onClick={() => console.log(this.state)}/> */}
-                </Col>
+                            <CardContent className={classes.cardcontent}>
+                                <Pie
+                                    data={this.state.chartData}
+                                    width={100}
+                                    height={400}
+                                    options={{
+                                        maintainAspectRatio: false
+                                    }}
+                                />
+                            </CardContent>
+                        </Card>
+                        {/* <button onClick={() => console.log(this.state)}/> */}
+                    </Col>
+                </div>
             </div>
-        </div>
-    )
-}
+        )
+    }
 }
 
 

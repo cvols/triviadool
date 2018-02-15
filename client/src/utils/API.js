@@ -136,7 +136,7 @@ export default {
 
   // create quiz -- Startduel --
   createQuiz: function (quiz) {
-    return axios.post('/api/quiz', quiz)
+    return axios.post('/api/createquiz/', quiz)
   },
 
   // save player data to quiz id -- Duel --
@@ -272,6 +272,11 @@ export default {
   // find quiz by id -- FindDuel --
   findQuiz: function (id) {
     return axios.get('/api/quiz/' + id)
+  },
+
+  // find quiz by id and sort by highest score
+  leaderboard: function(id) {
+    return axios.get('/api/leaderboard/' + id)
   },
 
   // find user in db by provider_id -- Welcome --

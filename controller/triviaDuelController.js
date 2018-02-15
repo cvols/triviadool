@@ -1,6 +1,8 @@
 const path = require("path")
 const router = require("express").Router()
 const db = require("../models")
+const mongoose = require("mongoose")
+const ObjectId = mongoose.Types.ObjectId
 
 const userFunctions = {
   // find all users in database -- Welcome --
@@ -77,6 +79,7 @@ const questionFunctions = {
 const quizFunctions = {
   // create new quiz in database -- StartDuel --
   create: function (req, res) {
+    console.log(req.body)
     db.Quiz
       .create(req.body)
       .then(dbModel => res.json(dbModel))
@@ -90,7 +93,7 @@ const quizFunctions = {
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
- // find all quizes in database
+  // find all quizes in database
   findAll: function (req, res) {
     db.Quiz
       .find(req.query)
@@ -119,6 +122,23 @@ const quizFunctions = {
       .catch(err => res.status(422).json(err))
   },
 
+  // find by quiz id and update playerData in database -- Duel --
+  lead: function (req, res) {
+    console.log(req.params.id)
+    db.Quiz
+    .aggregate(
+      { $match: {
+          quizName : req.params.id
+      }},
+      { $unwind: '$players' },
+      { $sort: {
+          'players.score': -1
+      }}
+    )
+      .then(dbModel => res.json(dbModel))
+      .catch(err => res.status(422).json(err))
+  },
+
   // delete quiz in database
   remove: function (req, res) {
     db.Quiz
@@ -142,7 +162,7 @@ router.get('/api/triviaduel', userFunctions.findAll)
 router.patch('/api/savescore/:id', userFunctions.save)
 
 // route to create quiz in database
-router.post('/api/quiz', quizFunctions.create)
+router.post('/api/createquiz/', quizFunctions.create)
 
 // route to find quiz in database
 router.get('/api/quiz/:id', quizFunctions.findById)
@@ -157,6 +177,9 @@ router.get('/api/getquiz', quizFunctions.findAll)
 
 // route to save player answers by quiz id
 router.patch('/api/savequiz/:id', quizFunctions.save)
+
+// route to find by quiz id and sort by highest score
+router.get('/api/leaderboard/:id', quizFunctions.lead)
 
 // if no API routes are hit, send the React app
 router.use(function (req, res) {
