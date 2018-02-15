@@ -133,7 +133,7 @@ class DuelList extends React.Component {
             }
         }
     }
-  
+
     componentDidMount() {
         sessionStorage.removeItem('quizId')
         sessionStorage.removeItem('quizData')
@@ -164,11 +164,15 @@ class DuelList extends React.Component {
                 sessionStorage.setItem('quizName', JSON.stringify(res.data.quizName))
                 sessionStorage.setItem('quizId', JSON.stringify(this.state.quizId))
 
+                window.location.href = "/duel"
+            })
+            .catch(err => console.log(err))
+
+    }
 
     getQuizes = () => {
         API.getQuizList()
             .then(res => {
-                console.log("what is this" + res.data[1].quizName)
                 this.setState({
                     list: res.data
                 })
@@ -177,121 +181,11 @@ class DuelList extends React.Component {
     }
 
     // Click handler for table to display subtable
-
-
     handleClick = (e) => {
         console.log([e])
-        this.setState({ 
-            [e]: !this.state[e] 
-        });
-    };
-
-
-    render() {
-        // if userData is not in session storage and redirect is set to true redirect to -- Home --
-        if (!sessionStorage.getItem('userData') || this.state.redirect) {
-            return (<Redirect to={'/'} />)
-        }
-
-        const { classes } = this.props
-
-        return (
-            <div className="container" id="home-container">
-                <div className="row">
-                    <Col l={4}>
-                        <Card className={classes.card}>
-                            <CardMedia
-                                className={classes.media}
-                                image={this.state.picture}
-                                title="Profile"
-                            />
-                            <CardContent className={classes.cardcontent}>
-                                <Typography type="headline" component="h2">
-                                    {this.state.name}
-                                </Typography>
-                                <Typography component="p">
-                                    Signed in through {this.state.provider}
-                                </Typography>
-                                <Typography component="p">
-                                    Email: {this.state.email}
-                                </Typography>
-                            </CardContent>
-                        </Card>
-                    </Col>
-                    <div className="row">
-                        <Paper className={classes.root}>
-                            <Table className={classes.table}>
-                                <TableHead>
-                                    <TableRow>
-                                        <TableCell>Quiz Name</TableCell>
-                                        <TableCell numeric>Number of Questions</TableCell>
-                                        <TableCell numeric>Category</TableCell>
-                                    </TableRow>
-                                </TableHead>
-                                {this.state.list.length ? (
-                                    <TableBody>
-                                        {this.state.list.map((n, index) => {
-                                            console.log("what is this now?" + n.questions[0][0].category.name)
-                                            return (
-                                                <React.Fragment>
-                                                    <TableRow key={index} button onClick={this.handleClick.bind(this, index)}>
-                                                        <TableCell>{n.quizName}</TableCell>
-                                                        <TableCell numeric>{n.questions.length}</TableCell>
-                                                        <TableCell numeric>{n.questions[0][0].category.name}</TableCell>
-                                                        {this.state.index ? <ExpandLess /> : <ExpandMore />}
-                                                    </TableRow>
-                                            <Collapse key={this.state.list._id} in={this.state[index]} timeout="auto" unmountOnExit>
-                                                        <Table className={classes.table}>
-                                                            <TableHead>
-                                                                <TableRow>
-                                                                    <TableCell>Quiz Name</TableCell>
-                                                                    <TableCell numeric>Number of Questions</TableCell>
-                                                                    <TableCell numeric>Highest Score</TableCell>
-                                                                    <TableCell numeric>User</TableCell>
-                                                                    <TableCell numeric>Category</TableCell>
-                                                                </TableRow>
-                                                            </TableHead>
-                                                            <TableBody>
-                                                            <TableRow>
-                                                                    <TableCell>{n.quizName}</TableCell>
-                                                                    <TableCell numeric>{n.questions.length}</TableCell>
-                                                                    <TableCell numeric>{n.players.score}</TableCell>
-                                                                    <TableCell numeric>{n.players.name}</TableCell>
-                                                                    <TableCell numeric>{n.players.score}{n.questions[0][0].category.name}</TableCell>
-                                                                </TableRow>
-                                                                </TableBody>
-                                                        </Table>
-                                                    </Collapse>
-                                                </React.Fragment>
-                                            );
-                                        })}
-                                    </TableBody>
-                                ) : (
-                                        <TableBody>
-                                            <TableRow>
-                                                <TableCell>No Results to Display</TableCell>
-                                            </TableRow>
-                                        </TableBody>
-
-                                    )}
-                            </Table>
-                        </Paper>
-                    </div>
-                </div>
-            </div>
-                window.location.href = "/duel"
-            })
-            .catch(err => console.log(err))
-    }
-
-    getQuizes = () => {
-        API.getQuizList()
-            .then(res => {
-                this.setState({
-                    list: res.data
-                })
-            })
-            .catch(err => console.log(err))
+        this.setState({
+            [e]: !this.state[e]
+        })
     }
 
     render() {
@@ -343,14 +237,40 @@ class DuelList extends React.Component {
                                     </TableHead>
                                     {this.state.list.length ? (
                                         <TableBody>
-                                            {this.state.list.map(n => {
+                                            {this.state.list.map((n, index) => {
+                                                console.log("what is this now?" + n.questions[0][0].category.name)
                                                 return (
-                                                    <TableRow key={n._id}>
-                                                        <TableCell>{n.quizName}</TableCell>
-                                                        <TableCell numeric>{n.questions.length}</TableCell>
-                                                        <TableCell numeric>{n.questions[0][0].category.name}</TableCell>
-                                                    </TableRow>
-                                                )
+                                                    <React.Fragment>
+                                                        <TableRow key={index} button onClick={this.handleClick.bind(this, index)}>
+                                                            <TableCell>{n.quizName}</TableCell>
+                                                            <TableCell numeric>{n.questions.length}</TableCell>
+                                                            <TableCell numeric>{n.questions[0][0].category.name}</TableCell>
+                                                            {this.state.index ? <ExpandLess /> : <ExpandMore />}
+                                                        </TableRow>
+                                                        <Collapse key={this.state.list._id} in={this.state[index]} timeout="auto" unmountOnExit>
+                                                            <Table className={classes.table}>
+                                                                <TableHead>
+                                                                    <TableRow>
+                                                                        <TableCell>Quiz Name</TableCell>
+                                                                        <TableCell numeric>Number of Questions</TableCell>
+                                                                        <TableCell numeric>Highest Score</TableCell>
+                                                                        <TableCell numeric>User</TableCell>
+                                                                        <TableCell numeric>Category</TableCell>
+                                                                    </TableRow>
+                                                                </TableHead>
+                                                                <TableBody>
+                                                                    <TableRow>
+                                                                        <TableCell>{n.quizName}</TableCell>
+                                                                        <TableCell numeric>{n.questions.length}</TableCell>
+                                                                        <TableCell numeric>{n.players.score}</TableCell>
+                                                                        <TableCell numeric>{n.players.name}</TableCell>
+                                                                        <TableCell numeric>{n.players.score}{n.questions[0][0].category.name}</TableCell>
+                                                                    </TableRow>
+                                                                </TableBody>
+                                                            </Table>
+                                                        </Collapse>
+                                                    </React.Fragment>
+                                                );
                                             })}
                                         </TableBody>
                                     ) : (
@@ -359,13 +279,14 @@ class DuelList extends React.Component {
                                                     <TableCell>No Results to Display</TableCell>
                                                 </TableRow>
                                             </TableBody>
+
                                         )}
                                 </Table>
                             </Paper>
                         </Col>
                     </div>
-                </div >
-            </div >
+                </div>
+            </div>
         )
     }
 }
