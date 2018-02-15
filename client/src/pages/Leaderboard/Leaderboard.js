@@ -59,7 +59,7 @@ export default class Leaderboard extends React.Component {
                     <div className="row">
                         <Col s={12}>
                             <form className="custom-form row-custom">
-                                <p className="flow-text">Quiz Id: </p>
+                                <h3 className="flow-text">Quiz Id: </h3>
                                 <input
                                     id="quizId"
                                     type="search"
