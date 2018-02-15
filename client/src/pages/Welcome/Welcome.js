@@ -7,6 +7,7 @@ import './Welcome.css'
 import FontAwesome from '../../components/FontAwesome'
 import Col from '../../components/Col'
 import diagram from './images/triviaDuelDiagramWords.png'
+import Navbar from "../../components/Navbar"
 
 export default class Welcome extends Component {
     constructor(props) {
@@ -114,6 +115,8 @@ export default class Welcome extends Component {
         }
 
         return (
+            <div>
+            <Navbar />
             <div className="container">
                 <div>
                     <img src={diagram} alt="TriviaDuel Diagram" className="responsive-img custom-img" />
@@ -141,6 +144,7 @@ export default class Welcome extends Component {
                         </GoogleLogin>
                     </Col>
                 </div>
+            </div>
             </div>
         )
     }

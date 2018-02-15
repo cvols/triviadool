@@ -2,7 +2,7 @@ import React from 'react'
 import Col from '../Col'
 import { withStyles } from 'material-ui/styles'
 import Card, { CardContent, CardMedia } from 'material-ui/Card'
-import { Bar, Line, Pie } from 'react-chartjs-2';
+import { Bar, Pie } from 'react-chartjs-2';
 import API from "../../utils/API"
 
 const styles = theme => ({

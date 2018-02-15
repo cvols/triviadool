@@ -4,11 +4,13 @@ import PropTypes from 'prop-types'
 import { withStyles } from 'material-ui/styles'
 import API from "../../utils/API"
 import Col from '../../components/Col'
-// import SelectField from '../../components/SelectField'
 import Select from 'material-ui/Select'
 import { MenuItem } from 'material-ui/Menu'
 import Button from 'material-ui/Button'
 import { Link } from 'react-router-dom'
+import Navbar from "../../components/Navbar"
+
+
 
 const styles = theme => ({
     container: {
@@ -65,20 +67,29 @@ class TextFields extends React.Component {
     handleFormSubmit = event => {
         event.preventDefault()
 
-        API.createQuiz({
-            quizName: this.state.duelName,
-            players: {}
-        })
-            .then(res => {
-                this.setState({
-                    quizId: res.data._id
-                })
-                sessionStorage.setItem('quizId', res.data._id)
-                console.log('create quiz ', this.state.quizId)
-                console.log('session storage: ', sessionStorage.getItem('quizId'))
-                this.searchQuestions()
+        if (!this.state.duelName || !this.state.topic) {
+            return false
+        } else {
+            const data = JSON.parse(sessionStorage.getItem('userData'))
+
+            console.log('user provider_id: ', data.data.provider_id)
+            console.log('user name: ', data.data.name)
+
+            API.createQuiz({
+                createdBy: [data.data.provider_id, data.data.name],
+                quizName: this.state.duelName
             })
-            .catch(err => console.log(err))
+                .then(res => {
+                    this.setState({
+                        quizId: res.data._id
+                    })
+                    sessionStorage.setItem('quizId', res.data._id)
+                    console.log('create quiz ', this.state.quizId)
+                    console.log('session storage: ', sessionStorage.getItem('quizId'))
+                    this.searchQuestions()
+                })
+                .catch(err => console.log(err))
+        }
     }
 
     // search quiz API call
@@ -136,22 +147,24 @@ class TextFields extends React.Component {
     render() {
         return (
             <div>
-                <h1 className="center">Create a Duel</h1>
+                <Navbar />
+                <h1 className="center">CREATE A DUEL</h1>
                 <div className="container">
                     <div className="row">
-                        <Col s={6} offset="s3" >
+                        <Col s={12}>
                             <form className="custom-form">
-                                <p className="flow-text">Duel Name: </p>
+                                <h3 className="flow-text">Duel Name: </h3>
                                 <input
                                     id="duelName"
                                     type="search"
                                     name="duelName"
                                     className="twitter"
-                                    placeholder="Rutgers Bootcamp"
+                                    placeholder="Enter Your Quiz Name Here"
                                     onChange={this.handleDuelNameChange}
                                     value={this.state.duelName}
+                                    required
                                 />
-                                <p className="flow-text">Topic: </p>
+                                <h3 className="flow-text">Topic: </h3>
                                 <Select
                                     value={this.state.topic}
                                     onChange={this.handleTopicChange}
@@ -199,7 +212,7 @@ class TextFields extends React.Component {
                                     type="search"
                                     name="topic"
                                     className="twitter-disabled"
-                                    placeholder="Sports"
+                                    placeholder="Category Assigned Number"
                                     onChange={this.handleTopicChange}
                                     value={this.state.topic}
                                     disabled
@@ -217,23 +230,24 @@ class TextFields extends React.Component {
                             </form>
                         </Col>
                     </div>
-                    <div className="row">
-                        <Col s={6} offset="s3">
-                            <div className="custom-form">
-                                <p className="flow-text">Quiz Id:</p>
-                                <p className="flow-text">{this.state.quizId}</p>
-                                <div className="center">
-                                    <Button
-                                        className="popup-btn"
-                                        component={Link}
-                                        to="/duelFind"
-                                    >
-                                        Find Duel
+                    {this.state.quizId ?
+                        <div className="row">
+                            <Col s={12}>
+                                <div className="custom-form">
+                                    <p className="flow-text">Quiz Id:</p>
+                                    <p className="flow-text">{this.state.quizId}</p>
+                                    <div className="center">
+                                        <Button
+                                            className="popup-btn"
+                                            component={Link}
+                                            to="/duelFind"
+                                        >
+                                            Find Duel
                                     </Button>
+                                    </div>
                                 </div>
-                            </div>
-                        </Col>
-                    </div>
+                            </Col>
+                        </div> : null}
                 </div>
             </div>
         )

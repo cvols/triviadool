@@ -1,19 +1,17 @@
 import React from 'react'
+import "./FindDuel.css"
 import { Redirect } from 'react-router-dom'
 import Col from '../../components/Col'
 import PropTypes from 'prop-types'
 import { withStyles } from 'material-ui/styles'
-import Card, { CardContent, CardMedia } from 'material-ui/Card'
-import Typography from 'material-ui/Typography'
-import ButtonBase from 'material-ui/ButtonBase'
-import { Link } from 'react-router-dom'
-import Stats from '../../components/Stats'
-import Table, { TableBody, TableCell, TableHead, TableRow } from 'material-ui/Table';
-import Paper from 'material-ui/Paper';
+import Table, { TableBody, TableCell, TableHead, TableRow } from 'material-ui/Table'
+import Paper from 'material-ui/Paper'
 import API from '../../utils/API'
 import ExpandLess from 'material-ui-icons/ExpandLess';
 import ExpandMore from 'material-ui-icons/ExpandMore';
 import Collapse from 'material-ui/transitions/Collapse';
+import Button from 'material-ui/Button'
+import Navbar from "../../components/Navbar"
 
 const styles = theme => ({
     card: {
@@ -109,12 +107,15 @@ class DuelList extends React.Component {
             bottom: false,
             list: {},
             id: '',
+            quizId: '',
+            quizName: '',
+            questions: []
         }
     }
 
     componentWillMount() {
         this.getQuizes();
-        document.body.style.backgroundColor = "#eee"
+        document.body.style.backgroundColor = "#fff"
 
         if (sessionStorage.getItem('userData')) {
             console.log('i am in the db')
@@ -131,26 +132,37 @@ class DuelList extends React.Component {
                 })
             }
         }
-
+    }
+  
+    componentDidMount() {
+        sessionStorage.removeItem('quizId')
+        sessionStorage.removeItem('quizData')
+        sessionStorage.removeItem('quizName')
     }
 
     coponentWillUnmount() {
         document.body.style.backgroundColor = null
     }
 
-    //     let rows = 0;
-    // function createData(name, calories, fat, carbs, protein) {
-    //     id += 1;
-    //     return { id, name, calories, fat, carbs, protein };
-    // }
 
-    // const data = [
-    //     createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-    //     createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-    //     createData('Eclair', 262, 16.0, 24, 6.0),
-    //     createData('Cupcake', 305, 3.7, 67, 4.3),
-    //     createData('Gingerbread', 356, 16.0, 49, 3.9),
-    // ];
+    handleQuizIdChange = event => {
+        this.setState({
+            quizId: event.target.value
+        })
+    }
+
+    handleFormSubmit = event => {
+        event.preventDefault()
+
+        API.findQuiz(this.state.quizId)
+            .then(res => {
+                console.log('quizData: ', res.data.questions)
+                this.setState({
+                    quizName: res.data.quizName
+                })
+                sessionStorage.setItem('quizData', JSON.stringify(res.data.questions))
+                sessionStorage.setItem('quizName', JSON.stringify(res.data.quizName))
+                sessionStorage.setItem('quizId', JSON.stringify(this.state.quizId))
 
 
     getQuizes = () => {
@@ -159,12 +171,6 @@ class DuelList extends React.Component {
                 console.log("what is this" + res.data[1].quizName)
                 this.setState({
                     list: res.data
-                    // question: res.data[nr].question,
-                    // answers: [res.data[nr].option1, res.data[nr].option2, res.data[nr].option3, res.data[nr].option4],
-                    // correct: res.data[nr].answers,
-                    // total: res.data.length,
-                    // category: res.data[0].category.name,
-                    // nr: this.state.nr + 1
                 })
             })
             .catch(err => console.log(err))
@@ -273,6 +279,93 @@ class DuelList extends React.Component {
                     </div>
                 </div>
             </div>
+                window.location.href = "/duel"
+            })
+            .catch(err => console.log(err))
+    }
+
+    getQuizes = () => {
+        API.getQuizList()
+            .then(res => {
+                this.setState({
+                    list: res.data
+                })
+            })
+            .catch(err => console.log(err))
+    }
+
+    render() {
+        // if userData is not in session storage and redirect is set to true redirect to -- Home --
+        if (!sessionStorage.getItem('userData') || this.state.redirect) {
+            return (<Redirect to={'/'} />)
+        }
+
+        const { classes } = this.props
+
+        return (
+            <div>
+                <Navbar />
+                <h1 className="center">Find Duel</h1>
+                <div className="container">
+                    <div className="row">
+                        <Col s={12}>
+                            <form className="custom-form row-custom">
+                                <h3 className="flow-text">Quiz Id: </h3>
+                                <input
+                                    id="quizId"
+                                    type="search"
+                                    name="quizId"
+                                    className="twitter"
+                                    onChange={this.handleQuizIdChange}
+                                    value={this.state.quizId}
+                                />
+                                <div className="center">
+                                    <Button
+                                        className="popup-btn"
+                                        onClick={this.handleFormSubmit}
+                                    >
+                                        Find Quiz
+                                    </Button>
+                                </div>
+                            </form>
+                        </Col>
+                    </div>
+                    <div className="row">
+                        <Col s={12}>
+                            <Paper className={classes.root}>
+                                <Table className={classes.table}>
+                                    <TableHead>
+                                        <TableRow>
+                                            <TableCell>Quiz Name</TableCell>
+                                            <TableCell numeric>Number of Questions</TableCell>
+                                            <TableCell numeric>Category</TableCell>
+                                        </TableRow>
+                                    </TableHead>
+                                    {this.state.list.length ? (
+                                        <TableBody>
+                                            {this.state.list.map(n => {
+                                                return (
+                                                    <TableRow key={n._id}>
+                                                        <TableCell>{n.quizName}</TableCell>
+                                                        <TableCell numeric>{n.questions.length}</TableCell>
+                                                        <TableCell numeric>{n.questions[0][0].category.name}</TableCell>
+                                                    </TableRow>
+                                                )
+                                            })}
+                                        </TableBody>
+                                    ) : (
+                                            <TableBody>
+                                                <TableRow>
+                                                    <TableCell>No Results to Display</TableCell>
+                                                </TableRow>
+                                            </TableBody>
+                                        )}
+                                </Table>
+                            </Paper>
+                        </Col>
+                    </div>
+                </div >
+            </div >
         )
     }
 }
@@ -282,19 +375,3 @@ DuelList.props = {
 }
 
 export default withStyles(styles)(DuelList)
-
-
-
-
-
-
-    // findQuiz = () => {
-    //     API.getQuiz(this.state.id)
-    //         .then(res => {
-    //             console.log('find quiz ', this.state.id)
-    //             consoloe.log('quiz res data ', res.data)
-    //             this.setState({ quiz: res.data })
-    //             this.updateQuiz()
-    //         })
-    //         .catch(err => console.log(err))
-    // }

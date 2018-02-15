@@ -51,3 +51,22 @@ db.quizzes.update(
   }
 )
 
+db.quizzes.aggregate(
+  { $match: {
+      quizId : 1
+  }},
+  { $unwind: '$players' },
+  { $sort: {
+      'players.score': -1
+  }}
+)
+
+db.quizzes.aggregate([
+  { $match: {
+      quizName: 1 
+  }},
+  { $unwind: "$players" },
+  { $sort: {
+      "players.score": -1
+  }}
+])

@@ -1,8 +1,8 @@
 import React from 'react'
 import Col from '../../components/Col'
 import Button from 'material-ui/Button'
-import { Link } from 'react-router-dom'
 import API from '../../utils/API'
+import Navbar from "../../components/Navbar"
 
 export default class DuelFind extends React.Component {
     constructor(props) {
@@ -37,28 +37,35 @@ export default class DuelFind extends React.Component {
     handleFormSubmit = event => {
         event.preventDefault()
 
-        API.findQuiz(this.state.quizId)
-            .then(res => {
-                console.log('quizData: ', res.data.questions)
-                this.setState({
-                    quizName: res.data.quizName
+        if (!this.state.quizId) {
+            return false
+        } else {
+            API.findQuiz(this.state.quizId)
+                .then(res => {
+                    console.log('quizData: ', res.data.questions)
+                    this.setState({
+                        quizName: res.data.quizName
+                    })
+                    sessionStorage.setItem('quizData', JSON.stringify(res.data.questions))
+                    sessionStorage.setItem('quizName', JSON.stringify(res.data.quizName))
+                    sessionStorage.setItem('quizId', JSON.stringify(this.state.quizId))
+
+                    window.location.href = "/duel"
                 })
-                sessionStorage.setItem('quizData', JSON.stringify(res.data.questions))
-                sessionStorage.setItem('quizName', JSON.stringify(res.data.quizName))
-                sessionStorage.setItem('quizId', JSON.stringify(this.state.quizId))
-            })
-            .catch(err => console.log(err))
+                .catch(err => console.log(err))
+        }
     }
 
     render() {
         return (
             <div>
-                <h1 className="center">Find Duel</h1>
+                <Navbar />
                 <div className="container">
+                    <h1 className="center">Find Duel</h1>
                     <div className="row">
-                        <Col s={6} offset="s3" >
+                        <Col s={12}>
                             <form className="custom-form">
-                                <p className="flow-text">Quiz Id: </p>
+                                <h3 className="flow-text">Quiz Id: </h3>
                                 <input
                                     id="quizId"
                                     type="search"
@@ -72,27 +79,10 @@ export default class DuelFind extends React.Component {
                                         className="popup-btn"
                                         onClick={this.handleFormSubmit}
                                     >
-                                        Find Quiz
-                                    </Button>
-                                </div>
-                            </form>
-                        </Col>
-                    </div>
-                    <div className="row">
-                        <Col s={6} offset="s3" >
-                            <div className="custom-form">
-                                <p className="flow-text">Duel Name:</p>
-                                <p className="flow-text">{this.state.quizName}</p>
-                                <div className="center">
-                                    <Button
-                                        className="popup-btn"
-                                        component={Link}
-                                        to="/duel"
-                                    >
                                         Duel
                                     </Button>
                                 </div>
-                            </div>
+                            </form>
                         </Col>
                     </div>
                 </div>

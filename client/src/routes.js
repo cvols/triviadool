@@ -9,6 +9,8 @@ import YourStats from './pages/YourStats/YourStats'
 import FindDuel from './pages/FindDuel/FindDuel'
 import DuelFind from './pages/DuelFind/DuelFind'
 import Duel from './pages/Duel/Duel'
+import AddCredits from './pages/AddCredits/AddCredits'
+import Leaderboard from './pages/Leaderboard/Leaderboard'
 
 const Routes = () => (
     <BrowserRouter >
@@ -17,10 +19,12 @@ const Routes = () => (
             <Route path="/home" component={Home}/>
             <Route path="/startDuel" component={StartDuel} />
             <Route path="/practiceDuel" component={PracticeDuel} />
-            <Route path="/FindDuel" component={FindDuel} />
+            <Route path="/findDuel" component={FindDuel} />
             <Route path="/stats" component={YourStats} />
             <Route path="/duelFind" component={DuelFind} />
             <Route path="/duel" component={Duel} />
+            <Route path="/addCredits" component={AddCredits} />
+            <Route path="/leaderboard" component={Leaderboard} />
             <Route path="*" component={NotFound}/>
         </Switch>
     </BrowserRouter>
