@@ -67,20 +67,29 @@ class TextFields extends React.Component {
     handleFormSubmit = event => {
         event.preventDefault()
 
-        API.createQuiz({
-            quizName: this.state.duelName,
-            players: {}
-        })
-            .then(res => {
-                this.setState({
-                    quizId: res.data._id
-                })
-                sessionStorage.setItem('quizId', res.data._id)
-                console.log('create quiz ', this.state.quizId)
-                console.log('session storage: ', sessionStorage.getItem('quizId'))
-                this.searchQuestions()
+        if (!this.state.duelName || !this.state.topic) {
+            return false
+        } else {
+            const data = JSON.parse(sessionStorage.getItem('userData'))
+
+            console.log('user provider_id: ', data.data.provider_id)
+            console.log('user name: ', data.data.name)
+
+            API.createQuiz({
+                createdBy: [data.data.provider_id, data.data.name],
+                quizName: this.state.duelName
             })
-            .catch(err => console.log(err))
+                .then(res => {
+                    this.setState({
+                        quizId: res.data._id
+                    })
+                    sessionStorage.setItem('quizId', res.data._id)
+                    console.log('create quiz ', this.state.quizId)
+                    console.log('session storage: ', sessionStorage.getItem('quizId'))
+                    this.searchQuestions()
+                })
+                .catch(err => console.log(err))
+        }
     }
 
     // search quiz API call
@@ -142,7 +151,7 @@ class TextFields extends React.Component {
                 <h1 className="center">CREATE A DUEL</h1>
                 <div className="container">
                     <div className="row">
-                        <Col s={6} offset="s3" >
+                        <Col s={12}>
                             <form className="custom-form">
                                 <h3 className="flow-text">Duel Name: </h3>
                                 <input
@@ -153,6 +162,7 @@ class TextFields extends React.Component {
                                     placeholder="Enter Your Quiz Name Here"
                                     onChange={this.handleDuelNameChange}
                                     value={this.state.duelName}
+                                    required
                                 />
                                 <h3 className="flow-text">Topic: </h3>
                                 <Select
@@ -220,26 +230,24 @@ class TextFields extends React.Component {
                             </form>
                         </Col>
                     </div>
-                    {this.state.quizId ? 
-                    <div className="row">
-                        <Col s={6} offset="s3">
-                            <div className="custom-form">
-                                <h3 className="flow-text">Quiz Id:</h3>
-                                <h4 className="flow-text">{this.state.quizId}</h4>
-                                <div className="center">
-                                    <Button
-                                    
-                                        className="popup-btn"
-                                        component={Link}
-                                        to="/duelFind"
-                                    >
-                                        Find Duel
-                                        
+                    {this.state.quizId ?
+                        <div className="row">
+                            <Col s={12}>
+                                <div className="custom-form">
+                                    <p className="flow-text">Quiz Id:</p>
+                                    <p className="flow-text">{this.state.quizId}</p>
+                                    <div className="center">
+                                        <Button
+                                            className="popup-btn"
+                                            component={Link}
+                                            to="/duelFind"
+                                        >
+                                            Find Duel
                                     </Button>
+                                    </div>
                                 </div>
-                            </div>
-                        </Col>
-                    </div> : null }
+                            </Col>
+                        </div> : null}
                 </div>
             </div>
         )

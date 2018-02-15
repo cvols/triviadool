@@ -13,6 +13,7 @@ import find from './Images/find.png'
 import duel from './Images/duel.png'
 import Stats from '../../components/Stats'
 import Navbar from "../../components/Navbar"
+import API from '../../utils/API'
 
 const styles = theme => ({
     card: {
@@ -126,7 +127,8 @@ class Profile extends React.Component {
             email: '',
             provider_id: '',
             redirect: false,
-            bottom: false
+            bottom: false,
+            gamesPlayed: 0
         }
     }
 
@@ -147,6 +149,14 @@ class Profile extends React.Component {
                     provider_id: data.data.provider_id
                 })
             }
+            API.findUser(data.data.provider_id)
+                .then(res => {
+                    console.log(res.data.games.length)
+                    this.setState({
+                        gamesPlayed: res.data.games.length
+                    })
+                })
+                .catch(err => console.log(err))
         }
     }
 
@@ -183,6 +193,9 @@ class Profile extends React.Component {
                                     </Typography>
                                     <Typography component="p">
                                         Email: {this.state.email}
+                                    </Typography>
+                                    <Typography component="p">
+                                        Games played: {this.state.gamesPlayed}
                                     </Typography>
                                 </CardContent>
                             </Card>

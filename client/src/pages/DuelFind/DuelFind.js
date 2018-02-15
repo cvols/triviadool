@@ -1,7 +1,6 @@
 import React from 'react'
 import Col from '../../components/Col'
 import Button from 'material-ui/Button'
-import { Link } from 'react-router-dom'
 import API from '../../utils/API'
 import Navbar from "../../components/Navbar"
 
@@ -38,19 +37,23 @@ export default class DuelFind extends React.Component {
     handleFormSubmit = event => {
         event.preventDefault()
 
-        API.findQuiz(this.state.quizId)
-            .then(res => {
-                console.log('quizData: ', res.data.questions)
-                this.setState({
-                    quizName: res.data.quizName
-                })
-                sessionStorage.setItem('quizData', JSON.stringify(res.data.questions))
-                sessionStorage.setItem('quizName', JSON.stringify(res.data.quizName))
-                sessionStorage.setItem('quizId', JSON.stringify(this.state.quizId))
+        if (!this.state.quizId) {
+            return false
+        } else {
+            API.findQuiz(this.state.quizId)
+                .then(res => {
+                    console.log('quizData: ', res.data.questions)
+                    this.setState({
+                        quizName: res.data.quizName
+                    })
+                    sessionStorage.setItem('quizData', JSON.stringify(res.data.questions))
+                    sessionStorage.setItem('quizName', JSON.stringify(res.data.quizName))
+                    sessionStorage.setItem('quizId', JSON.stringify(this.state.quizId))
 
-                window.location.href = "/duel"
-            })
-            .catch(err => console.log(err))
+                    window.location.href = "/duel"
+                })
+                .catch(err => console.log(err))
+        }
     }
 
     render() {
@@ -60,7 +63,7 @@ export default class DuelFind extends React.Component {
                 <div className="container">
                     <h1 className="center">Find Duel</h1>
                     <div className="row">
-                        <Col s={6} offset="s3">
+                        <Col s={12}>
                             <form className="custom-form">
                                 <h3 className="flow-text">Quiz Id: </h3>
                                 <input
