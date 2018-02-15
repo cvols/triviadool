@@ -148,23 +148,23 @@ class TextFields extends React.Component {
         return (
             <div>
                 <Navbar />
-                <h1 className="center">Create a Duel</h1>
+                <h1 className="center">CREATE A DUEL</h1>
                 <div className="container">
                     <div className="row">
                         <Col s={12}>
                             <form className="custom-form">
-                                <p className="flow-text">Duel Name: </p>
+                                <h3 className="flow-text">Duel Name: </h3>
                                 <input
                                     id="duelName"
                                     type="search"
                                     name="duelName"
                                     className="twitter"
-                                    placeholder="Rutgers Bootcamp"
+                                    placeholder="Enter Your Quiz Name Here"
                                     onChange={this.handleDuelNameChange}
                                     value={this.state.duelName}
                                     required
                                 />
-                                <p className="flow-text">Topic: </p>
+                                <h3 className="flow-text">Topic: </h3>
                                 <Select
                                     value={this.state.topic}
                                     onChange={this.handleTopicChange}
@@ -212,7 +212,7 @@ class TextFields extends React.Component {
                                     type="search"
                                     name="topic"
                                     className="twitter-disabled"
-                                    placeholder="Sports"
+                                    placeholder="Category Assigned Number"
                                     onChange={this.handleTopicChange}
                                     value={this.state.topic}
                                     disabled

@@ -18,6 +18,7 @@ img.responsive-img {
 
 .facebook {
     background-color: #4c69ba;
+    font-family: sans-serif !important;
 }
 
 .facebook:hover {
@@ -26,6 +27,7 @@ img.responsive-img {
 
 .google {
     background-color: #d14836;
+    font-family: sans-serif !important;
 }
 
 .google:hover {
