@@ -233,7 +233,7 @@ class TextFields extends React.Component {
                     {this.state.quizId ?
                         <div className="row">
                             <Col s={12}>
-                                <div className="custom-form">
+                                <div className="custom-form" id='form'>
                                     <p className="flow-text">Quiz Id:</p>
                                     <p className="flow-text">{this.state.quizId}</p>
                                     <div className="center">
